@@ -4,7 +4,7 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-const TURN_SPEED := 0.5
+const TURN_SPEED := 0.05
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -36,5 +36,5 @@ func _physics_process(delta: float) -> void:
 var turn_dir : float
 
 func _unhandled_input(event: InputEvent) -> void:
-	turn_dir = Input.get_axis("turn_left", "turn_right")
+	turn_dir = -Input.get_axis("turn_left", "turn_right")
 	

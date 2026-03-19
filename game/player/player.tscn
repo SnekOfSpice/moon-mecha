@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://c1cvqp41acc54" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dejy7s1dy6p32" path="res://game/player/cockpit.tscn" id="2_b2mth"]
-[ext_resource type="Script" uid="uid://codtte2rmpiro" path="res://game/player/camera_sprite.gd" id="3_8soms"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mth"]
 
@@ -16,8 +15,6 @@ viewport_path = NodePath("Sprite3D2/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5fytw"]
 viewport_path = NodePath("Sprite3D3/SubViewport")
-
-[sub_resource type="CameraTexture" id="CameraTexture_a4w0n"]
 
 [node name="Player" type="CharacterBody3D" unique_id=835839210]
 script = ExtResource("1_obar5")
@@ -42,22 +39,20 @@ mesh = SubResource("CapsuleMesh_8soms")
 [node name="cockpit" parent="." unique_id=1437615667 instance=ExtResource("2_b2mth")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2.2503095, 0)
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1058669368 node_paths=PackedStringArray("camera", "marker")]
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="." unique_id=1394268414]
+transform = Transform3D(0.25334558, -0.8791271, -0.40367267, 0.83232325, -0.014570371, 0.5540991, -0.4930051, -0.4763647, 0.72802657, -0.8164176, 3.791073, -1.0794127)
+remote_path = NodePath("../Sprite3D/SubViewport/Camera3D")
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1058669368]
 transform = Transform3D(-0.0030754334, -0.12789989, -0.05685208, 0.13582821, 0.010997906, -0.032089617, 0.03378223, -0.0558629, 0.12384707, 0.6947855, 3.558371, -0.31750715)
 texture = SubResource("ViewportTexture_8soms")
-script = ExtResource("3_8soms")
-camera = NodePath("SubViewport/Camera3D")
-marker = NodePath("SubViewport/Camera3D/Marker3D")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=329843398]
 size = Vector2i(480, 360)
 
 [node name="Camera3D" type="Camera3D" parent="Sprite3D/SubViewport" unique_id=839239164]
-transform = Transform3D(0.25334558, -0.8791271, -0.40367267, 0.83232325, -0.014570371, 0.554099, -0.4930051, -0.4763647, 0.7280265, -0.8164176, 3.791073, -1.0794127)
+transform = Transform3D(0.25334558, -0.8791271, -0.40367267, 0.83232325, -0.014570371, 0.5540991, -0.4930051, -0.4763647, 0.72802657, -0.8164176, 3.791073, -1.0794127)
 fov = 60.0
-
-[node name="Marker3D" type="Marker3D" parent="Sprite3D/SubViewport/Camera3D" unique_id=1109610281]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 
 [node name="Sprite3D2" type="Sprite3D" parent="." unique_id=255033598]
 transform = Transform3D(0.0035462198, 0.13011868, 0.051541593, -0.13634104, 0.01485285, -0.02811596, -0.031599626, -0.04948231, 0.12709424, -0.7050621, 3.558371, -0.3160514)
@@ -67,28 +62,24 @@ texture = SubResource("ViewportTexture_a4w0n")
 size = Vector2i(480, 360)
 
 [node name="Camera3D" type="Camera3D" parent="Sprite3D2/SubViewport" unique_id=166692974]
-transform = Transform3D(0.33303314, 0.7555138, 0.56417006, -0.8600358, -0.0019010236, 0.5102303, 0.38655853, -0.65513, 0.64913577, 0.8042955, 3.791, -1.1443676)
-fov = 60.0
+transform = Transform3D(0.3330331, 0.7555137, 0.56417, -0.86003566, -0.0019010231, 0.51023024, 0.38655847, -0.6551299, 0.64913577, 0.80429524, 3.791, -1.1443675)
+fov = 37.849285
 
-[node name="Marker3D" type="Marker3D" parent="Sprite3D2/SubViewport/Camera3D" unique_id=26550127]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Sprite3D2" unique_id=1762200767]
+transform = Transform3D(5.419596, 1.2061378, -4.4937334, 0.5832672, 6.668149, 2.4932003, 4.6160793, -2.2586472, 4.960923, -0.009685516, 12.287657, -1.7357244)
+remote_path = NodePath("../SubViewport/Camera3D")
 
 [node name="Sprite3D3" type="Sprite3D" parent="." unique_id=561845568]
 transform = Transform3D(0.17, 2.015057e-10, -4.3167615e-11, -2.060578e-10, 0.16670622, -0.03330212, 2.8577084e-12, 0.03330212, 0.16670622, 0.006070867, 3.4359035, -0.35468525)
 texture = SubResource("ViewportTexture_5fytw")
 
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Sprite3D3" unique_id=1837522452]
+transform = Transform3D(5.8823524, -7.130028e-09, 9.886892e-11, 6.972512e-09, 5.768382, 1.1523226, -1.4937024e-09, -1.1523226, 5.768382, -0.035710983, 2.6521645, -3.2563539)
+remote_path = NodePath("../SubViewport/Camera3D")
+
 [node name="SubViewport" type="SubViewport" parent="Sprite3D3" unique_id=853368188]
 size = Vector2i(480, 360)
 
 [node name="Camera3D" type="Camera3D" parent="Sprite3D3/SubViewport" unique_id=1701990803]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.9864795, -0.809217)
+transform = Transform3D(0.9999999, 1.4571677e-16, 0, 2.4286129e-17, 0.99999994, -1.4901161e-08, 0, 1.4901161e-08, 0.99999994, 4.656613e-10, 3.9864793, -0.809217)
 fov = 90.0
-
-[node name="Marker3D" type="Marker3D" parent="Sprite3D3/SubViewport/Camera3D" unique_id=550030688]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-
-[node name="Sprite3D4" type="Sprite3D" parent="." unique_id=122835300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.8439794, 0)
-texture = SubResource("CameraTexture_a4w0n")
-
-[node name="Camera3D" type="Camera3D" parent="Sprite3D4" unique_id=584624654]
