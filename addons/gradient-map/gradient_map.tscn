@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://f2aeauhcav63"]
+
+[ext_resource type="Shader" uid="uid://b1rik30t2odrw" path="res://addons/gradient-map/gradient_map.gdshader" id="1_2lulq"]
+[ext_resource type="Texture2D" path="res://addons/gradient-map/default.tres" id="2_hetsk"]
+[ext_resource type="Script" uid="uid://bn6r4ww6mk750" path="res://addons/gradient-map/gradient_map.gd" id="2_mj0kp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_58js1"]
+shader = ExtResource("1_2lulq")
+shader_parameter/gradient = ExtResource("2_hetsk")
+shader_parameter/brightness_amp = -0.145
+shader_parameter/color_amp = Vector3(1, 1, 1)
+shader_parameter/intensity = 1.0
+
+[node name="GradientMap" type="ColorRect"]
+material = SubResource("ShaderMaterial_58js1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("2_mj0kp")

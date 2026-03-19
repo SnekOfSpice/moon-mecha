@@ -1,0 +1,42 @@
+[gd_scene format=4 uid="uid://bprfjeqa6wc8j"]
+
+[ext_resource type="PackedScene" uid="uid://d2kxqg71ssy4" path="res://game/player/cockpit back.glb" id="1_6jjmf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egpx8"]
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_gno2d"]
+_surfaces = [{
+"aabb": AABB(-1.079514, -1.081686, -1.2203217, 2.159028, 1.9088848, 0.9680462),
+"format": 34896613377,
+"index_count": 126,
+"index_data": PackedByteArray("AAABAAIAAwACAAEAAAAEAAEABAADAAEABQAEAAAAAwAGAAIABQAHAAQACAAHAAUABAAJAAMABwAJAAQACgAGAAMACQAKAAMACgALAAYACAAMAAcADAAIAA0ABwAOAAkADAAOAAcACQAPAAoADgAPAAkAEAALAAoADwAQAAoAEAARAAsADAANABIADAASAA4AEgANABMAFAARABAADwAUABAAFAAVABEADgAWAA8AFgAUAA8AEgAWAA4AFwAVABQAFgAXABQAFwAYABUAEgAZABYAGQAXABYAEgATABkAGgAYABcAGQAaABcAGgAbABgAGQATABsAGQAbABoA"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("AABd5drsAAAAAP//AAAAAAAAeP/14wAAmCb//wAAAAAAALrlAAAAAAAA9FT//wAAmCZ4//XjAAAAAPRUAAAAAAAAAAD//wAALi3C30M6AABm2f//AAAAAGbZeP/14wAAAAAAAAAAAACYJgAA//8AAC4tp1lDOgAA0NLC30M6AAD/////AAAAAP//eP/14wAAmCYAAAAAAABm2QAA//8AAP//uuUAAAAA//9d5drsAADQ0qdZQzoAAP//9FQAAAAA///0VP//AABm2QAAAAAAAP//AAAAAAAA//8AAP//AAA=")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_y4r4w"]
+resource_name = "cockpit back_Cube_011"
+_surfaces = [{
+"aabb": AABB(-1.079514, -1.081686, -1.2203217, 2.159028, 1.9088848, 0.9680462),
+"attribute_data": PackedByteArray("xpKx3P+f/7//n7HcxpL/v8ZysdzGcv+//1+x3P9f/7/GkqWJ/5//f/+fpYnGkv9//1+licZy/3/GcqWJ/1//f8ZypYnGkv9/xpKlicZy/3/Gcv+/xpJZtsaS/7/Gclm2xnJZtsaSpYnGklm2xnKlif9f/7/Gclm2xnL/v/9fWbb/X1m2xnKlicZyWbb/X6WJxpL/v/+fWbb/n/+/xpJZtsaSWbb/n6WJ/59ZtsaSpYnGkv9//59NY/+f/3/Gkk1jxnL/f8ZyTWP/X/9//19NY1lW/3//X01j/1//f1lWTWOlKf9/pSlNY/8f/3//H01jWdb/f//fTWP/3/9/WdZNY6Wp/3+lqU1j/5//f/+fTWM="),
+"format": 34896613399,
+"index_count": 126,
+"index_data": PackedByteArray("AAABAAIAAAADAAEABAADAAAABAAFAAMABgAFAAQABgAHAAUACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFAAXABUAGAAZABoAGAAbABkAHAAdAB4AHAAfAB0AIAAhACIAIAAjACEAJAAlACYAJAAnACUAKAApACoAKAArACkALAAtAC4ALAAvAC0AMAAvACwAMAAxAC8AMgAxADAAMgAzADEANAA1ADYANAA3ADUAOAA3ADQAOAA5ADcAOgA5ADgAOgA7ADkAPAA9AD4APAA/AD0AQAA/ADwAQABBAD8AQgBBAEAAQgBDAEEA"),
+"material": SubResource("StandardMaterial3D_egpx8"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 68,
+"vertex_data": PackedByteArray("AABd5drsydcAAP//AADh1QAAeP/143bZAAC65QAAwNUAAPRU//+r1QAA9FQAAFTVAAAAAP//VNUAAAAAAABU1dDSwt9DOmz5/////wAATvpm2f//AAA5+P//uuUAALT7ZtkAAAAAJfP///RUAAAI89DSp1lDOvTy//8AAAAARfPQ0qdZQzr68P//uuUAAPrw0NLC30M6+vD///RUAAD68AAA9FQAAPrwLi3C30M6+vAAALrlAAD68C4tp1lDOvrwLi2nWUM6///Q0sLfQzr//y4twt9DOv//0NKnWUM6//8AAAAAAAB3/C4tp1lDOhn8AAD0VAAAxPuYJgAAAADZ/JgmAAAAALP20NKnWUM6AvcuLadZQzp99mbZAAAAADb3AAC65QAAfOyYJv//AADS7AAA//8AAA/sLi3C30M6Lu0uLcLfQzpH7GbZ//8AAKfpmCb//wAAw+zQ0sLfQzof6f//uuUAAAzV//94//Xj6dH/////AABU1f//XeXa7B7T///0VAAA5NT///RU//+P1P//AAAAAFTV//8AAP//VNVm2QAAAAD/v///AAD///+///8AAAAA/79m2QAA////v5gmAAAAAP+/mCYAAP///78AAAAAAAD/vwAAAAD///+/mCb//wAA//8AAHj/9eP//wAA//8AAP//mCZ4//Xj//9m2f//AAD//2bZeP/14////////wAA/////3j/9eP//zXY5NP91QDVEtr10tbVE9W91R/VVNVU1VTVVNVU1VTVl0QqTjNHvkvvQI9RPEv/R9zAT8O8vgXFKr1JxvnCnMGRx5HHkceRx5HHkceRx5HHbThtOG04bThtOG04bThtOP+//7//v/+//7//v/+//7/2Nv07rThiOjc68Tg3NaA9PLxiuhu6OLzBvRO5vrhlvVhGEEDwSYE9h0A0REhNHztSTptHw0YNTZ1PrUYTRUNOAit+KgcvfCiqKqoqbS1IKTMrZiqaKzIqqiqqKqoqqioAAP9/AAD/fwAA/38AAP9/AAD/fwAA/38AAP9/AAD/f/9/2b//f9m//3/Zv/9/2b//f9m//3/Zv/9/2b//f9m/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_gno2d")
+
+[node name="cockpit back" unique_id=2062090130 instance=ExtResource("1_6jjmf")]
+
+[node name="Chassis_002" parent="." index="0" unique_id=1853172821]
+layers = 2
+mesh = SubResource("ArrayMesh_y4r4w")

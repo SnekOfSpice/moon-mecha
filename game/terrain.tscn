@@ -1,14 +1,58 @@
 [gd_scene format=3 uid="uid://cmyfhuosdqfuj"]
 
+[ext_resource type="Shader" uid="uid://6dnxw5crwwe2" path="res://game/sky.gdshader" id="1_o8m01"]
 [ext_resource type="PackedScene" uid="uid://1vad04nwpwei" path="res://game/player/player.tscn" id="1_sct26"]
 [ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="1_xi4le"]
 [ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="2_sct26"]
 [ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="3_o8m01"]
+[ext_resource type="Shader" uid="uid://b1rik30t2odrw" path="res://addons/gradient-map/gradient_map.gdshader" id="6_ub6ft"]
+[ext_resource type="Texture2D" uid="uid://bg6nscixglib4" path="res://game/npcs/venus/venug.png" id="7_kipwh"]
+[ext_resource type="Script" uid="uid://dvrvfaucnvw47" path="res://game/interaction_area.gd" id="8_dwsip"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub6ft"]
+shader = ExtResource("1_o8m01")
+shader_parameter/time_scale = 0.0030000001425
+shader_parameter/base_color = Color(0.05, 0.05, 0.08, 1)
+shader_parameter/slime_color = Color(0.12657365, 0.039791003, 0.18189377, 1)
+shader_parameter/highlight_color = Color(0.1, 0.08495, 0.079, 1)
+shader_parameter/tendril_density = 5.3070002520825
+shader_parameter/tendril_thickness = 0.71200003382
+shader_parameter/animation_speed = 3.614000171665
+shader_parameter/slime_wetness = 2.0590000978025
+
+[sub_resource type="Sky" id="Sky_ejiea"]
+sky_material = SubResource("ShaderMaterial_ub6ft")
 
 [sub_resource type="Environment" id="Environment_xi4le"]
-ambient_light_source = 2
-ambient_light_color = Color(0.43134022, 0.43134025, 0.43134025, 1)
-ambient_light_energy = 3.69
+background_mode = 2
+sky = SubResource("Sky_ejiea")
+reflected_light_source = 2
+tonemap_mode = 4
+tonemap_exposure = 2.86
+tonemap_agx_white = 14.12
+tonemap_agx_contrast = 2.0
+
+[sub_resource type="Gradient" id="Gradient_ejiea"]
+offsets = PackedFloat32Array(0, 0.2080292, 0.36861312, 0.7116788, 0.72627735, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.4190317, 0.32345727, 0.15460625, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0.89873415, 0.89873415, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kipwh"]
+gradient = SubResource("Gradient_ejiea")
+width = 12
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwsip"]
+shader = ExtResource("6_ub6ft")
+shader_parameter/gradient = SubResource("GradientTexture1D_kipwh")
+shader_parameter/brightness_amp = 1.0
+shader_parameter/color_amp = Vector3(1, 1, 1)
+shader_parameter/intensity = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8b833"]
+radius = 2.8950686
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kipwh"]
+radius = 3.100586
+height = 10.264404
 
 [node name="Node3D" type="Node3D" unique_id=818301488]
 
@@ -20,8 +64,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.023736, -3.560051)
 
 [node name="MarchingSquaresTerrain" type="Node3D" parent="." unique_id=1899133100]
 script = ExtResource("1_xi4le")
+storage_mode = 1
 data_directory = "res://game/terrain_TerrainData/MarchingSquaresTerrain_de9a4ff7"
 _storage_initialized = true
+_last_storage_mode = 1
 grass_subdivisions = 0
 texture_albedo_1 = Color(0.47058824, 0.35349268, 0.3176471, 1)
 metadata/_custom_type_script = "uid://cddg1xr5hye1d"
@@ -83,3 +129,36 @@ chunk_coords = Vector2i(-1, -2)
 [node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (-1, -2)" unique_id=508468238]
 cast_shadow = 0
 script = ExtResource("3_o8m01")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=275062072]
+transform = Transform3D(-4.371139e-08, -1, 0, 0.70710677, -3.090862e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710677, 0, 41.24859, 0)
+light_cull_mask = 4294967293
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2000645970]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=80453406]
+material = SubResource("ShaderMaterial_dwsip")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2105732558]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00815, 14.340004)
+billboard = 2
+texture = ExtResource("7_kipwh")
+
+[node name="InteractionArea" type="Area3D" parent="Sprite3D" unique_id=1010896779]
+script = ExtResource("8_dwsip")
+tech_id = "venus"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/InteractionArea" unique_id=1200790522]
+shape = SubResource("SphereShape3D_8b833")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Sprite3D" unique_id=380624590]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/StaticBody3D" unique_id=1773176886]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0184784, 0)
+shape = SubResource("CapsuleShape3D_kipwh")

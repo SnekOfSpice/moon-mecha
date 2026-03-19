@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://m8nbaao72sh4"]
+
+[ext_resource type="PackedScene" uid="uid://f2aeauhcav63" path="res://addons/gradient-map/gradient_map.tscn" id="1_f5h7b"]
+[ext_resource type="Script" uid="uid://cbqueqssr86qu" path="res://addons/gradient-map/gradient_map_example.gd" id="1_tw74x"]
+[ext_resource type="Texture2D" uid="uid://cv0krlidluuhw" path="res://icon.svg" id="2_ylim7"]
+
+[node name="GradientMapExample" type="Node2D"]
+script = ExtResource("1_tw74x")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(426, 181)
+texture = ExtResource("2_ylim7")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GradientMap" parent="CanvasLayer" instance=ExtResource("1_f5h7b")]
+unique_name_in_owner = true

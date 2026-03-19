@@ -1,9 +1,12 @@
 [gd_scene format=4 uid="uid://dejy7s1dy6p32"]
 
 [ext_resource type="PackedScene" uid="uid://d1uw7moh87rdk" path="res://game/player/cockpit.glb" id="1_036ga"]
+[ext_resource type="PackedScene" uid="uid://bprfjeqa6wc8j" path="res://game/player/cockpit_back.tscn" id="2_ia5rd"]
+[ext_resource type="PackedScene" uid="uid://cnwb537fyqbmb" path="res://game/player/cockpit_front.tscn" id="3_ia5rd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_036ga"]
 cull_mode = 2
+disable_ambient_light = true
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_gcllo"]
 _surfaces = [{
@@ -39,5 +42,28 @@ shadow_mesh = SubResource("ArrayMesh_gcllo")
 
 [node name="cockpit" unique_id=1437615667 instance=ExtResource("1_036ga")]
 
-[node name="Chassis" parent="." index="0" unique_id=1542644177]
+[node name="cockpit back" parent="." index="0" unique_id=2062090130 instance=ExtResource("2_ia5rd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, 0.014466286)
+
+[node name="cockpit front" parent="." index="1" unique_id=1519280792 instance=ExtResource("3_ia5rd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0, -0.034319878)
+
+[node name="Chassis" parent="." index="2" unique_id=1542644177]
+visible = false
+layers = 2
 mesh = SubResource("ArrayMesh_7juh0")
+
+[node name="Cube_001" parent="." index="3" unique_id=1824459322]
+layers = 2
+
+[node name="Cube_002" parent="." index="4" unique_id=1342088106]
+layers = 2
+
+[node name="Cameras" parent="." index="5" unique_id=259874776]
+layers = 2
+
+[node name="Cube" parent="." index="6" unique_id=226264800]
+layers = 2
+
+[node name="Cube_003" parent="." index="7" unique_id=1741489938]
+layers = 2
