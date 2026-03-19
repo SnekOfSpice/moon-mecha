@@ -42,8 +42,6 @@ size = Vector3(100, 1, 100)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ejiea"]
 size = Vector3(100, 1, 100)
 
-[sub_resource type="SphereMesh" id="SphereMesh_o8m01"]
-
 [node name="World" type="Node3D" unique_id=818301488]
 script = ExtResource("1_o8m01")
 
@@ -89,19 +87,17 @@ light_color = Color(0.89202577, 0.5473642, 0.44251087, 1)
 omni_range = 35.395
 omni_attenuation = 1.784
 
-[node name="BirdSpawn" type="Marker3D" parent="." unique_id=1080137364]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=145733678]
+transform = Transform3D(1, 0, 0, 0, 0.7183692, 0.6956621, 0, -0.6956621, 0.7183692, 0, 11.4388895, 0)
+
+[node name="BirdSpawns" type="Node3D" parent="." unique_id=2091173389]
+
+[node name="BirdSpawn" type="Marker3D" parent="BirdSpawns" unique_id=1080137364]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.169184, 4.0574775, -17.216576)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BirdSpawn" unique_id=309522707]
-mesh = SubResource("SphereMesh_o8m01")
+[node name="BirdTargets" type="Node3D" parent="." unique_id=1426443618]
 
-[node name="BirdTarget" type="Marker3D" parent="." unique_id=1317949690]
+[node name="BirdTarget" type="Marker3D" parent="BirdTargets" unique_id=1317949690]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.669618, 4.0574775, -17.216576)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="BirdTarget" unique_id=986922145]
-mesh = SubResource("SphereMesh_o8m01")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=145733678]
-transform = Transform3D(1, 0, 0, 0, 0.7183692, 0.6956621, 0, -0.6956621, 0.7183692, 0, 11.4388895, 0)

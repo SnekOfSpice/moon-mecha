@@ -10,6 +10,9 @@ var is_hit := false
 var target : Node3D
 
 
+signal hit_ground(corpse : Bird)
+
+
 func _physics_process(delta: float) -> void:
 	if not target:
 		return
@@ -41,4 +44,10 @@ func _physics_process(delta: float) -> void:
 	%Model.look_at(target.global_position)
 	move_and_slide()
 	if dist < 0.01:
+		queue_free()
+
+
+func _on_ground_detection_area_body_entered(body: Node3D) -> void:
+	if body is StaticBody3D and is_hit:
+		hit_ground.emit(self)
 		queue_free()

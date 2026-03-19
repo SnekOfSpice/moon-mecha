@@ -11,3 +11,10 @@ func spawn_birds(amount : int):
 		bird.position = %BirdSpawn.position
 		bird.target = %BirdTarget
 		add_child(bird)
+		bird.hit_ground.connect(func(corpse : Bird):
+			var item : Item = preload("res://game/items/item.tscn").instantiate()
+			add_child(item)
+			item.tech_id = "birdcarcass"
+			item.global_position = corpse.global_position
+			item.interaction_type = Item.InteractionType.ItemPickup
+			)
