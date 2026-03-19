@@ -55,8 +55,49 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
-	print(throttle, velocity.length())
+	#print(throttle, velocity.length())
 
+
+func _process(delta: float) -> void:
+	
+	var relsize  :Vector2= %MainScreenSprite.texture.get_size() * %PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position)
+	
+	var left : float = %PlayerCamera.unproject_position(%TopL.global_position).x
+	var right : float = %PlayerCamera.unproject_position(%TopR.global_position).x
+	var top : float = %PlayerCamera.unproject_position(%TopR.global_position).y
+	var bottom : float = %PlayerCamera.unproject_position(%BottomR.global_position).y
+	
+	var screen_size := get_viewport().get_visible_rect().size
+	var left_right_distance := right - left
+	var ratio := Vector2(
+		screen_size.x / (right - left),
+		screen_size.y /( bottom - top),
+	)
+	
+	var mouse_pos := %PlayerCamera.get_viewport().get_mouse_position()
+	if mouse_pos.x < right and mouse_pos.x > left and mouse_pos.y > top and mouse_pos.y < bottom:
+		#print("aim")
+		var range = right - left
+		var a = (mouse_pos.x - left) / range
+		var rangeb = bottom - top
+		var b = (mouse_pos.y - top) / rangeb
+		#print(Vector2(a, b))
+		%AimTarget.global_position = %PlayerCamera.project_position(Vector2(a, b) * screen_size, 20)
+		print($RayCast3D.get_collider())
+	
+	#%AimTarget.position.x = ( get_viewport().get_mouse_position().x - get_viewport().get_visible_rect().size.x * 0.5 ) * 3 / get_viewport().get_visible_rect().size.x
+	#%AimTarget.position.y = (-get_viewport().get_mouse_position().y - get_viewport().get_visible_rect().size.y * 0.5 ) * 3 / get_viewport().get_visible_rect().size.y
+	#%AimTarget.position.y += 7
+	#%AimTarget.position.z = -10
+	%WeaponSwivelRight.look_at(%AimTarget.global_position)
+	
+	#printt(
+		#%PlayerCamera.unproject_position(%MainScreenSprite.global_position),
+		#(get_viewport().get_mouse_position() - relsize * 0.5) / relsize,
+		#%PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position),
+		#get_viewport().get_mouse_position()
+	#)
+	
 var turn_dir : float
 
 func _unhandled_input(event: InputEvent) -> void:

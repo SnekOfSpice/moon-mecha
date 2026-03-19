@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://c34tlcysobtl6"]
+
+[ext_resource type="PackedScene" uid="uid://b0dxug8aeq3ax" path="res://game/player/weapons/pistol/pistol.glb" id="1_tyd8b"]
+
+[node name="pistol" unique_id=45297058 instance=ExtResource("1_tyd8b")]
+
+[node name="Cylinder" parent="." index="0" unique_id=1703177997]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Cylinder_001" parent="." index="1" unique_id=600572457]
+transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0.2302577, 0.6084916)
+
+[node name="Cube_004" parent="." index="2" unique_id=1547793042]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
