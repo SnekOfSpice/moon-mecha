@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b343syd7fg1b4"]
+
+[ext_resource type="PackedScene" uid="uid://c82rtwlpno1lg" path="res://game/npcs/bird/bird.glb" id="1_ucb84"]
+
+[node name="bird" unique_id=978841377 instance=ExtResource("1_ucb84")]
+
+[node name="Cube" parent="." index="0" unique_id=1445039383]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)

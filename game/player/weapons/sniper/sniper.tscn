@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://k0wuudevyq6u"]
+
+[ext_resource type="PackedScene" uid="uid://bhgn03yuc4rk4" path="res://game/player/weapons/sniper/sniper.glb" id="1_aphao"]
+
+[node name="sniper" unique_id=1594836592 instance=ExtResource("1_aphao")]
+
+[node name="Cube_005" parent="." index="0" unique_id=39233621]
+transform = Transform3D(1, -1.509958e-07, -8.742278e-08, -1.509958e-07, -1, 0, -8.742278e-08, 1.3200472e-14, -1, 0, 0, 0)
+
+[node name="Cylinder_002" parent="." index="1" unique_id=1887043561]
+transform = Transform3D(1, -2.3841858e-07, -1.0421607e-14, 0, -4.371139e-08, 1, -2.3841858e-07, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="Cylinder_003" parent="." index="2" unique_id=386392921]
+transform = Transform3D(1, -2.3841858e-07, -1.0421607e-14, 0, -4.371139e-08, 1, -2.3841858e-07, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="Cube_006" parent="." index="3" unique_id=1998282501]
+transform = Transform3D(1, -1.509958e-07, -8.742278e-08, -1.509958e-07, -1, 0, -8.742278e-08, 1.3200472e-14, -1, 0, 0, 0)

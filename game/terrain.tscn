@@ -1,33 +1,22 @@
 [gd_scene format=3 uid="uid://cmyfhuosdqfuj"]
 
-[ext_resource type="Shader" uid="uid://6dnxw5crwwe2" path="res://game/sky.gdshader" id="1_o8m01"]
+[ext_resource type="Script" uid="uid://h0211j8ppobi" path="res://game/terrain.gd" id="1_o8m01"]
 [ext_resource type="PackedScene" uid="uid://1vad04nwpwei" path="res://game/player/player.tscn" id="1_sct26"]
-[ext_resource type="Script" uid="uid://cddg1xr5hye1d" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain.gd" id="1_xi4le"]
-[ext_resource type="Script" uid="uid://cql4d8s5t5xcx" path="res://addons/MarchingSquaresTerrain/algorithm/terrain/marching_squares_terrain_chunk.gd" id="2_sct26"]
-[ext_resource type="Script" uid="uid://22l7ysgniux3" path="res://addons/MarchingSquaresTerrain/algorithm/grass/marching_squares_grass_planter.gd" id="3_o8m01"]
+[ext_resource type="Texture2D" uid="uid://b7ht5ruhu2f6o" path="res://game/sky1024.png" id="2_sct26"]
 [ext_resource type="Shader" uid="uid://b1rik30t2odrw" path="res://addons/gradient-map/gradient_map.gdshader" id="6_ub6ft"]
-[ext_resource type="Texture2D" uid="uid://bg6nscixglib4" path="res://game/npcs/venus/venug.png" id="7_kipwh"]
-[ext_resource type="Script" uid="uid://dvrvfaucnvw47" path="res://game/interaction_area.gd" id="8_dwsip"]
+[ext_resource type="PackedScene" uid="uid://blo3vab2qt62l" path="res://game/items/item.tscn" id="9_dwsip"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ub6ft"]
-shader = ExtResource("1_o8m01")
-shader_parameter/time_scale = 0.0030000001425
-shader_parameter/base_color = Color(0.05, 0.05, 0.08, 1)
-shader_parameter/slime_color = Color(0.12657365, 0.039791003, 0.18189377, 1)
-shader_parameter/highlight_color = Color(0.1, 0.08495, 0.079, 1)
-shader_parameter/tendril_density = 5.3070002520825
-shader_parameter/tendril_thickness = 0.71200003382
-shader_parameter/animation_speed = 3.614000171665
-shader_parameter/slime_wetness = 2.0590000978025
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_o8m01"]
+panorama = ExtResource("2_sct26")
+filter = false
 
 [sub_resource type="Sky" id="Sky_ejiea"]
-sky_material = SubResource("ShaderMaterial_ub6ft")
+sky_material = SubResource("PanoramaSkyMaterial_o8m01")
 
 [sub_resource type="Environment" id="Environment_xi4le"]
 background_mode = 2
 sky = SubResource("Sky_ejiea")
 reflected_light_source = 2
-tonemap_mode = 4
 tonemap_exposure = 2.86
 tonemap_agx_white = 14.12
 tonemap_agx_contrast = 2.0
@@ -47,92 +36,27 @@ shader_parameter/brightness_amp = 1.0
 shader_parameter/color_amp = Vector3(1, 1, 1)
 shader_parameter/intensity = 1.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_8b833"]
-radius = 2.8950686
+[sub_resource type="BoxMesh" id="BoxMesh_ub6ft"]
+size = Vector3(100, 1, 100)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kipwh"]
-radius = 3.100586
-height = 10.264404
+[sub_resource type="BoxShape3D" id="BoxShape3D_ejiea"]
+size = Vector3(100, 1, 100)
 
-[node name="Node3D" type="Node3D" unique_id=818301488]
+[sub_resource type="SphereMesh" id="SphereMesh_o8m01"]
+
+[node name="World" type="Node3D" unique_id=818301488]
+script = ExtResource("1_o8m01")
+
+[node name="MoonShard" parent="." unique_id=787616141 instance=ExtResource("9_dwsip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5297198, 0)
+interaction_type = 1
+tech_id = "moon_shard"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1216214499]
 environment = SubResource("Environment_xi4le")
 
 [node name="CharacterBody3D" parent="." unique_id=835839210 instance=ExtResource("1_sct26")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.023736, -3.560051)
-
-[node name="MarchingSquaresTerrain" type="Node3D" parent="." unique_id=1899133100]
-script = ExtResource("1_xi4le")
-storage_mode = 1
-data_directory = "res://game/terrain_TerrainData/MarchingSquaresTerrain_de9a4ff7"
-_storage_initialized = true
-_last_storage_mode = 1
-grass_subdivisions = 0
-texture_albedo_1 = Color(0.47058824, 0.35349268, 0.3176471, 1)
-metadata/_custom_type_script = "uid://cddg1xr5hye1d"
-
-[node name="Chunk (-1, 0)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1916357261 node_paths=PackedStringArray("terrain_system")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, 0)
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-chunk_coords = Vector2i(-1, 0)
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (-1, 0)" unique_id=1536141980]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="Chunk (0, 0)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=228519736 node_paths=PackedStringArray("terrain_system")]
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, 0)" unique_id=495217048]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="Chunk (-1, -1)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1417472227 node_paths=PackedStringArray("terrain_system")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -64)
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-chunk_coords = Vector2i(-1, -1)
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (-1, -1)" unique_id=1287510183]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="Chunk (0, -1)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1273292891 node_paths=PackedStringArray("terrain_system")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -64)
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-chunk_coords = Vector2i(0, -1)
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -1)" unique_id=1696323736]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="Chunk (0, -2)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1230242961 node_paths=PackedStringArray("terrain_system")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -128)
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-chunk_coords = Vector2i(0, -2)
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (0, -2)" unique_id=1039466837]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="Chunk (-1, -2)" type="MeshInstance3D" parent="MarchingSquaresTerrain" unique_id=1181434480 node_paths=PackedStringArray("terrain_system")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -64, 0, -128)
-script = ExtResource("2_sct26")
-terrain_system = NodePath("..")
-chunk_coords = Vector2i(-1, -2)
-
-[node name="GrassPlanter" type="MultiMeshInstance3D" parent="MarchingSquaresTerrain/Chunk (-1, -2)" unique_id=508468238]
-cast_shadow = 0
-script = ExtResource("3_o8m01")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=275062072]
-transform = Transform3D(-4.371139e-08, -1, 0, 0.70710677, -3.090862e-08, 0.70710677, -0.70710677, 3.090862e-08, 0.70710677, 0, 41.24859, 0)
-light_cull_mask = 4294967293
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2000645970]
 visible = false
@@ -146,20 +70,38 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=2105732558]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.00815, 14.340004)
-billboard = 2
-texture = ExtResource("7_kipwh")
-
-[node name="InteractionArea" type="Area3D" parent="Sprite3D" unique_id=1010896779]
-script = ExtResource("8_dwsip")
+[node name="venus" parent="." unique_id=1325512709 instance=ExtResource("9_dwsip")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6370358, 9.10946)
 tech_id = "venus"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/InteractionArea" unique_id=1200790522]
-shape = SubResource("SphereShape3D_8b833")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=920830051]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.660933, 0)
+mesh = SubResource("BoxMesh_ub6ft")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Sprite3D" unique_id=380624590]
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=24181606]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Sprite3D/StaticBody3D" unique_id=1773176886]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0184784, 0)
-shape = SubResource("CapsuleShape3D_kipwh")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=499309595]
+shape = SubResource("BoxShape3D_ejiea")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1457426847]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.104872, 7.7883987)
+light_color = Color(0.89202577, 0.5473642, 0.44251087, 1)
+omni_range = 35.395
+omni_attenuation = 1.784
+
+[node name="BirdSpawn" type="Marker3D" parent="." unique_id=1080137364]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.169184, 4.0574775, -17.216576)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BirdSpawn" unique_id=309522707]
+mesh = SubResource("SphereMesh_o8m01")
+
+[node name="BirdTarget" type="Marker3D" parent="." unique_id=1317949690]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.669618, 4.0574775, -17.216576)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BirdTarget" unique_id=986922145]
+mesh = SubResource("SphereMesh_o8m01")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=145733678]
+transform = Transform3D(1, 0, 0, 0, 0.7183692, 0.6956621, 0, -0.6956621, 0.7183692, 0, 11.4388895, 0)

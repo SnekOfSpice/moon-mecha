@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dnakqakvkejg6"]
+
+[ext_resource type="Script" uid="uid://w5ims8lqyxrc" path="res://game/npcs/bird/bird.gd" id="1_6gsr1"]
+[ext_resource type="PackedScene" uid="uid://b343syd7fg1b4" path="res://game/npcs/bird/bird_model.tscn" id="2_6gsr1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l0bfw"]
+height = 2.3218994
+radius = 4.205078
+
+[node name="Bird" type="CharacterBody3D" unique_id=24554342]
+script = ExtResource("1_6gsr1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2098072159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11663461, 0.4854126, -0.82860184)
+shape = SubResource("CylinderShape3D_l0bfw")
+
+[node name="Model" parent="." unique_id=978841377 instance=ExtResource("2_6gsr1")]
+unique_name_in_owner = true

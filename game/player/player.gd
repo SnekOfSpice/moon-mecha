@@ -20,14 +20,29 @@ var step_progress := 0.0
 
 var is_stepping := false
 var throttle_this_step := 0.0
+
+
+const THROTTLE_MAX :=  4
+const THROTTLE_MIN := -1.5
+
+func _ready() -> void:
+	%ThrottleGauge.min_value = THROTTLE_MIN
+	%ThrottleGauge.max_value = THROTTLE_MAX
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	throttle = clamp(throttle + acceleration * delta * Input.get_axis("throttle_down", "throttle_up"), -3, 3)
-	
-	
+	var throttle_input = Input.get_axis("throttle_down", "throttle_up")
+	throttle = clamp(throttle + acceleration * delta * throttle_input, THROTTLE_MIN, THROTTLE_MAX)
+	%ThrottleGauge.set_value_no_signal(throttle)
+	if abs(throttle) < 0.25 and throttle_input == 0:
+		throttle = lerp(throttle, 0.0, 0.1)
+		if abs(throttle) < 0.01:
+			throttle = 0
+			throttle_this_step = 0
+	#print(throttle)
 	rotate_y(TURN_SPEED * turn_dir)
 	
 	var curve_val := 0.0
@@ -82,14 +97,20 @@ func _process(delta: float) -> void:
 		var rangeb = bottom - top
 		var b = (mouse_pos.y - top) / rangeb
 		#print(Vector2(a, b))
-		%AimTarget.global_position = %PlayerCamera.project_position(Vector2(a, b) * screen_size, 20)
-		print($RayCast3D.get_collider())
+		var depth := 4.0
+		#if $RayCast3D.is_colliding():
+			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
+		
+		%AimTarget.global_position = %PlayerCamera.project_position(Vector2(a, b) * screen_size, depth)
+		$RayCast3D.look_at(%AimTarget.global_position)
+	
 	
 	#%AimTarget.position.x = ( get_viewport().get_mouse_position().x - get_viewport().get_visible_rect().size.x * 0.5 ) * 3 / get_viewport().get_visible_rect().size.x
 	#%AimTarget.position.y = (-get_viewport().get_mouse_position().y - get_viewport().get_visible_rect().size.y * 0.5 ) * 3 / get_viewport().get_visible_rect().size.y
 	#%AimTarget.position.y += 7
 	#%AimTarget.position.z = -10
 	%WeaponSwivelRight.look_at(%AimTarget.global_position)
+	%WeaponSwivelLeft.look_at(%AimTarget.global_position)
 	
 	#printt(
 		#%PlayerCamera.unproject_position(%MainScreenSprite.global_position),
@@ -104,14 +125,37 @@ func _unhandled_input(event: InputEvent) -> void:
 	turn_dir = -Input.get_axis("turn_left", "turn_right")
 	if event.is_action_pressed("brake"):
 		throttle = 0
+	if event.is_action_pressed("interact"):
+		if current_item:
+			handle_interaction(current_item)
+	if event.is_action_pressed("shoot"):
+		if $RayCast3D.get_collider() is Bird:
+			$RayCast3D.get_collider().is_hit = true
 
+
+func handle_interaction(item : Item):
+	match item.interaction_type:
+		Item.InteractionType.NPCDialogue:
+			print("[F] talk to %s" % item.tech_id)
+		Item.InteractionType.ItemPickup:
+			print("[F] %s pick up " % item.tech_id)
+	
+
+
+var current_item : Item = null:
+	set(value):
+		current_item = value
+		if value:
+			%InteractionLabel.text = value.tech_id
+		else:
+			%InteractionLabel.text = ""
 
 func _on_interaction_range_area_entered(area: Area3D) -> void:
-	if area is InteractionArea:
+	if area is Item:
+		current_item = area
 		%InteractionLabel.text = area.tech_id
-		print(area.tech_id)
 
 
 func _on_interaction_range_area_exited(area: Area3D) -> void:
-	if area is InteractionArea:
-		%InteractionLabel.text = ""
+	if area is Item:
+		current_item = null

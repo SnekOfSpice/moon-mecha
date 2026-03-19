@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c1cvqp41acc54" path="res://game/player/player.gd" id="1_obar5"]
 [ext_resource type="PackedScene" uid="uid://dejy7s1dy6p32" path="res://game/player/cockpit.tscn" id="2_b2mth"]
+[ext_resource type="Script" uid="uid://dmolrs5r3omtl" path="res://game/player/main_screen_vp.gd" id="3_5fytw"]
 [ext_resource type="PackedScene" uid="uid://c34tlcysobtl6" path="res://game/player/weapons/pistol/pistol.tscn" id="3_8soms"]
+[ext_resource type="PackedScene" uid="uid://k0wuudevyq6u" path="res://game/player/weapons/sniper/sniper.tscn" id="4_a4w0n"]
 
 [sub_resource type="Curve" id="Curve_b2mth"]
 _data = [Vector2(0, 0.10710132), 0.0, 0.0, 0, 0, Vector2(0.5735295, 0.52328295), 1.715173, 1.715173, 0, 0, Vector2(0.82940185, 1), -2.7441216, -2.7441216, 0, 0, Vector2(0.82941186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.22060537), 7.0567193, 0.0, 0, 0]
@@ -47,8 +49,15 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 2
 [node name="PlayerCamera" type="Camera3D" parent="cockpit" unique_id=229575041]
 unique_name_in_owner = true
 transform = Transform3D(-1, 9.5083434e-09, 8.6904166e-08, 0, 0.9940678, -0.10876277, -8.742278e-08, -0.10876277, -0.9940678, 3.968994e-08, 1.0749061, -0.454)
+cull_mask = 3
 current = true
-fov = 75.3
+fov = 68.6
+size = 1.805
+
+[node name="AimCamera" type="Camera3D" parent="cockpit" unique_id=2033479871]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 5.7620454e-08, 0, 1, 0, -5.7620454e-08, 0, -1, 0, 1.2386978, 0)
+projection = 1
 
 [node name="ScreenL" type="Sprite3D" parent="cockpit" unique_id=1058669368]
 transform = Transform3D(0.005710556, 0.25966963, -0.10458995, 0.27310896, -0.02813945, -0.054951355, -0.06147251, -0.10089511, -0.25385284, 0.6922627, 1.3080616, 0.31592387)
@@ -92,10 +101,14 @@ remote_path = NodePath("../MainScreenVP/Camera3D")
 [node name="MainScreenVP" type="SubViewport" parent="cockpit/MainScreenSprite" unique_id=853368188]
 unique_name_in_owner = true
 size = Vector2i(240, 180)
+script = ExtResource("3_5fytw")
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1701990803]
+unique_name_in_owner = true
 transform = Transform3D(1.9999998, -7.1054274e-15, -1.2662815e-07, 4.8572257e-17, 1.9999999, 0, 1.2662815e-07, 0, 1.9999999, -0.0060708085, 4.537055, -1.2637489)
 fov = 90.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1452596373]
 
 [node name="TopL" type="Marker3D" parent="cockpit/MainScreenSprite" unique_id=426628012]
 unique_name_in_owner = true
@@ -129,6 +142,12 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.7
 [node name="pistol2" parent="cockpit/WeaponSwivelRight" unique_id=45297058 instance=ExtResource("3_8soms")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5989983, -0.25003362, -0.9271045)
 
+[node name="WeaponSwivelLeft" type="Node3D" parent="cockpit" unique_id=614809164]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.804832, 0.29976702, 0.16956127)
+
+[node name="sniper2" parent="cockpit/WeaponSwivelLeft" unique_id=1594836592 instance=ExtResource("4_a4w0n")]
+
 [node name="InteractionRange" type="Area3D" parent="." unique_id=1565225083]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionRange" unique_id=1952121836]
@@ -160,6 +179,18 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ThrottleGauge" type="HSlider" parent="CanvasLayer" unique_id=788343675]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 100.0
+grow_vertical = 0
+mouse_filter = 2
+step = 0.01
 
 [node name="AimTarget" type="Marker3D" parent="." unique_id=1592630261]
 unique_name_in_owner = true
