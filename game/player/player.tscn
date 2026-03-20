@@ -63,30 +63,22 @@ projection = 1
 transform = Transform3D(0.005710556, 0.25966963, -0.10458995, 0.27310896, -0.02813945, -0.054951355, -0.06147251, -0.10089511, -0.25385284, 0.6922627, 1.3080616, 0.31592387)
 texture = SubResource("ViewportTexture_8soms")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="cockpit/ScreenL" unique_id=1394268414]
-transform = Transform3D(6.9291253, 0.6909811, 1.5906202, 0.4058829, 5.723271, -4.25438, -1.6860567, 4.2174754, 5.5127563, 1.9482632, 1.2348232, -0.40138626)
-remote_path = NodePath("../LeftVP/Camera3D")
-
 [node name="LeftVP" type="SubViewport" parent="cockpit/ScreenL" unique_id=329843398]
 size = Vector2i(240, 180)
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenL/LeftVP" unique_id=839239164]
-transform = Transform3D(-0.3213092, -1.0489999, 1.672229, 1.973636, -0.20409255, 0.2511951, 0.03889203, 1.6905446, 1.067962, -1.0660155, 4.077769, -0.17346457)
+transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, -2.5117755, 2.5141041, -0.962036)
 fov = 60.0
 
 [node name="ScreenR" type="Sprite3D" parent="cockpit" unique_id=255033598]
 transform = Transform3D(-0.0068293433, -0.25381866, 0.11802283, -0.27337617, -0.019323481, -0.05737567, 0.06015584, -0.11663032, -0.24734296, -0.6922082, 1.3080616, 0.31947103)
 texture = SubResource("ViewportTexture_a4w0n")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="cockpit/ScreenR" unique_id=1762200767]
-transform = Transform3D(6.637458, 1.6387721, -2.068523, -0.66246665, 6.454157, 2.9875321, 2.5545013, -2.5843134, 6.1494856, -0.276268, 2.6864142, -0.34025764)
-remote_path = NodePath("../RightVP/Camera3D")
-
 [node name="RightVP" type="SubViewport" parent="cockpit/ScreenR" unique_id=1274194098]
 size = Vector2i(240, 180)
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
-transform = Transform3D(-0.42430636, 1.9543852, 0.018385231, -1.9482878, -0.4244413, 0.15492448, 0.15529245, 0.014956772, 1.9939026, 1.4123416, 3.601508, -0.073694974)
+transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
 fov = 37.849285
 
 [node name="MainScreenSprite" type="Sprite3D" parent="cockpit" unique_id=561845568]
@@ -94,7 +86,7 @@ unique_name_in_owner = true
 transform = Transform3D(-0.34, 9.636704e-09, 5.0343882e-08, -4.121156e-10, 0.33341247, -0.06660424, -5.1256247e-08, -0.06660424, -0.33341247, -0.0060708984, 1.1855941, 0.35468525)
 texture = SubResource("ViewportTexture_5fytw")
 
-[node name="RemoteTransform3D" type="RemoteTransform3D" parent="cockpit/MainScreenSprite" unique_id=1837522452]
+[node name="RemoteTransformMain" type="RemoteTransform3D" parent="cockpit/MainScreenSprite" unique_id=1837522452]
 transform = Transform3D(5.8823524, -7.1300277e-09, 9.888282e-11, 6.9725115e-09, 5.7683816, 1.1523225, -1.4937024e-09, -1.1523225, 5.7683816, -0.035710983, 2.6521645, -3.2563539)
 remote_path = NodePath("../MainScreenVP/Camera3D")
 
@@ -139,12 +131,20 @@ omni_attenuation = 4.226
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.7566717, 0.29976702, 0.16956088)
 
+[node name="RemoteTransformRight" type="RemoteTransform3D" parent="cockpit/WeaponSwivelRight" unique_id=1762200767]
+transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 0.3113165, 0.4137733, -0.8440522)
+remote_path = NodePath("../../ScreenR/RightVP/Camera3D")
+
 [node name="pistol2" parent="cockpit/WeaponSwivelRight" unique_id=45297058 instance=ExtResource("3_8soms")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5989983, -0.25003362, -0.9271045)
 
 [node name="WeaponSwivelLeft" type="Node3D" parent="cockpit" unique_id=614809164]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.804832, 0.29976702, 0.16956127)
+
+[node name="RemoteTransformLeft" type="RemoteTransform3D" parent="cockpit/WeaponSwivelLeft" unique_id=1394268414]
+transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, 0.2930565, -0.035972357, -0.792475)
+remote_path = NodePath("../../ScreenL/LeftVP/Camera3D")
 
 [node name="sniper2" parent="cockpit/WeaponSwivelLeft" unique_id=1594836592 instance=ExtResource("4_a4w0n")]
 
@@ -198,6 +198,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093559146, 3.6818242, -7.14
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="AimTarget" unique_id=887914299]
 mesh = SubResource("SphereMesh_8soms")
+
+[node name="AimTargetCenter" type="Marker3D" parent="." unique_id=1949618864]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093559146, 3.6818242, -7.147935)
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=469231282]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1676111, -1.2057662)

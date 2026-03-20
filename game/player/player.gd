@@ -97,11 +97,12 @@ func _process(delta: float) -> void:
 		var rangeb = bottom - top
 		var b = (mouse_pos.y - top) / rangeb
 		#print(Vector2(a, b))
-		var depth := 4.0
-		#if $RayCast3D.is_colliding():
-			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
-		
-		%AimTarget.global_position = %PlayerCamera.project_position(Vector2(a, b) * screen_size, depth)
+	var depth : float = abs(%AimTargetCenter.position.z)
+	#if $RayCast3D.is_colliding():
+		#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
+	var target_pos :Vector3=  %PlayerCamera.project_position(mouse_pos, depth)
+	if target_pos.distance_to(%AimTargetCenter.global_position) <= 4:
+		%AimTarget.global_position = lerp(%AimTarget.global_position, target_pos, 0.4 *delta)
 		$RayCast3D.look_at(%AimTarget.global_position)
 	
 	
