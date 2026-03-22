@@ -1,13 +1,19 @@
 [gd_scene format=3 uid="uid://74aw6x548ed0"]
 
 [ext_resource type="Script" uid="uid://b8rxijdujvqwv" path="res://game/player/on_screen_tracker.gd" id="1_v2xqs"]
+[ext_resource type="Texture2D" uid="uid://hwmiq07sdfcb" path="res://game/ui/tracker.png" id="2_nesrt"]
 
 [node name="OnScreenTracker" type="Node2D" unique_id=377202370]
 script = ExtResource("1_v2xqs")
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1935463997]
-offset_left = -17.0
-offset_top = -16.0
-offset_right = 23.0
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=456352986]
+unique_name_in_owner = true
+modulate = Color(0.49499905, 0.055912048, 0.27643415, 1)
+texture = ExtResource("2_nesrt")
+
+[node name="DistanceLabel" type="Label" parent="Sprite2D" unique_id=365716796]
+unique_name_in_owner = true
+offset_left = 12.0
+offset_top = 1.0
+offset_right = 52.0
 offset_bottom = 24.0
-color = Color(1, 0, 0, 1)

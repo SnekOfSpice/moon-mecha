@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://dp3d4mw1vddnq"]
+
+[ext_resource type="Script" uid="uid://b862d44xfsc3g" path="res://addons/diisis/parser/src/ruby_label.gd" id="1_yg2co"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yg2co"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ipyg5"]
+
+[node name="RubyLabelRoot" type="PanelContainer" unique_id=393993422]
+clip_children = 1
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yg2co")
+script = ExtResource("1_yg2co")
+
+[node name="Control" type="Control" parent="." unique_id=1077162244]
+layout_mode = 2
+
+[node name="RubyLabel" type="RichTextLabel" parent="Control" unique_id=438920572]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 0
+offset_right = 71.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ipyg5")
+bbcode_enabled = true
+text = "ruby text"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0

@@ -1,0 +1,260 @@
+@tool
+extends Control
+
+var ref_pages_fact : ItemList
+var ref_lines_fact : ItemList
+var ref_lines_condition : ItemList
+var ref_choices_fact : ItemList
+var ref_choices_condition : ItemList
+var ref_lists := []
+
+signal request_hide
+signal request_popup
+
+var facts : ItemList
+var previous_selection := 0
+
+func init():
+	for child in get_children():
+		if child is SubViewport:
+			child.queue_free()
+	ref_pages_fact = find_child("RefPagesFact")
+	ref_lines_fact = find_child("RefLinesFact")
+	ref_lines_condition = find_child("RefLinesCondition")
+	ref_choices_fact = find_child("RefChoicesFact")
+	ref_choices_condition = find_child("RefChoicesCondition")
+	ref_lists = [ref_pages_fact, ref_lines_fact, ref_lines_condition, ref_choices_fact, ref_choices_condition]
+	facts = find_child("Facts")
+	facts.clear()
+	find_child("LoveLabel").visible = Pages.silly
+	
+	for list : ItemList in ref_lists:
+		list.clear()
+		if not list.item_selected.is_connected(drop_other_focused.bind(list)):
+			list.item_selected.connect(drop_other_focused.bind(list))
+			list.item_activated.connect(go_to_selected.bind(list))
+	
+	for fact in Pages.facts.keys():
+		var fact_reg = fact#str(fact, ": ", Pages.facts.get(fact))
+		var texture:Texture2D
+		var value = Pages.facts.get(fact)
+		if value is bool:
+			if value:
+				texture = load("res://addons/diisis/editor/visuals/true.png")
+			else:
+				texture = load("res://addons/diisis/editor/visuals/false.png")
+		elif value is int:
+			var label = Label.new()
+			label.text = str(value)
+			var vp = SubViewport.new()
+			vp.add_child(label)
+			add_child(vp)
+			vp.size = label.size
+			await RenderingServer.frame_post_draw
+			texture = vp.get_texture()
+		facts.add_item(fact_reg, texture)
+	find_child("RenameFactButton").visible = true
+	find_child("DeleteFactButton").visible = true
+	find_child("FactRenameEditContainer").visible = false
+	find_child("FactInteractionContainer").visible = false
+	find_child("CancelRenameButton").visible = false
+	find_child("CancelChangeDefaultButton").visible = false
+	find_child("ChangeDefaultButton").visible = true
+	find_child("ChangeDefaultEditContainer").visible = false
+	find_child("FactDuplicateLabel").visible = false
+	find_child("FactNameLabel").text = ""
+	find_child("NewNameEdit").text = ""
+	drop_other_focused()
+	facts.select(previous_selection)
+	facts.grab_focus()
+	_on_facts_item_clicked(previous_selection)
+
+func drop_other_focused(selected_index:=0, clicked_item_list:ItemList=null):
+	for list in ref_lists:
+		if clicked_item_list != list:
+			list.deselect_all()
+	
+	find_child("GoToAddressButton").disabled = clicked_item_list == null
+	find_child("GoToAddressLabel").text = ""
+	if clicked_item_list != null:
+		find_child("GoToAddressLabel").text = clicked_item_list.get_item_text(selected_index)
+
+func select_fact(fact:String):
+	for idx in facts.item_count:
+		if facts.get_item_text(idx) == fact:
+			facts.select(idx)
+			_on_facts_item_clicked(idx)
+
+func go_to_selected(selected_index:=0, activateded_item_list:ItemList=null):
+	drop_other_focused(selected_index, activateded_item_list)
+	if activateded_item_list != null:
+		go_to(activateded_item_list.get_item_text(selected_index))
+
+func _on_facts_item_clicked(index: int, _at_position:=Vector2.ZERO, _mouse_button_index:=0) -> void:
+	find_child("FactInteractionContainer").visible = true
+	for list in ref_lists:
+		list.clear()
+	var f = find_child("Facts").get_item_text(index)
+	find_child("FactNameLabel").text = f
+	var references = Pages.lines_referencing_fact(f)
+	
+	#var s = "Pages containing fact:\n"
+	for r in references.get("ref_pages_fact"):
+		var s := ""
+		var page_key : String = Pages.page_data.get(int(r)).get("page_key")
+		s += str(r)
+		var page_bound_icon:Texture
+		if references.get("ref_pages_page_bound").has(r):
+			page_bound_icon = load("uid://beiogkk2obaqj")
+		else:
+			page_bound_icon = load("uid://c8g0a300gcw2c")
+		if not page_key.is_empty():
+			s += str("\t\t\t\t(", page_key, ")")
+		
+		ref_pages_fact.add_item(s, page_bound_icon)
+	
+	#s = "Conditionals referencing fact:\n"
+	for r in references.get("ref_lines_condition"):
+		ref_lines_condition.add_item(str(r))
+	
+	#s = "Lines declaring fact:\n"
+	for r in references.get("ref_lines_fact"):
+		#s += str(r)
+		#s += "\n"
+		ref_lines_fact.add_item(str(r))
+	
+	#s = "Choice Items declaring fact:\n"
+	for r in references.get("ref_choices_fact"):
+		ref_choices_fact.add_item(str(r))
+	
+	#s = "Choice Items referencing fact as conditional:\n"
+	for r in references.get("ref_choices_condition"):
+		ref_choices_condition.add_item(str(r))
+		
+
+func _on_rename_fact_button_pressed() -> void:
+	find_child("FactRenameEditContainer").visible = true
+	find_child("CancelRenameButton").visible = true
+	find_child("DeleteFactButton").visible = false
+	find_child("RenameFactButton").visible = false
+	find_child("ChangeDefaultButton").visible = false
+	find_child("NewNameEdit").grab_focus()
+
+func _on_cancel_rename_button_pressed() -> void:
+	find_child("RenameFactButton").visible = true
+	find_child("DeleteFactButton").visible = true
+	find_child("FactRenameEditContainer").visible = false
+	find_child("CancelRenameButton").visible = false
+	find_child("ChangeDefaultButton").visible = true
+
+
+func _on_confirm_rename_button_pressed() -> void:
+	emit_signal("request_hide")
+	
+	var undo_redo = Pages.editor.undo_redo
+	undo_redo.create_action("Rename Fact")
+	undo_redo.add_do_method(DiisisEditorActions.rename_fact.bind(find_child("FactNameLabel").text, find_child("NewNameEdit").text))
+	undo_redo.add_undo_method(DiisisEditorActions.rename_fact.bind(find_child("NewNameEdit").text, find_child("FactNameLabel").text))
+	undo_redo.commit_action()
+	
+	await get_tree().process_frame
+	emit_signal("request_popup")
+
+
+func _on_new_name_edit_text_changed(new_text: String) -> void:
+	find_child("ConfirmRenameButton").disabled = Pages.facts.has(new_text)
+	find_child("FactDuplicateLabel").visible = Pages.facts.has(new_text)
+
+
+func _on_delete_fact_button_pressed() -> void:
+	var fact = find_child("FactNameLabel").text
+	$ConfirmDelete.dialog_text = str(
+		"Do you want to delete fact [", fact, "]?\n
+		This deletes it from all pages, lines, and choice items, in both fact and conditional declarations.\n
+		This action cannot be undone."
+		)
+	$ConfirmDelete.popup()
+
+
+func _on_confirm_delete_canceled() -> void:
+	$ConfirmDelete.hide()
+
+
+func _on_confirm_delete_confirmed() -> void:
+	emit_signal("request_hide")
+	
+	Pages.delete_fact(find_child("FactNameLabel").text)
+	
+	await get_tree().process_frame
+	emit_signal("request_popup")
+
+
+
+func _on_go_to_address_button_pressed() -> void:
+	go_to(find_child("GoToAddressLabel").text)
+
+func go_to(address:String):
+	emit_signal("request_hide")
+	Pages.editor.request_go_to_address(address)
+
+
+func _on_change_default_button_pressed() -> void:
+	find_child("CancelChangeDefaultButton").visible = true
+	var fact : String = find_child("FactNameLabel").text
+	if Pages.facts.get(fact) is bool:
+		find_child("NewDefaultCheckBox").visible = true
+		find_child("NewDefaultCheckBox").button_pressed = Pages.facts.get(fact)
+		find_child("NewDefaultCheckBox").text = str(Pages.facts.get(fact))
+		find_child("NewDefaultSpinBox").visible = false
+	elif Pages.facts.get(fact) is int:
+		find_child("NewDefaultCheckBox").visible = false
+		find_child("NewDefaultSpinBox").visible = true
+		find_child("NewDefaultSpinBox").value = Pages.facts.get(fact)
+	else:
+		return
+	find_child("ChangeDefaultEditContainer").visible = true
+	find_child("ChangeDefaultButton").visible = false
+
+func _on_save_new_default_button_pressed() -> void:
+	var fact : String = find_child("FactNameLabel").text
+	if Pages.facts.get(fact) is bool:
+		Pages.facts[fact] = find_child("NewDefaultCheckBox").button_pressed
+	elif Pages.facts.get(fact) is int:
+		Pages.facts[fact] = int(find_child("NewDefaultSpinBox").value)
+	find_child("ChangeDefaultEditContainer").visible = false
+	find_child("ChangeDefaultButton").visible = true
+	
+	if facts.get_selected_items().size() > 0:
+		previous_selection = facts.get_selected_items()[0]
+	init()
+	
+
+
+func _on_cancel_change_default_button_pressed() -> void:
+	find_child("ChangeDefaultButton").visible = true
+	find_child("ChangeDefaultEditContainer").visible = false
+	find_child("CancelChangeDefaultButton").visible = false
+
+
+func _on_create_button_pressed() -> void:
+	$CreateFactWindow.popup()
+	(get_parent() as Window).always_on_top = false
+
+
+func _on_create_fact_window_fact_created() -> void:
+	if facts.get_selected_items().size() > 0:
+		previous_selection = facts.get_selected_items()[0]
+	init()
+
+
+func _on_new_default_check_box_toggled(toggled_on: bool) -> void:
+	find_child("NewDefaultCheckBox").text = str(toggled_on)
+
+
+func _on_new_name_edit_text_submitted(_new_text: String) -> void:
+	_on_confirm_rename_button_pressed()
+
+
+func _on_create_fact_window_visibility_changed() -> void:
+	if not $CreateFactWindow.visible:
+		(get_parent() as Window).always_on_top = true

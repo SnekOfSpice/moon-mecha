@@ -180,17 +180,59 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ThrottleGauge" type="HSlider" parent="CanvasLayer" unique_id=788343675]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=684963668]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -16.0
-offset_right = 100.0
+offset_top = -40.0
+offset_right = 40.0
 grow_vertical = 0
+
+[node name="ThrottleGaugeBack" type="ProgressBar" parent="CanvasLayer/HBoxContainer" unique_id=802821029]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
 mouse_filter = 2
-step = 0.01
+allow_greater = true
+allow_lesser = true
+fill_mode = 1
+show_percentage = false
+
+[node name="ThrottleNeutralCheckBox" type="CheckBox" parent="CanvasLayer/HBoxContainer/ThrottleGaugeBack" unique_id=160818890]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ThrottleGaugeForward" type="ProgressBar" parent="CanvasLayer/HBoxContainer" unique_id=1389300375]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 1
+mouse_filter = 2
+allow_greater = true
+allow_lesser = true
+show_percentage = false
+
+[node name="ThrottleLabel" type="Label" parent="CanvasLayer/HBoxContainer/ThrottleGaugeForward" unique_id=850895514]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 40.0
+offset_bottom = 11.5
+grow_vertical = 2
 
 [node name="AimTarget" type="Marker3D" parent="." unique_id=1592630261]
 unique_name_in_owner = true
@@ -204,7 +246,15 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093559146, 3.6818242, -7.147935)
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=469231282]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1676111, -1.2057662)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7966325, -1.2057662)
+target_position = Vector3(0, 0, -4000)
+
+[node name="RayCast3D2" type="RayCast3D" parent="." unique_id=1997782082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0037867, 2.2677958, -1.2057662)
+target_position = Vector3(0, 0, -4000)
+
+[node name="RayCast3D3" type="RayCast3D" parent="." unique_id=1169302028]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0921448, 2.2588398, -1.2057662)
 target_position = Vector3(0, 0, -4000)
 
 [connection signal="area_entered" from="InteractionRange" to="." method="_on_interaction_range_area_entered"]

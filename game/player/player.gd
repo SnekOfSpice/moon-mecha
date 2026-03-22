@@ -26,8 +26,14 @@ const THROTTLE_MAX :=  4
 const THROTTLE_MIN := -1.5
 
 func _ready() -> void:
-	%ThrottleGauge.min_value = THROTTLE_MIN
-	%ThrottleGauge.max_value = THROTTLE_MAX
+	%ThrottleGaugeBack.min_value = THROTTLE_MIN
+	%ThrottleGaugeBack.max_value = 0
+	%ThrottleGaugeBack.custom_minimum_size.x = abs(THROTTLE_MIN) * 40
+	%ThrottleGaugeForward.min_value = 0
+	%ThrottleGaugeForward.max_value = THROTTLE_MAX
+	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
+	
+	%MainScreenVP.create_tracker(%AimTarget, true)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -36,7 +42,11 @@ func _physics_process(delta: float) -> void:
 	
 	var throttle_input = Input.get_axis("throttle_down", "throttle_up")
 	throttle = clamp(throttle + acceleration * delta * throttle_input, THROTTLE_MIN, THROTTLE_MAX)
-	%ThrottleGauge.set_value_no_signal(throttle)
+	%ThrottleGaugeBack.set_value_no_signal(-throttle+THROTTLE_MIN)
+	%ThrottleGaugeForward.set_value_no_signal(throttle)
+	%ThrottleNeutralCheckBox.set_pressed_no_signal(throttle == 0)
+	var s = "-" if sign(throttle) == -1 else " "
+	%ThrottleLabel.text = "%s%0.1f" % [s, abs(throttle)]
 	if abs(throttle) < 0.25 and throttle_input == 0:
 		throttle = lerp(throttle, 0.0, 0.1)
 		if abs(throttle) < 0.01:
@@ -72,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	#print(throttle, velocity.length())
 
-
+var last_collider : Node3D
 func _process(delta: float) -> void:
 	
 	var relsize  :Vector2= %MainScreenSprite.texture.get_size() * %PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position)
@@ -97,13 +107,25 @@ func _process(delta: float) -> void:
 		var rangeb = bottom - top
 		var b = (mouse_pos.y - top) / rangeb
 		#print(Vector2(a, b))
-	var depth : float = abs(%AimTargetCenter.position.z)
-	#if $RayCast3D.is_colliding():
-		#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
+	var depth : float = abs(%AimTargetCenter.position.z) + 200
+	var base_depth : float = depth
+	var collider
+	#if $RayCast3D.is_colliding() and $RayCast3D2.is_colliding() and $RayCast3D3.is_colliding():
+		#if ($RayCast3D.get_collider() == $RayCast3D2.get_collider()) and ($RayCast3D3.get_collider() == $RayCast3D2.get_collider()):
+			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
+			#collider = $RayCast3D.get_collider()
 	var target_pos :Vector3=  %PlayerCamera.project_position(mouse_pos, depth)
-	if target_pos.distance_to(%AimTargetCenter.global_position) <= 4:
-		%AimTarget.global_position = lerp(%AimTarget.global_position, target_pos, 0.4 *delta)
+	#if target_pos.distance_to(%AimTargetCenter.global_position) <= 4:
+	if Input.is_action_pressed("aiming"):
+		if collider == last_collider:
+			%AimTarget.global_position = target_pos
+		else:
+			%AimTarget.global_position = lerp(%AimTarget.global_position, target_pos, 0.4 * delta)
 		$RayCast3D.look_at(%AimTarget.global_position)
+		$RayCast3D2.look_at(%AimTarget.global_position)
+		$RayCast3D3.look_at(%AimTarget.global_position)
+	if collider:
+		last_collider = collider
 	
 	
 	#%AimTarget.position.x = ( get_viewport().get_mouse_position().x - get_viewport().get_visible_rect().size.x * 0.5 ) * 3 / get_viewport().get_visible_rect().size.x

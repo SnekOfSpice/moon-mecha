@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh7lwmyvues6e"]
+
+[ext_resource type="Script" uid="uid://c0c1xw36qwbey" path="res://addons/diisis/editor/src/word_count_dialog.gd" id="1_7c46x"]
+[ext_resource type="Theme" uid="uid://jddhsc4auo55" path="res://addons/diisis/editor/visuals/theme/amber_cherryblossom.tres" id="1_e2h08"]
+
+[node name="WordCountDialog" type="AcceptDialog"]
+title = "Word & Character Count"
+initial_position = 4
+size = Vector2i(380, 100)
+visible = true
+popup_window = true
+theme = ExtResource("1_e2h08")
+script = ExtResource("1_7c46x")
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="close_requested" from="." to="." method="_on_close_requested"]

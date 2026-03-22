@@ -1,0 +1,324 @@
+
+DIISIS 0.7 2026-03-15
+
+
+General
+- Upgrade to Godot 4.6
+- Add project setting to embed the DIISIS editor like other main screen plugins
+- remove headers (They were unused and buggy (shoutout wtsrts, the only project where I used them))
+- rename dropdowns to stringkits
+- add advance yield to instuctions so that you have to call advance() to proceed to the next line again
+- add regions
+
+Editor
+- Add "Recent Files" to File menu item
+- some layout / editor sizing improvemnts
+- remove dialog args in text only export
+- automatically search directories to try to ensure a line reader script exists when opening a new file, focusing the editor window (window view), or toggled visible (embedded)
+- give warning for linux & windowed DIISIS because keyboard shortcuts can bleed input on linux
+- add warning on unsaved changes when trying to open another file
+
+
+Runtime
+- change LineReader _process to _physics_process
+- add clear_previous parameter to LineReader.set_body_label()
+- add LineReader.text_flow property (folds in full_words and the new single_word pattern)
+- add LineReader.clear_past_lines()
+- change full_words to also include the space after the word
+- fix / re-implement rubies and LineReader.get_body_label_text_draw_pos() as a whole
+- add Parser fact payload for debugging
+
+VN Template
+- General cleanup of scenes and scripts
+- rework the entire VN template to better keep up with my more recent projects (still wip)
+
+Under the Hood
+- Add autoload DiisisEditorEventBus
+- implement DiisisEditor.refresh_text() to make it run a bit smoother and make stringkit renaming more reliable (choice lines fucked things up lmao)
+
+Documentation
+- Move documentation into the project
+- add tutorial on adding bbcode to rubies
+- Move documentation to be built with Quartz and Github Pages. You can find it at https://snekofspice.github.io/diisis-docs/
+
+
+
+-------------------------------------------------
+DIISIS 0.6.5 2025-12-16
+surprise maintenance release
+
+Hosting noise jam and working on everyday sororicide brought forth many things that need addressing in a more surgical manner. Diisis was improved on many things.
+This release wasn't really planned, but it fixes a few important bugs, while lacking many of the bigger overhauls I wanted to put into 0.7, so for now, please take this offer with my upmost gratitude :awawa:
+
+General
+- Introduce fbrf tag: Full Body Replacement Function. put it as the sole text into your text line and it will fetch dialogue from the associated function. can be used for dynamic dialogue generation!
+- Fix bug where img and url bbcode would fuck with pause positions
+- name label history got broken with loner dog oopsie (fixed)
+
+Editor
+- Change auto actor population to instead start with numbers when initials are duplicated (might change again in the future idk)
+- Fix bug where inserting copied lines back to back would link them to the same text ids
+- Add ctrl + shift + v shortcut for text boxes to ingest with actor formatting
+- expand actor search window to include "any" option
+- add page menu filter & sort
+- add linearize confirm dialog
+
+Runtime
+- introduce ParserFactChange as helper class
+- add typesafe get_fact versions to Parser
+- rename ParserEvents.parser_paused_changed to ParserEvents.pause_change
+
+Under the Hood
+- give generic confirm windows in diisis the ability to open other windows
+
+-------------------------------------------------
+DIISIS 0.6.4 2025-10-02
+the post-noise-jam update!!!!
+
+Editor
+- small layout improvements
+- fix menubars on  mac not working as intended
+- fix editor scale not being preserved when opening the window again
+- preserve window size when opening the editor after minimizing
+- importing bug fix
+- save text line ingest window toggles across text lines
+
+Runtime
+- warning on adding a second line reader
+- building a choice with zero presented choices will advance the line
+- add LineReader.allow_mid_line_advance
+- add Parser.get_page_count()
+- add features around terminators to LineReader
+
+VN Template
+- reintroduced faggotry into the body label placeholder text in game_stage.tscn
+- Merge custom line reader and game stage into one node for better code structure
+- add audio bus layout setup to vn template setup
+
+Under the Hood
+- Purge text whose IDs are no longer referenced from the script file
+
+-------------------------------------------------
+DIISIS 0.6.3 2025-09-13
+the mid-noise jam hotfix or "well shit turns out there were a few critical bugs in that last patch"
+
+General
+- Clicking the button in the Godot editor now reliably opens the DIISIS window (and toggles between windowed / maximized view)
+
+Editor
+- fix closing tags not being recognized by text content
+- The "update available" hint now is based on the state of the assetlib instead of github tags
+	- If they ever change the HTML of their page this might break
+	- Said hint now also opens the in-Editor AssetLib instead of the web page
+		- Another thing that might break if the Godot *editor* is changed in layout in big ways
+- "Go to function" search functionality now tries to open Godot's Script editor
+- fix some data duplication leading to project fuckery
+
+Runtime
+- fix which parts of dialogue would get escaped for body_label_function_funnel around img and url tags
+- With name style None, some references weren't needed but were still expected, causing errors. that's been fixed.
+- fix actor lead time not initializing correctly on first dialine
+- add custom_blockers
+
+-------------------------------------------------
+DIISIS 0.6.2 2025-09-08
+NOISE JAM update :3 (+ the critical "oopsie references to addresses weren't getting updated anymore" patch)
+
+General
+- Improve docs in a few places
+- Trim leading and trailing spaces when handling dialog args
+
+Editor
+- add HTML entity code completion
+- fix inserting and deleting of pages not updating the "next" references
+- make that stuff actually respect a page's address mode
+
+under the hood
+- When trying to set up the VN template, the plugin will now check if addons/diisis/[...] exists and just throw a warning if the files / directories don't exist (means you can safely delete the templates if you don't need them)
+	- templates
+	- templates/_meta
+	- templates/_meta/template_setup_confirmation_window.tscn
+
+-------------------------------------------------
+DIISIS 0.6.1 2025-09-04
+Oopsie it's the patch for a few small things
+
+General
+- Make a few functions private
+- Add a hacky workaround to force the internal documentation to work (will be fixed with godot 4.5 afaik)
+
+Editor
+- Fix a bug in the LineReader find function where it'd add a triple "/"
+- Add HTML entity support (stuff like &lt;)
+- click on a fact item to go to its declaration in facts
+- some window ordering fixes
+
+Runtime
+- Improved an error message in LineReader
+- made LineReader.body_label_function_funnel skip tags
+
+-------------------------------------------------
+DIISIS 0.6 2025-09-03
+This shit breaks compatibility on so many levels! Might as well be a new plugin! Also includes LONER_DOG additions :3
+
+General
+- Introduce text IDs
+- Change to Godot 4.4.1
+- option to delete dropdowns
+- add ability to skip individual lines and entire pages
+- clean up documentation, especially LineReader and ParserEvents
+- fixes all around
+- automatically check for updates (can be disabled in Project Settings)
+- Refactor the entire instruction system
+- InstructionHandler is gone
+- numerous bug fixes
+- better performance
+- text export
+- text import
+- rubies
+- LineReaderActorConfig as a new resource!
+
+Editor
+- Add text ingestion (raw text ingestion into text boxes and files at large)
+- instructions:
+	- add default args
+	- dropdown arg limiters
+- Option for Save on Play (true by default)
+- Visual overhaul
+	- General layout improvements & slimmification
+	- Change editor fonts
+	- Add option to collapse Conditionals
+	- choice item views
+	- incoming page refs
+- fact deletion warning (if a page, line, or choice item contains a fact, this warns you of it. can be disabled in preferences)
+- add editor menu
+	- step through pages
+	- editor reload
+- Add option to be silly
+- Add several windows
+	- add actor search utility
+	- Incoming references window for Jump Page/Loopback
+	- add "fix punctuation" text option. Includes:
+		- period toggle
+		- apostrophes toggle
+		- replacement rules
+- more bbcode in hinting
+- When going to a specific address, the specified object will flash (page / line / choice item)
+- Less janky scroll behavior
+- Add linearize_pages option to Pages window
+
+Runtime
+- name style prepend got a few more options and consistency 
+- add ParserEvents: skipped, advanced
+- add LineReader: virtual_choices, choice_pressed_virtual, chatlog_tint_full_line, text_content_word_wrappers, body_label_function_funnel
+- rename and restructure some variables (most notably text_content is now body_label)
+- Parser.reset_and_start got line index argument (ioydoy cameo)
+- remove LineReader: property_for_name (was depricated) and inline_evaluator (merged with instruction_handler)
+- (de)serializes the function execution state now. So even when executing a function, you can quit the game and just persist all the things
+- Empty pages will now cause the Parser to go to their next page, and not return without change.
+
+VN Template
+- improve template by using _unhandled_input instead of _input, fixing a few input bugs
+- add screen fade in / out
+- tscn CG support (they have to be Control nodes)
+- demo_script.json contains more info now
+- text speed preview in options screen
+
+under the hood
+- remove chunks as a concept in line reader
+- move instruction argument interpreting parser-side. this shrinks files down a bit and gets rid of a bit of code duplication since inline calls were interpreted at runtime already. regular instructions now just follow suit.
+- give lines an ID. Isn't used directly but should help with tracking things throughout merge conflicts and is necessary for importing/export text
+- some code cleanup in the plugin itself!
+- change LineReader to inherit from Node instead of Control
+- introduce generic subwindow to editor
+
+-------------------------------------------------
+DIISIS 0.5.1 2025-03-18
+
+General
+- add comment tag <comment:some info>
+	- will be invisible in the UI but get printed to the console
+	- ParserEvents.comment also added
+
+Editor
+- new file was broken. got fixed
+
+Runtime
+- more features related to LineReader.keep_past_lines
+- add chatlog layouting option to LineReader
+- add LineReader.full_words
+
+VN template
+- generalzed notice screen in template
+
+
+-------------------------------------------------
+DIISIS 0.5 2025-03-13
+
+General
+- Upgrade to Godot 4.4
+- use typed dictionaries where appripriate
+
+Editor
+- more keyboard shortcuts
+- fixes re:address mode
+
+
+-------------------------------------------------
+DIISIS 0.4.1 2025-03-12
+
+General
+- GitHub issue temlates
+
+Editor
+- Handle elipses (...) in the Capitalize function of text lines
+- more features around address mode buttons (page menu reset button and more)
+
+VN template
+- add cg fadeout
+
+
+-------------------------------------------------
+DIISIS 0.4 changelog 2025-03-04
+This is the No Empty Threats update
+
+
+General
+- Change license from MIT to COOPERATIVE NON-VIOLENT PUBLIC LICENSE v7
+- fixed some bugs on all fronts
+- editor can be opened with keyboard shortcut again (Ctrl + Alt + D)
+- instruction names can include numbers now
+- Add new logo (logo3.png and logo3_nosub.png)
+
+
+Editor
+- fix option buttons not showing their dropdowns if in subwindow (used for header properties)
+- add argument hinting to inline function calls
+- restore ability to remember the page you were on when you closed the editor
+- add shortcut for Go To (ctrl + G)
+- clarify "Text" menu button to say "Text Formatting"
+- add "Neaten Whitespace" to text formatting
+- add esoteric runes
+
+Runtime
+- Add Parser.read_page_by_key()
+
+visual novel template
+- Add save slot system
+- Add epilogue functionality
+- Add character.extras
+- Remove blockers system
+- Move screens into their own canvaslayer
+
+under the hood
+- add a few utility functions to Pages regarding Facts
+- make a custom option button
+
+
+#####
+REGION ORDER
+General
+Editor
+Runtime
+VN Template
+Under the Hood

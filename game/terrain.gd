@@ -18,3 +18,4 @@ func spawn_birds(amount : int):
 			item.global_position = corpse.global_position
 			item.interaction_type = Item.InteractionType.ItemPickup
 			)
+		EventBus.bird_created.emit(bird)

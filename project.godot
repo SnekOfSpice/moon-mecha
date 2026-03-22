@@ -10,15 +10,37 @@ config_version=5
 
 [application]
 
-config/name="moon mecha"
+config/name="Descend, Oh Sister Moon"
 run/main_scene="uid://cmyfhuosdqfuj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://d1gqcysug3a3t"
 
 [autoload]
 
 Data="*uid://daj37fv6lv53f"
 EventBus="*uid://b7p022sp2et03"
+DIISIS="*uid://c65bwbdhvxdto"
+DiisisEditorEventBus="*uid://e5fx4v6mprlc"
+Pages="*uid://djgc8of5qiexy"
+DiisisEditorUtil="*uid://dxr1r0c3qd0tr"
+DiisisEditorActions="*uid://dfci2vklbcx15"
+TextToDiisis="*uid://d0pi2gsh3lskp"
+Parser="*uid://b4ny85mdnxwoy"
+ParserEvents="*uid://dinb6lf0qoexi"
+CONST="*uid://p3oh1wedya4m"
+Options="*uid://b7rjagd305cd2"
+Sound="*uid://c0in5m4lpc6o3"
+
+[diisis]
+
+plugin/view/embedded=true
+project/file/path=""
+plugin/checks/check_for_updates=true
+plugin/checks/check_for_linux_input=true
 
 [display]
 
@@ -28,7 +50,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/MarchingSquaresTerrain/plugin.cfg")
+enabled=PackedStringArray("res://addons/MarchingSquaresTerrain/plugin.cfg", "res://addons/diisis/plugin.cfg")
 
 [input]
 
@@ -65,6 +87,11 @@ interact={
 shoot={
 "deadzone": 0.2,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+aiming={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 

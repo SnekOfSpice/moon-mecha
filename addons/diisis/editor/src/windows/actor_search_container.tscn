@@ -1,0 +1,131 @@
+[gd_scene load_steps=3 format=3 uid="uid://pq57xgpvu0ih"]
+
+[ext_resource type="Script" uid="uid://bgydnthbtpt1i" path="res://addons/diisis/editor/src/windows/actor_search_container.gd" id="1_34mes"]
+
+[sub_resource type="ButtonGroup" id="ButtonGroup_34mes"]
+
+[node name="ActorSearchContainer" type="Control"]
+custom_minimum_size = Vector2(600, 400)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_34mes")
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HSplitContainer" type="HSplitContainer" parent="HSplitContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer2/HSplitContainer"]
+layout_mode = 2
+
+[node name="SearchButton" type="Button" parent="HSplitContainer2/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Search"
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer2/HSplitContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="GridContainer" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/v_separation = -3
+columns = 3
+
+[node name="AllCheckBox" type="CheckBox" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 11
+button_pressed = true
+button_group = SubResource("ButtonGroup_34mes")
+flat = true
+text_overrun_behavior = 1
+
+[node name="ExactCheckBox" type="CheckBox" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 11
+button_group = SubResource("ButtonGroup_34mes")
+flat = true
+text_overrun_behavior = 1
+
+[node name="AnyCheckBox" type="CheckBox" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_font_sizes/font_size = 11
+button_group = SubResource("ButtonGroup_34mes")
+text = "Any"
+flat = true
+text_overrun_behavior = 1
+
+[node name="AllLabel" type="Label" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "All"
+horizontal_alignment = 1
+
+[node name="ExactLabel" type="Label" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Exact"
+horizontal_alignment = 1
+
+[node name="AnyLabel" type="Label" parent="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "Any"
+horizontal_alignment = 1
+
+[node name="ActorList" type="ItemList" parent="HSplitContainer2/HSplitContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(110, 0)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+select_mode = 2
+allow_reselect = true
+item_count = 1
+item_0/text = "sdfsdf"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="HSplitContainer2/HSplitContainer"]
+layout_mode = 2
+
+[node name="GoToButton" type="Button" parent="HSplitContainer2/HSplitContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Go"
+
+[node name="ResultsList" type="ItemList" parent="HSplitContainer2/HSplitContainer/VBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+focus_mode = 0
+item_count = 1
+item_0/text = "dfgdfg"
+
+[node name="PanelContainer" type="PanelContainer" parent="HSplitContainer2"]
+layout_mode = 2
+
+[node name="ResultLabel" type="RichTextLabel" parent="HSplitContainer2/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="HSplitContainer2/HSplitContainer/VBoxContainer/SearchButton" to="." method="fetch_results"]
+[connection signal="pressed" from="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer/AllCheckBox" to="." method="fetch_results"]
+[connection signal="pressed" from="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer/ExactCheckBox" to="." method="fetch_results"]
+[connection signal="pressed" from="HSplitContainer2/HSplitContainer/VBoxContainer/PanelContainer/HBoxContainer/AnyCheckBox" to="." method="fetch_results"]
+[connection signal="pressed" from="HSplitContainer2/HSplitContainer/VBoxContainer2/GoToButton" to="." method="_on_go_to_button_pressed"]
+[connection signal="item_activated" from="HSplitContainer2/HSplitContainer/VBoxContainer2/ResultsList" to="." method="_on_results_list_item_activated"]
+[connection signal="item_selected" from="HSplitContainer2/HSplitContainer/VBoxContainer2/ResultsList" to="." method="_on_results_list_item_selected"]

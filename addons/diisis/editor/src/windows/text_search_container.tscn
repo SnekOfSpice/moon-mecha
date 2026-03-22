@@ -1,0 +1,115 @@
+[gd_scene load_steps=2 format=3 uid="uid://stb4ad3iost2"]
+
+[ext_resource type="Script" uid="uid://ydli5pl1jt4u" path="res://addons/diisis/editor/src/windows/text_search_container.gd" id="1_m62qa"]
+
+[node name="TextSearchContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m62qa")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="QueryTextEdit" type="LineEdit" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+select_all_on_focus = true
+
+[node name="SearchButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+text = "Search"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CaseSensitiveButton" type="CheckBox" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+focus_mode = 0
+text = "Case Sensitive"
+
+[node name="IncludeTagsButton" type="CheckBox" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+focus_mode = 0
+text = "Include Tags"
+
+[node name="CurrentPageOnlyCheckBox" type="CheckBox" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Current Page"
+
+[node name="ReplaceContainer" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="ReplaceTextEdit" type="TextEdit" parent="VBoxContainer/ReplaceContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ReplaceContainer"]
+layout_mode = 2
+
+[node name="ReplaceLocallyButton" type="Button" parent="VBoxContainer/ReplaceContainer/VBoxContainer"]
+layout_mode = 2
+text = "Replace Here"
+
+[node name="ReplaceAllInTypeButton" type="Button" parent="VBoxContainer/ReplaceContainer/VBoxContainer"]
+auto_translate_mode = 1
+layout_mode = 2
+text = "Replace All In Type"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="GoToButton" type="Button" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Go To"
+
+[node name="ResultCountLabel" type="Label" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+text = "0 results"
+
+[node name="ItemList" type="ItemList" parent="VBoxContainer/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResultLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[connection signal="text_submitted" from="VBoxContainer/HBoxContainer/QueryTextEdit" to="." method="update_query"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/SearchButton" to="." method="_on_search_button_pressed"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer3/CaseSensitiveButton" to="." method="_on_case_sensitive_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer3/IncludeTagsButton" to="." method="_on_include_tags_button_toggled"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer3/CurrentPageOnlyCheckBox" to="." method="_on_current_page_only_check_box_toggled"]
+[connection signal="pressed" from="VBoxContainer/ReplaceContainer/VBoxContainer/ReplaceLocallyButton" to="." method="request_replace_local"]
+[connection signal="pressed" from="VBoxContainer/ReplaceContainer/VBoxContainer/ReplaceAllInTypeButton" to="." method="request_replace_all_in_type"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/VBoxContainer/GoToButton" to="." method="_on_go_to_button_pressed"]
+[connection signal="item_activated" from="VBoxContainer/HBoxContainer2/VBoxContainer/ItemList" to="." method="_on_item_list_item_activated"]
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer2/VBoxContainer/ItemList" to="." method="_on_item_list_item_selected"]
+[connection signal="meta_clicked" from="VBoxContainer/HBoxContainer2/VBoxContainer2/ResultLabel" to="." method="_on_result_label_meta_clicked"]

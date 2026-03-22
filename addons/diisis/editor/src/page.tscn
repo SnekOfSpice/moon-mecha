@@ -1,0 +1,251 @@
+[gd_scene format=3 uid="uid://bl3r0kwwycrmw"]
+
+[ext_resource type="Script" uid="uid://subqq2sc1dmq" path="res://addons/diisis/editor/src/page.gd" id="1_2lug2"]
+[ext_resource type="Texture2D" uid="uid://c5jprlaidnag" path="res://addons/diisis/editor/visuals/theme/buttons_ui/ticked_goto.png" id="2_2dyyr"]
+[ext_resource type="PackedScene" uid="uid://bgvfjindfxypf" path="res://addons/diisis/editor/src/facts.tscn" id="2_eeb01"]
+[ext_resource type="Texture2D" uid="uid://bvfeiavga4a2q" path="res://addons/diisis/editor/visuals/theme/buttons_ui/skip_enabled.png" id="2_vubmj"]
+[ext_resource type="Texture2D" uid="uid://cmdgrenadfgy7" path="res://addons/diisis/editor/visuals/theme/buttons_ui/skip_disabled.png" id="2_ykglj"]
+[ext_resource type="Texture2D" uid="uid://ddfoy8nqykk88" path="res://addons/diisis/editor/visuals/theme/buttons_ui/ticked_terminate.png" id="3_m7kjo"]
+[ext_resource type="PackedScene" uid="uid://dybsbden6coq5" path="res://addons/diisis/editor/src/address_mode_button.tscn" id="4_rsy28"]
+[ext_resource type="FontVariation" uid="uid://bcys5sythdtnk" path="res://addons/diisis/editor/visuals/theme/fonts/text_main_bold.tres" id="4_v77o4"]
+[ext_resource type="Texture2D" uid="uid://bl7wslwydkk7g" path="res://addons/diisis/editor/visuals/theme/buttons_ui/delete_page.png" id="6_yg0hh"]
+[ext_resource type="PackedScene" uid="uid://bixawifxp2bsf" path="res://addons/diisis/editor/src/go_to_highlight.tscn" id="10_3lfos"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m6srl"]
+bg_color = Color(0.28, 0.0924, 0.229973, 0.156863)
+border_width_left = 4
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 4
+border_color = Color(0.09, 0.09, 0.09, 0.764706)
+border_blend = true
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_v77o4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yg0hh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mg67t"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xj8yh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vobab"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gmiuk"]
+
+[node name="Page" type="VBoxContainer" unique_id=135503408]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_2lug2")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1834488159]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_m6srl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer" unique_id=148204414]
+layout_mode = 2
+
+[node name="Info" type="HBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=851636733]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkipCheckBox" type="CheckBox" parent="PanelContainer/HBoxContainer/Info" unique_id=1409418502]
+layout_mode = 2
+tooltip_text = "Skip"
+theme_type_variation = &"Special"
+theme_override_icons/checked = ExtResource("2_vubmj")
+theme_override_icons/unchecked = ExtResource("2_ykglj")
+
+[node name="IncomingReferences" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Info" unique_id=1235529911]
+self_modulate = Color(1, 1, 1, 0.639216)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("4_v77o4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v77o4")
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+meta_underlined = false
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Info" unique_id=750656136]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="LineSelector" type="CheckBox" parent="PanelContainer/HBoxContainer/Info/MarginContainer" unique_id=1288883830]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+focus_mode = 0
+
+[node name="PageKeyEditContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/Info" unique_id=444598413]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer" unique_id=1664791906]
+layout_mode = 2
+
+[node name="PageKeyEditButton" type="CheckButton" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer" unique_id=1493552651]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+text = "edit page key"
+
+[node name="Number" type="Label" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer" unique_id=1044008835]
+layout_mode = 2
+tooltip_text = "Page index (address[0])"
+mouse_filter = 1
+theme_override_font_sizes/font_size = 16
+text = "0"
+
+[node name="Seperator" type="Label" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer" unique_id=2102306856]
+visible = false
+layout_mode = 2
+text = "|"
+
+[node name="PageKeyLineEdit" type="LineEdit" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer" unique_id=1769543353]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Edit page key (click or Ctrl+E)
+[Escape] to cancel
+[Enter] to save"
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 0.682353, 0.270588, 0.603922)
+theme_override_constants/outline_size = 1
+theme_override_font_sizes/font_size = 16
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_yg0hh")
+keep_editing_on_text_submit = true
+expand_to_text_length = true
+
+[node name="PageKeyWarning" type="Label" parent="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" unique_id=884840151]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 5.0
+offset_top = -22.0
+offset_right = 45.0
+offset_bottom = 1.0
+theme_override_colors/font_color = Color(0.932674, 0.293872, 0.497917, 1)
+
+[node name="TerminateCheck" type="CheckBox" parent="PanelContainer/HBoxContainer/Info" unique_id=1865979944]
+self_modulate = Color(1, 1, 1, 0.737255)
+layout_mode = 2
+size_flags_vertical = 4
+tooltip_text = "Terminate: Terminates the page, stopping the parser from reading the next one automatically, emitting page_terminated.
+Useful for dialog scenes that are broken up with other gameplay and the endings of visual novels."
+focus_mode = 0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mg67t")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_xj8yh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_vobab")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_gmiuk")
+theme_override_icons/checked = ExtResource("3_m7kjo")
+theme_override_icons/unchecked = ExtResource("2_2dyyr")
+
+[node name="NextContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/Info" unique_id=426184162]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/Info/NextContainer" unique_id=1874780845]
+visible = false
+layout_mode = 2
+text = "->"
+
+[node name="NextLineEdit" type="SpinBox" parent="PanelContainer/HBoxContainer/Info/NextContainer" unique_id=1229577782]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="NextKey" type="RichTextLabel" parent="PanelContainer/HBoxContainer/Info/NextContainer" unique_id=1662142868]
+self_modulate = Color(1, 1, 1, 0.815686)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/normal_font = ExtResource("4_v77o4")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_v77o4")
+bbcode_enabled = true
+text = "-> 1 | pagekey"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+meta_underlined = false
+
+[node name="AddressModeButton" parent="PanelContainer/HBoxContainer/Info" unique_id=259103624 node_paths=PackedStringArray("address_source") instance=ExtResource("4_rsy28")]
+layout_mode = 2
+address_source = NodePath("../../../..")
+address_function = "get_next"
+
+[node name="Facts" parent="PanelContainer/HBoxContainer/Info" unique_id=720547428 instance=ExtResource("2_eeb01")]
+layout_mode = 2
+address_depth = 0
+
+[node name="Deletion" type="VBoxContainer" parent="PanelContainer/HBoxContainer" unique_id=1879090632]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="DeleteButton" type="Button" parent="PanelContainer/HBoxContainer/Deletion" unique_id=1064513585]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+icon = ExtResource("6_yg0hh")
+
+[node name="DeletePromptContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer/Deletion" unique_id=1622212768]
+visible = false
+layout_mode = 2
+
+[node name="DeleteConfirmLabel" type="Label" parent="PanelContainer/HBoxContainer/Deletion/DeletePromptContainer" unique_id=2114608334]
+layout_mode = 2
+text = "Press again to delete"
+
+[node name="CancelDeletionButton" type="Button" parent="PanelContainer/HBoxContainer/Deletion/DeletePromptContainer" unique_id=1871654222]
+layout_mode = 2
+text = "Cancel Page Deletion"
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1006303991]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="GoToHighlight" parent="MarginContainer" unique_id=546247761 instance=ExtResource("10_3lfos")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1542544868]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer" unique_id=70106463]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Lines" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer" unique_id=1866248699]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer" unique_id=172265541]
+visible = false
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+mouse_filter = 2
+
+[connection signal="toggled" from="PanelContainer/HBoxContainer/Info/SkipCheckBox" to="." method="set_skip"]
+[connection signal="meta_clicked" from="PanelContainer/HBoxContainer/Info/IncomingReferences" to="." method="_on_incoming_references_meta_clicked"]
+[connection signal="toggled" from="PanelContainer/HBoxContainer/Info/MarginContainer/LineSelector" to="." method="_on_line_selector_toggled"]
+[connection signal="toggled" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyEditButton" to="." method="_on_page_key_edit_button_toggled"]
+[connection signal="focus_exited" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_focus_exited"]
+[connection signal="gui_input" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_gui_input"]
+[connection signal="mouse_entered" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_mouse_entered"]
+[connection signal="mouse_exited" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_mouse_exited"]
+[connection signal="text_changed" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_text_changed"]
+[connection signal="text_submitted" from="PanelContainer/HBoxContainer/Info/PageKeyEditContainer/PageKeyLineEdit" to="." method="_on_page_key_line_edit_text_submitted"]
+[connection signal="toggled" from="PanelContainer/HBoxContainer/Info/TerminateCheck" to="." method="_on_terminate_check_toggled"]
+[connection signal="value_changed" from="PanelContainer/HBoxContainer/Info/NextContainer/NextLineEdit" to="." method="_on_next_line_edit_value_changed"]
+[connection signal="meta_clicked" from="PanelContainer/HBoxContainer/Info/NextContainer/NextKey" to="." method="_on_next_key_meta_clicked"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Deletion/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Deletion/DeletePromptContainer/CancelDeletionButton" to="." method="_on_cancel_deletion_button_pressed"]
