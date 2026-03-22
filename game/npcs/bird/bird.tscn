@@ -11,6 +11,7 @@ radius = 4.205078
 radius = 2.1333747
 
 [node name="Bird" type="CharacterBody3D" unique_id=24554342]
+collision_layer = 3
 script = ExtResource("1_6gsr1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2098072159]

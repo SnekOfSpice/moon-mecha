@@ -154,7 +154,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		if $RayCast3D.get_collider() is Bird:
 			$RayCast3D.get_collider().is_hit = true
-
+	if event.is_action_pressed("safety_left"):
+		pass
+	if event.is_action("switch_mode"):
+		pass
+		
 
 func handle_interaction(item : Item):
 	match item.interaction_type:

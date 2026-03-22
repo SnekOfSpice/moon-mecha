@@ -4,7 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dejy7s1dy6p32" path="res://game/player/cockpit.tscn" id="2_b2mth"]
 [ext_resource type="Script" uid="uid://dmolrs5r3omtl" path="res://game/player/main_screen_vp.gd" id="3_5fytw"]
 [ext_resource type="PackedScene" uid="uid://c34tlcysobtl6" path="res://game/player/weapons/pistol/pistol.tscn" id="3_8soms"]
+[ext_resource type="Texture2D" uid="uid://hwmiq07sdfcb" path="res://game/ui/tracker.png" id="4_4ste8"]
 [ext_resource type="PackedScene" uid="uid://k0wuudevyq6u" path="res://game/player/weapons/sniper/sniper.tscn" id="4_a4w0n"]
+[ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="6_anr75"]
 
 [sub_resource type="Curve" id="Curve_b2mth"]
 _data = [Vector2(0, 0.10710132), 0.0, 0.0, 0, 0, Vector2(0.5735295, 0.52328295), 1.715173, 1.715173, 0, 0, Vector2(0.82940185, 1), -2.7441216, -2.7441216, 0, 0, Vector2(0.82941186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.22060537), 7.0567193, 0.0, 0, 0]
@@ -63,23 +65,81 @@ projection = 1
 transform = Transform3D(0.005710556, 0.25966963, -0.10458995, 0.27310896, -0.02813945, -0.054951355, -0.06147251, -0.10089511, -0.25385284, 0.6922627, 1.3080616, 0.31592387)
 texture = SubResource("ViewportTexture_8soms")
 
-[node name="LeftVP" type="SubViewport" parent="cockpit/ScreenL" unique_id=329843398]
+[node name="LeftVP" type="SubViewport" parent="cockpit/ScreenL" unique_id=329843398 node_paths=PackedStringArray("canvas_layer", "camera")]
 size = Vector2i(240, 180)
+script = ExtResource("3_5fytw")
+canvas_layer = NodePath("CanvasLayer")
+camera = NodePath("Camera3D")
+track_items = false
+track_npcs = false
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenL/LeftVP" unique_id=839239164]
-transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, -2.5117755, 2.5141041, -0.962036)
+transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, -2.6648283, 2.8604724, -0.962036)
 fov = 60.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenL/LeftVP" unique_id=1822950313]
+
+[node name="TextureRect" type="TextureRect" parent="cockpit/ScreenL/LeftVP/CanvasLayer" unique_id=497117633]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4ste8")
+
+[node name="Label" type="Label" parent="cockpit/ScreenL/LeftVP/CanvasLayer/TextureRect" unique_id=2139358479]
+layout_mode = 0
+offset_left = 2.375
+offset_top = 21.875
+offset_right = 42.375
+offset_bottom = 44.875015
+rotation = 1.5707964
 
 [node name="ScreenR" type="Sprite3D" parent="cockpit" unique_id=255033598]
 transform = Transform3D(-0.0068293433, -0.25381866, 0.11802283, -0.27337617, -0.019323481, -0.05737567, 0.06015584, -0.11663032, -0.24734296, -0.6922082, 1.3080616, 0.31947103)
 texture = SubResource("ViewportTexture_a4w0n")
 
-[node name="RightVP" type="SubViewport" parent="cockpit/ScreenR" unique_id=1274194098]
+[node name="RightVP" type="SubViewport" parent="cockpit/ScreenR" unique_id=1274194098 node_paths=PackedStringArray("canvas_layer", "camera")]
 size = Vector2i(240, 180)
+script = ExtResource("3_5fytw")
+canvas_layer = NodePath("CanvasLayer")
+camera = NodePath("Camera3D")
+track_items = false
+track_npcs = false
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
 transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
 fov = 37.849285
+
+[node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenR/RightVP" unique_id=678415370]
+
+[node name="TextureRect" type="TextureRect" parent="cockpit/ScreenR/RightVP/CanvasLayer" unique_id=1720146089]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_4ste8")
+
+[node name="Label" type="Label" parent="cockpit/ScreenR/RightVP/CanvasLayer/TextureRect" unique_id=272643249]
+layout_mode = 0
+offset_left = 39.36
+offset_top = 40.83
+offset_right = 79.36001
+offset_bottom = 63.83004
+rotation = -1.5707964
 
 [node name="MainScreenSprite" type="Sprite3D" parent="cockpit" unique_id=561845568]
 unique_name_in_owner = true
@@ -90,10 +150,12 @@ texture = SubResource("ViewportTexture_5fytw")
 transform = Transform3D(5.8823524, -7.1300277e-09, 9.888282e-11, 6.9725115e-09, 5.7683816, 1.1523225, -1.4937024e-09, -1.1523225, 5.7683816, -0.035710983, 2.6521645, -3.2563539)
 remote_path = NodePath("../MainScreenVP/Camera3D")
 
-[node name="MainScreenVP" type="SubViewport" parent="cockpit/MainScreenSprite" unique_id=853368188]
+[node name="MainScreenVP" type="SubViewport" parent="cockpit/MainScreenSprite" unique_id=853368188 node_paths=PackedStringArray("canvas_layer", "camera")]
 unique_name_in_owner = true
 size = Vector2i(240, 180)
 script = ExtResource("3_5fytw")
+canvas_layer = NodePath("CanvasLayer")
+camera = NodePath("Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1701990803]
 unique_name_in_owner = true
@@ -138,17 +200,37 @@ remote_path = NodePath("../../ScreenR/RightVP/Camera3D")
 [node name="pistol2" parent="cockpit/WeaponSwivelRight" unique_id=45297058 instance=ExtResource("3_8soms")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5989983, -0.25003362, -0.9271045)
 
+[node name="WeaponRaycastR" type="RayCast3D" parent="cockpit/WeaponSwivelRight" unique_id=640247355 node_paths=PackedStringArray("crosshairs", "id_label")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5652032, 0, 0)
+target_position = Vector3(0, 0, -4000)
+collision_mask = 2
+collide_with_areas = true
+script = ExtResource("6_anr75")
+crosshairs = NodePath("../../ScreenR/RightVP/CanvasLayer/TextureRect")
+id_label = NodePath("../../ScreenR/RightVP/CanvasLayer/TextureRect/Label")
+
 [node name="WeaponSwivelLeft" type="Node3D" parent="cockpit" unique_id=614809164]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.804832, 0.29976702, 0.16956127)
 
 [node name="RemoteTransformLeft" type="RemoteTransform3D" parent="cockpit/WeaponSwivelLeft" unique_id=1394268414]
-transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, 0.2930565, -0.035972357, -0.792475)
+transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, 0.14000368, 0.31039596, -0.792475)
 remote_path = NodePath("../../ScreenL/LeftVP/Camera3D")
 
 [node name="sniper2" parent="cockpit/WeaponSwivelLeft" unique_id=1594836592 instance=ExtResource("4_a4w0n")]
 
+[node name="WeaponRaycastL" type="RayCast3D" parent="cockpit/WeaponSwivelLeft" unique_id=1179153998 node_paths=PackedStringArray("crosshairs", "id_label")]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -4000)
+collision_mask = 2
+collide_with_areas = true
+script = ExtResource("6_anr75")
+crosshairs = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect")
+id_label = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect/Label")
+
 [node name="InteractionRange" type="Area3D" parent="." unique_id=1565225083]
+collision_mask = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionRange" unique_id=1952121836]
 transform = Transform3D(1, 0, 0, 0, 0.04198028, -0.99911845, 0, 0.99911845, 0.04198028, 0, 2.3535507, -3.5053473)

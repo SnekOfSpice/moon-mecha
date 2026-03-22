@@ -17,7 +17,7 @@ func of(property : String, default : Variant = 0) -> Variant:
 
 func change_by(property : String, change) -> void:
 	var value = of(property)
-	if not (typeof(value) is int or typeof(value is float)):
+	if not typeof(value) in [2, 3]: # int float
 		push_warning("trying to change non-number property %s by %s" % [property, change])
 		return
 	apply(property, value + change)

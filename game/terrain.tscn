@@ -17,7 +17,9 @@ sky_material = SubResource("PanoramaSkyMaterial_o8m01")
 background_mode = 2
 sky = SubResource("Sky_ejiea")
 reflected_light_source = 2
-tonemap_exposure = 2.86
+tonemap_mode = 1
+tonemap_exposure = 1.14
+tonemap_white = 1.13
 tonemap_agx_white = 14.12
 tonemap_agx_contrast = 2.0
 
@@ -38,6 +40,15 @@ shader_parameter/intensity = 1.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_ub6ft"]
 size = Vector3(100, 1, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_o8m01"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ub6ft"]
+noise = SubResource("FastNoiseLite_o8m01")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ejiea"]
+albedo_color = Color(0.34530294, 0.28115165, 0.51890236, 1)
+albedo_texture = SubResource("NoiseTexture2D_ub6ft")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ejiea"]
 size = Vector3(100, 1, 100)
@@ -74,9 +85,13 @@ tech_id = "venus"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=920830051]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.660933, 0)
+layers = 3
 mesh = SubResource("BoxMesh_ub6ft")
+surface_material_override/0 = SubResource("StandardMaterial3D_ejiea")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D" unique_id=24181606]
+collision_layer = 3
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D" unique_id=499309595]
 shape = SubResource("BoxShape3D_ejiea")
@@ -84,11 +99,13 @@ shape = SubResource("BoxShape3D_ejiea")
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1457426847]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.104872, 7.7883987)
 light_color = Color(0.89202577, 0.5473642, 0.44251087, 1)
+light_cull_mask = 4294967293
 omni_range = 35.395
 omni_attenuation = 1.784
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=145733678]
 transform = Transform3D(1, 0, 0, 0, 0.7183692, 0.6956621, 0, -0.6956621, 0.7183692, 0, 11.4388895, 0)
+light_cull_mask = 4294967293
 
 [node name="BirdSpawns" type="Node3D" parent="." unique_id=2091173389]
 
