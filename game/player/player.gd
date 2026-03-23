@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	#print(throttle, velocity.length())
 
-var last_collider : Node3D
+#var last_collider : Node3D
 func _process(delta: float) -> void:
 	
 	var relsize  :Vector2= %MainScreenSprite.texture.get_size() * %PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position)
@@ -114,33 +114,22 @@ func _process(delta: float) -> void:
 		#if ($RayCast3D.get_collider() == $RayCast3D2.get_collider()) and ($RayCast3D3.get_collider() == $RayCast3D2.get_collider()):
 			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
 			#collider = $RayCast3D.get_collider()
-	var target_pos :Vector3=  %PlayerCamera.project_position(mouse_pos, depth)
+	#print(mouse_pos)
+	mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
+	mouse_pos.y = clamp(mouse_pos.y, 0, 340)
+	var target_pos : Vector3 =  %PlayerCamera.project_position(mouse_pos, depth)
+	#printt(%AimTargetCenter.position.z, %AimTargetR.position.z)
 	#if target_pos.distance_to(%AimTargetCenter.global_position) <= 4:
-	if Input.is_action_pressed("aiming"):
-		if collider == last_collider:
-			%AimTarget.global_position = target_pos
-		else:
-			%AimTarget.global_position = lerp(%AimTarget.global_position, target_pos, 0.4 * delta)
-		$RayCast3D.look_at(%AimTarget.global_position)
-		$RayCast3D2.look_at(%AimTarget.global_position)
-		$RayCast3D3.look_at(%AimTarget.global_position)
-	if collider:
-		last_collider = collider
+	if Input.is_action_pressed("aiming_right"):
+		%AimTargetR.global_position = lerp(%AimTargetR.global_position, target_pos, 1.4 * delta)
+	if Input.is_action_pressed("aiming_left"):
+		%AimTargetL.global_position = lerp(%AimTargetL.global_position, target_pos, 1.4 * delta)
+	%WeaponSwivelRight.look_at(%AimTargetR.global_position)
+	%WeaponSwivelLeft.look_at(%AimTargetL.global_position)
 	
+	# RESET
+	#%WeaponSwivelLeft.look_at(Vector3.FORWARD.rotated(Vector3.UP,rotation.y) * 2000)
 	
-	#%AimTarget.position.x = ( get_viewport().get_mouse_position().x - get_viewport().get_visible_rect().size.x * 0.5 ) * 3 / get_viewport().get_visible_rect().size.x
-	#%AimTarget.position.y = (-get_viewport().get_mouse_position().y - get_viewport().get_visible_rect().size.y * 0.5 ) * 3 / get_viewport().get_visible_rect().size.y
-	#%AimTarget.position.y += 7
-	#%AimTarget.position.z = -10
-	%WeaponSwivelRight.look_at(%AimTarget.global_position)
-	%WeaponSwivelLeft.look_at(%AimTarget.global_position)
-	
-	#printt(
-		#%PlayerCamera.unproject_position(%MainScreenSprite.global_position),
-		#(get_viewport().get_mouse_position() - relsize * 0.5) / relsize,
-		#%PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position),
-		#get_viewport().get_mouse_position()
-	#)
 	
 var turn_dir : float
 
@@ -151,9 +140,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if current_item:
 			handle_interaction(current_item)
-	if event.is_action_pressed("shoot"):
-		if $RayCast3D.get_collider() is Bird:
-			$RayCast3D.get_collider().is_hit = true
+	if event.is_action_pressed("shoot_left"):
+		if %WeaponRaycastL.get_collider() is Bird:
+			%WeaponRaycastL.get_collider().is_hit = true
+	if event.is_action_pressed("shoot_right"):
+		if %WeaponRaycastR.get_collider() is Bird:
+			%WeaponRaycastR.get_collider().is_hit = true
 	if event.is_action_pressed("safety_left"):
 		pass
 	if event.is_action("switch_mode"):

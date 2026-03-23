@@ -164,6 +164,21 @@ fov = 90.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1452596373]
 
+[node name="MainScreenCenter" type="Control" parent="cockpit/MainScreenSprite/MainScreenVP/CanvasLayer" unique_id=1393208220]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="TopL" type="Marker3D" parent="cockpit/MainScreenSprite" unique_id=426628012]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -7.1054274e-15, 0, 0.9999999, -2.9802322e-08, 0, 2.9802322e-08, 0.9999999, -1.0833659, 0.8359709, -0.004421234)
@@ -316,11 +331,18 @@ offset_right = 40.0
 offset_bottom = 11.5
 grow_vertical = 2
 
-[node name="AimTarget" type="Marker3D" parent="." unique_id=1592630261]
+[node name="AimTargetR" type="Marker3D" parent="." unique_id=1592630261]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093559146, 3.6818242, -7.147935)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AimTarget" unique_id=887914299]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AimTargetR" unique_id=887914299]
+mesh = SubResource("SphereMesh_8soms")
+
+[node name="AimTargetL" type="Marker3D" parent="." unique_id=837629682]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.093559146, 3.6818242, -7.147935)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AimTargetL" unique_id=1741115119]
 mesh = SubResource("SphereMesh_8soms")
 
 [node name="AimTargetCenter" type="Marker3D" parent="." unique_id=1949618864]
