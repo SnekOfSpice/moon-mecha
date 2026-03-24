@@ -245,22 +245,22 @@ script = ExtResource("6_anr75")
 crosshairs = NodePath("../../ScreenR/RightVP/CanvasLayer/TextureRect")
 id_label = NodePath("../../ScreenR/RightVP/CanvasLayer/TextureRect/Label")
 
-[node name="Marker5" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=130641710]
+[node name="Rangefinder5" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=130641710]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
-[node name="Marker10" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=502462517]
+[node name="Rangefinder10" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=502462517]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
-[node name="Marker15" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1332685664]
+[node name="Rangefinder15" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1332685664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -15)
 
-[node name="Marker20" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1960558383]
+[node name="Rangefinder20" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1960558383]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
-[node name="Marker2" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=644753383]
+[node name="Rangefinder2" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=644753383]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
-[node name="Marker3" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1645727259]
+[node name="Rangefinder3" type="Marker3D" parent="cockpit/WeaponSwivelRight/WeaponRaycastR" unique_id=1645727259]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -7)
 
 [node name="WeaponSwivelLeft" type="Node3D" parent="cockpit" unique_id=614809164]
@@ -282,10 +282,10 @@ script = ExtResource("6_anr75")
 crosshairs = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect")
 id_label = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect/Label")
 
-[node name="Marker3" type="Marker3D" parent="cockpit/WeaponSwivelLeft/WeaponRaycastL" unique_id=815149192]
+[node name="Rangefinder3" type="Marker3D" parent="cockpit/WeaponSwivelLeft/WeaponRaycastL" unique_id=815149192]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
 
-[node name="Marker5" type="Marker3D" parent="cockpit/WeaponSwivelLeft/WeaponRaycastL" unique_id=1788499387]
+[node name="Rangefinder5" type="Marker3D" parent="cockpit/WeaponSwivelLeft/WeaponRaycastL" unique_id=1788499387]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="InteractionRange" type="Area3D" parent="." unique_id=1565225083]
