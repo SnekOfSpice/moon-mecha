@@ -6,6 +6,8 @@ var target : Node3D
 
 var immediately_visible := false
 
+var weapon_tech_id : String
+
 
 static func create(p_immediately_visible := false) -> OnScreenTracker:
 	var tracker := preload("res://game/player/on_screen_tracker.tscn").instantiate()
@@ -22,6 +24,18 @@ func _ready() -> void:
 			show()
 			Sound.play_sfx("beep", false)
 		)
+	Data.property_changed.connect(on_property_changed)
+
+
+func on_property_changed(
+	property : String,
+	new_value : Variant,
+	old_value : Variant,
+):
+	if not is_crosshair:
+		return
+	if property == "ammo.%s" % weapon_tech_id:
+		%AmmoLabel.text = str(new_value)
 
 func _enter_tree() -> void:
 	#if immediately_visible:
@@ -45,3 +59,15 @@ func _process(delta: float) -> void:
 	scale.y = clamp(1-s, 0, 1)
 	
 	%DistanceLabel.text = str(int(camera.global_position.distance_to(target.global_position)))
+
+
+var is_crosshair := false:
+	set(value):
+		is_crosshair = value
+		%DistanceLabel.visible = not is_crosshair
+		%AmmoLabel.visible = is_crosshair
+		if is_crosshair:
+			%Sprite2D.texture = load("res://game/ui/crosshairs.png")
+			%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
+		else:
+			%Sprite2D.texture = load("res://game/ui/tracker.png")

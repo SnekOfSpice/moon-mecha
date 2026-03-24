@@ -33,7 +33,14 @@ func _ready() -> void:
 	%ThrottleGaugeForward.max_value = THROTTLE_MAX
 	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
 	
-	%MainScreenVP.create_tracker(%AimTarget, true)
+	var trackerR : OnScreenTracker = %MainScreenVP.create_tracker(%AimTargetR, true)
+	%MainScreenVP.create_tracker(%AimTargetGunR, true)
+	trackerR.weapon_tech_id = "pistol"
+	trackerR.is_crosshair = true
+	var trackerL : OnScreenTracker = %MainScreenVP.create_tracker(%AimTargetL, true)
+	%MainScreenVP.create_tracker(%AimTargetGunL, true)
+	trackerL.weapon_tech_id = "sniper"
+	trackerL.is_crosshair = true
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -83,33 +90,12 @@ func _physics_process(delta: float) -> void:
 	#print(throttle, velocity.length())
 
 #var last_collider : Node3D
+
 func _process(delta: float) -> void:
 	
-	var relsize  :Vector2= %MainScreenSprite.texture.get_size() * %PlayerCamera.global_position.distance_to(%MainScreenSprite.global_position)
-	
-	var left : float = %PlayerCamera.unproject_position(%TopL.global_position).x
-	var right : float = %PlayerCamera.unproject_position(%TopR.global_position).x
-	var top : float = %PlayerCamera.unproject_position(%TopR.global_position).y
-	var bottom : float = %PlayerCamera.unproject_position(%BottomR.global_position).y
-	
-	var screen_size := get_viewport().get_visible_rect().size
-	var left_right_distance := right - left
-	var ratio := Vector2(
-		screen_size.x / (right - left),
-		screen_size.y /( bottom - top),
-	)
 	
 	var mouse_pos := %PlayerCamera.get_viewport().get_mouse_position()
-	if mouse_pos.x < right and mouse_pos.x > left and mouse_pos.y > top and mouse_pos.y < bottom:
-		#print("aim")
-		var range = right - left
-		var a = (mouse_pos.x - left) / range
-		var rangeb = bottom - top
-		var b = (mouse_pos.y - top) / rangeb
-		#print(Vector2(a, b))
-	var depth : float = abs(%AimTargetCenter.position.z) + 200
-	var base_depth : float = depth
-	var collider
+	var depth : float = abs(%AimTargetCenter.position.z) + 20
 	#if $RayCast3D.is_colliding() and $RayCast3D2.is_colliding() and $RayCast3D3.is_colliding():
 		#if ($RayCast3D.get_collider() == $RayCast3D2.get_collider()) and ($RayCast3D3.get_collider() == $RayCast3D2.get_collider()):
 			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
@@ -121,11 +107,15 @@ func _process(delta: float) -> void:
 	#printt(%AimTargetCenter.position.z, %AimTargetR.position.z)
 	#if target_pos.distance_to(%AimTargetCenter.global_position) <= 4:
 	if Input.is_action_pressed("aiming_right"):
-		%AimTargetR.global_position = lerp(%AimTargetR.global_position, target_pos, 1.4 * delta)
+		%AimTargetR.global_position = target_pos # lerp(%AimTargetR.global_position, target_pos, 1.4 * delta)
 	if Input.is_action_pressed("aiming_left"):
-		%AimTargetL.global_position = lerp(%AimTargetL.global_position, target_pos, 1.4 * delta)
-	%WeaponSwivelRight.look_at(%AimTargetR.global_position)
-	%WeaponSwivelLeft.look_at(%AimTargetL.global_position)
+		%AimTargetL.global_position = target_pos # lerp(%AimTargetL.global_position, target_pos, 1.4 * delta)
+	%AimTargetGunR.global_position = %AimTargetGunR.global_position.move_toward(%AimTargetR.global_position, 10.4 * delta)
+	%AimTargetGunL.global_position = %AimTargetGunL.global_position.move_toward(%AimTargetL.global_position, 10.4 * delta)
+	
+	%WeaponSwivelRight.look_at(%AimTargetGunR.global_position)
+	%WeaponSwivelLeft.look_at(%AimTargetGunL.global_position)
+	print(%AimTargetR.global_position.distance_to(%AimTargetCenter.global_position))
 	
 	# RESET
 	#%WeaponSwivelLeft.look_at(Vector3.FORWARD.rotated(Vector3.UP,rotation.y) * 2000)
