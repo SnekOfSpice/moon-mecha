@@ -7,6 +7,8 @@ var target : Node3D
 var immediately_visible := false
 
 var weapon_tech_id : String
+var aim_depth : int
+var main_crosshair : bool
 
 
 static func create(p_immediately_visible := false) -> OnScreenTracker:
@@ -25,6 +27,7 @@ func _ready() -> void:
 			Sound.play_sfx("beep", false)
 		)
 	Data.property_changed.connect(on_property_changed)
+	
 
 
 func on_property_changed(
@@ -54,9 +57,17 @@ func _process(delta: float) -> void:
 		return
 	
 	position = camera.unproject_position(target.global_position)
-	var s = (camera.global_position.distance_to(target.global_position) - FULL_SCALE_LOWER_BOUND) / MIN_SCALE_UPPER_BOUND
-	scale.x = clamp(1-s, 0, 1)
-	scale.y = clamp(1-s, 0, 1)
+	
+	%AimDepthLabel.visible = is_crosshair
+	%AimDepthLabel.text = str(aim_depth)
+	
+	if is_crosshair:
+		if main_crosshair: scale = Vector2.ONE
+		else: scale = Vector2.ONE * 0.33
+	else:
+		var s = (camera.global_position.distance_to(target.global_position) - FULL_SCALE_LOWER_BOUND) / MIN_SCALE_UPPER_BOUND
+		scale.x = clamp(1-s, 0, 1)
+		scale.y = clamp(1-s, 0, 1)
 	
 	%DistanceLabel.text = str(int(camera.global_position.distance_to(target.global_position)))
 

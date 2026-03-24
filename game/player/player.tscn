@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://hwmiq07sdfcb" path="res://game/ui/tracker.png" id="4_4ste8"]
 [ext_resource type="PackedScene" uid="uid://k0wuudevyq6u" path="res://game/player/weapons/sniper/sniper.tscn" id="4_a4w0n"]
 [ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="6_anr75"]
+[ext_resource type="PackedScene" uid="uid://dds0j1l23qy1j" path="res://game/player/aim_manager.tscn" id="8_epvkq"]
 
 [sub_resource type="Curve" id="Curve_b2mth"]
 _data = [Vector2(0, 0.10710132), 0.0, 0.0, 0, 0, Vector2(0.5735295, 0.52328295), 1.715173, 1.715173, 0, 0, Vector2(0.82940185, 1), -2.7441216, -2.7441216, 0, 0, Vector2(0.82941186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.22060537), 7.0567193, 0.0, 0, 0]
@@ -36,6 +37,30 @@ height = 8.328369
 [node name="Player" type="CharacterBody3D" unique_id=835839210]
 script = ExtResource("1_obar5")
 step_curve = SubResource("Curve_b2mth")
+
+[node name="AimManager" parent="." unique_id=1599088903 node_paths=PackedStringArray("tracker_vp", "aim_target_virtual", "aim_target_gun", "player_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
+aim_target_virtual = NodePath("../AimTargetR")
+aim_target_gun = NodePath("../AimTargetGunR")
+aim_speed = 2.4
+aim_action = "aiming_right"
+player_camera = NodePath("../cockpit/PlayerCamera")
+vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/Camera3D")
+weapon_swivel = NodePath("../cockpit/WeaponSwivelRight")
+weapon_tech_id = "pistol"
+depth = 20
+max_depth = 20
+
+[node name="AimManager2" parent="." unique_id=1238165863 node_paths=PackedStringArray("tracker_vp", "aim_target_virtual", "aim_target_gun", "player_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
+aim_target_virtual = NodePath("../AimTargetL")
+aim_target_gun = NodePath("../AimTargetGunL")
+aim_speed = 0.8
+aim_action = "aiming_left"
+player_camera = NodePath("../cockpit/PlayerCamera")
+vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/Camera3D")
+weapon_swivel = NodePath("../cockpit/WeaponSwivelLeft")
+weapon_tech_id = "sniper"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=651508061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0089111, 0)
@@ -75,7 +100,7 @@ track_npcs = false
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenL/LeftVP" unique_id=839239164]
 transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, -2.6648283, 2.8604724, -0.962036)
-fov = 60.0
+fov = 5.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenL/LeftVP" unique_id=1822950313]
 
@@ -115,7 +140,7 @@ track_npcs = false
 
 [node name="Camera3D" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
 transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
-fov = 37.849285
+fov = 30.3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenR/RightVP" unique_id=678415370]
 

@@ -24,7 +24,7 @@ var throttle_this_step := 0.0
 
 const THROTTLE_MAX :=  4
 const THROTTLE_MIN := -1.5
-var trackerR : OnScreenTracker
+
 var trackerL : OnScreenTracker
 func _ready() -> void:
 	%ThrottleGaugeBack.min_value = THROTTLE_MIN
@@ -34,10 +34,8 @@ func _ready() -> void:
 	%ThrottleGaugeForward.max_value = THROTTLE_MAX
 	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
 	
-	trackerR = %MainScreenVP.create_tracker(%AimTargetR, true)
+	
 	%MainScreenVP.create_tracker(%AimTargetGunR, true)
-	trackerR.weapon_tech_id = "pistol"
-	trackerR.is_crosshair = true
 	trackerL  = %MainScreenVP.create_tracker(%AimTargetL, true)
 	%MainScreenVP.create_tracker(%AimTargetGunL, true)
 	trackerL.weapon_tech_id = "sniper"
@@ -93,68 +91,22 @@ func _physics_process(delta: float) -> void:
 #var last_collider : Node3D
 
 
-var last_mouse_pos : Vector2
-func _process(delta: float) -> void:
-	var mouse_pos := %PlayerCamera.get_viewport().get_mouse_position()
-	var depth : float = abs(%AimTargetCenter.position.z) + 20
-	#if $RayCast3D.is_colliding() and $RayCast3D2.is_colliding() and $RayCast3D3.is_colliding():
-		#if ($RayCast3D.get_collider() == $RayCast3D2.get_collider()) and ($RayCast3D3.get_collider() == $RayCast3D2.get_collider()):
-			#depth = $RayCast3D.get_collider().global_position.distance_to(global_position)
-			#collider = $RayCast3D.get_collider()
-	#print(mouse_pos)
-	mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
-	mouse_pos.y = clamp(mouse_pos.y, 0, 340)
-	last_mouse_pos.x = clamp(last_mouse_pos.x, 60, 640 - 60)
-	last_mouse_pos.y = clamp(last_mouse_pos.y, 0, 340)
+#func _process(delta: float) -> void:
 	
-	if trackerR.position.x + mouse_pos.x - last_mouse_pos.x < 20:
-		if last_mouse_pos.x >= mouse_pos.x:
-			last_mouse_pos.x = mouse_pos.x
-	if trackerR.position.x + mouse_pos.x - last_mouse_pos.x > 210:
-		if last_mouse_pos.x <= mouse_pos.x:
-			last_mouse_pos.x = mouse_pos.x
-	if trackerR.position.y + mouse_pos.y - last_mouse_pos.y < 15:
-		if last_mouse_pos.y >= mouse_pos.y:
-			last_mouse_pos.y = mouse_pos.y
-	if trackerR.position.y + mouse_pos.y - last_mouse_pos.y > 150:
-		if last_mouse_pos.y <= mouse_pos.y:
-			last_mouse_pos.y = mouse_pos.y
-	var target_pos : Vector3 =  %PlayerCamera.project_position(mouse_pos, depth)
-	var target_pos_last : Vector3 =  %PlayerCamera.project_position(last_mouse_pos, depth)
-	#if not ((trackerR.position.x > 20 and trackerR.position.x < 210) and (trackerR.position.y > 15 and trackerR.position.y < 150)):
-		#trackerR.position = Vector2(
-			#clamp(trackerR.position.x, 20, 210),
-			#clamp(trackerR.position.y, 15, 150),
-		#)
-		#trackerR.target.position = target_pos
-	
-	var  dirR := target_pos - target_pos_last
+
 	
 	
-	if Input.is_action_pressed("aiming_right"):
-		
-		%AimTargetR.global_position += dirR # lerp(%AimTargetR.global_position, target_pos, 1.4 * delta)
-	if Input.is_action_pressed("aiming_left"):
-		%AimTargetL.global_position = target_pos # lerp(%AimTargetL.global_position, target_pos, 1.4 * delta)
-	%AimTargetGunR.global_position = %AimTargetGunR.global_position.move_toward(%AimTargetR.global_position, 10.4 * delta)
-	%AimTargetGunL.global_position = %AimTargetGunL.global_position.move_toward(%AimTargetL.global_position, 10.4 * delta)
-	
-	%WeaponSwivelRight.look_at(%AimTargetGunR.global_position)
-	%WeaponSwivelLeft.look_at(%AimTargetGunL.global_position)
-	
-	
-	last_mouse_pos = mouse_pos
 	
 	# RESET
 	#%WeaponSwivelLeft.look_at(Vector3.FORWARD.rotated(Vector3.UP,rotation.y) * 2000)
 
-var relative : Vector2 = Vector2.ZERO
+#var relative : Vector2 = Vector2.ZERO
 	
 var turn_dir : float
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		relative = event.relative
+	#if event is InputEventMouseMotion:
+		#relative = event.relative
 	turn_dir = -Input.get_axis("turn_left", "turn_right")
 	if event.is_action_pressed("brake"):
 		throttle = 0

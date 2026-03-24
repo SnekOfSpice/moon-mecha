@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dds0j1l23qy1j"]
+
+[ext_resource type="Script" uid="uid://bhh7246fk15nu" path="res://game/player/aim_manager.gd" id="1_uwx3y"]
+
+[node name="AimManager" type="Node" unique_id=1599088903]
+script = ExtResource("1_uwx3y")
