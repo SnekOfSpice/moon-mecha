@@ -37,7 +37,9 @@ func _ready() -> void:
 	tracker.weapon_tech_id = weapon_tech_id
 	tracker.aim_depth = depth
 	tracker.main_crosshair = move_swivel
-	tracker.is_crosshair = true
+	tracker.mode = OnScreenTracker.Mode.Crosshair
+	var crosshair = tracker_vp.create_tracker(aim_target_gun, true)
+	crosshair.mode = OnScreenTracker.Mode.Rangefinder
 	
 	await get_tree().process_frame
 	var target_pos : Vector3 = player_camera.project_position(tracker_vp.size * 0.5, depth)
@@ -80,7 +82,6 @@ func _process(delta: float) -> void:
 	if move_swivel:
 		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta)
 		weapon_swivel.look_at(aim_target_gun.global_position)
-		if name == "AimManagerR": print(dir.x)
 	
 	
 	last_mouse_pos = mouse_pos

@@ -8,7 +8,6 @@ script = ExtResource("1_v2xqs")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=456352986]
 unique_name_in_owner = true
-modulate = Color(0.49499905, 0.055912048, 0.27643415, 1)
 texture = ExtResource("2_nesrt")
 
 [node name="DistanceLabel" type="Label" parent="Sprite2D" unique_id=365716796]
@@ -36,8 +35,8 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -32.0
-offset_top = 13.0
+offset_top = 8.0
 offset_right = 8.0
-offset_bottom = 36.0
+offset_bottom = 31.0
 grow_horizontal = 2
-horizontal_alignment = 2
+horizontal_alignment = 1

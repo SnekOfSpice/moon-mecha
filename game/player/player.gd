@@ -35,11 +35,11 @@ func _ready() -> void:
 	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
 	
 	
-	%MainScreenVP.create_tracker(%AimTargetGunR, true)
-	trackerL  = %MainScreenVP.create_tracker(%AimTargetL, true)
-	%MainScreenVP.create_tracker(%AimTargetGunL, true)
-	trackerL.weapon_tech_id = "sniper"
-	trackerL.is_crosshair = true
+	for marker : Marker3D in %WeaponRaycastR.get_children():
+		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
+
+	for marker : Marker3D in %WeaponRaycastL.get_children():
+		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

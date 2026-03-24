@@ -35,8 +35,6 @@ func on_property_changed(
 	new_value : Variant,
 	old_value : Variant,
 ):
-	if not is_crosshair:
-		return
 	if property == "ammo.%s" % weapon_tech_id:
 		%AmmoLabel.text = str(new_value)
 
@@ -58,12 +56,15 @@ func _process(delta: float) -> void:
 	
 	position = camera.unproject_position(target.global_position)
 	
-	%AimDepthLabel.visible = is_crosshair
-	%AimDepthLabel.text = str(aim_depth)
+	%AimDepthLabel.visible = mode == Mode.Rangefinder
+	#%AimDepthLabel.text = str(aim_depth)
 	
-	if is_crosshair:
+	if mode == Mode.Crosshair:
 		if main_crosshair: scale = Vector2.ONE
 		else: scale = Vector2.ONE * 0.33
+	elif mode == Mode.Rangefinder:
+		scale = Vector2.ONE * 0.4
+		%AimDepthLabel.text = str(int(abs(target.position.z)))
 	else:
 		var s = (camera.global_position.distance_to(target.global_position) - FULL_SCALE_LOWER_BOUND) / MIN_SCALE_UPPER_BOUND
 		scale.x = clamp(1-s, 0, 1)
@@ -72,13 +73,36 @@ func _process(delta: float) -> void:
 	%DistanceLabel.text = str(int(camera.global_position.distance_to(target.global_position)))
 
 
-var is_crosshair := false:
+enum Mode{
+	Default,
+	Crosshair,
+	Rangefinder
+}
+var mode := Mode.Default:
 	set(value):
-		is_crosshair = value
-		%DistanceLabel.visible = not is_crosshair
-		%AmmoLabel.visible = is_crosshair
-		if is_crosshair:
+		mode = value
+
+		%DistanceLabel.visible = mode == Mode.Default
+		%AmmoLabel.visible = mode == Mode.Crosshair
+		if mode == Mode.Crosshair:
 			%Sprite2D.texture = load("res://game/ui/crosshairs.png")
 			%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
+			modulate = Color("c2cbfcc3")
+		elif mode == Mode.Rangefinder:
+			%Sprite2D.texture = load("res://game/ui/rangefinder.png")
+			modulate = Color("666666c6")
 		else:
 			%Sprite2D.texture = load("res://game/ui/tracker.png")
+			modulate = Color("7e0e47ff")
+
+
+#var is_crosshair := false:
+	#set(value):
+		#is_crosshair = value
+		#%DistanceLabel.visible = not is_crosshair
+		#%AmmoLabel.visible = is_crosshair
+		#if is_crosshair:
+			#%Sprite2D.texture = load("res://game/ui/crosshairs.png")
+			#%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
+		#else:
+			#%Sprite2D.texture = load("res://game/ui/tracker.png")
