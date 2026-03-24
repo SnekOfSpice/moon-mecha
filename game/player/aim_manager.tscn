@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://bhh7246fk15nu" path="res://game/player/aim_manager.gd" id="1_uwx3y"]
 
-[node name="AimManager" type="Node" unique_id=1599088903]
+[node name="AimManager" type="Node3D" unique_id=2012193959]
 script = ExtResource("1_uwx3y")

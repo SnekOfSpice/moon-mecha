@@ -38,27 +38,36 @@ height = 8.328369
 script = ExtResource("1_obar5")
 step_curve = SubResource("Curve_b2mth")
 
-[node name="AimManager" parent="." unique_id=1599088903 node_paths=PackedStringArray("tracker_vp", "aim_target_virtual", "aim_target_gun", "player_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+[node name="AimManagerR" parent="." unique_id=1599088903 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
 tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
-aim_target_virtual = NodePath("../AimTargetR")
-aim_target_gun = NodePath("../AimTargetGunR")
 aim_speed = 2.4
 aim_action = "aiming_right"
 player_camera = NodePath("../cockpit/PlayerCamera")
-vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/Camera3D")
+gun_camera = NodePath("../cockpit/ScreenR/RightVP/WeaponCameraRight")
+vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/FrontCamera")
 weapon_swivel = NodePath("../cockpit/WeaponSwivelRight")
 weapon_tech_id = "pistol"
-depth = 20
-max_depth = 20
+depth = 44
 
-[node name="AimManager2" parent="." unique_id=1238165863 node_paths=PackedStringArray("tracker_vp", "aim_target_virtual", "aim_target_gun", "player_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+[node name="AimManagerR2" parent="." unique_id=2012193959 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
 tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
-aim_target_virtual = NodePath("../AimTargetL")
-aim_target_gun = NodePath("../AimTargetGunL")
+aim_speed = 2.4
+aim_action = "aiming_right"
+player_camera = NodePath("../cockpit/PlayerCamera")
+gun_camera = NodePath("../cockpit/ScreenR/RightVP/WeaponCameraRight")
+vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/FrontCamera")
+weapon_swivel = NodePath("../cockpit/WeaponSwivelRight")
+weapon_tech_id = "pistol"
+depth = 19
+move_swivel = false
+
+[node name="AimManagerL" parent="." unique_id=1238165863 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
 aim_speed = 0.8
 aim_action = "aiming_left"
 player_camera = NodePath("../cockpit/PlayerCamera")
-vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/Camera3D")
+gun_camera = NodePath("../cockpit/ScreenL/LeftVP/WeaponCameraLeft")
+vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/FrontCamera")
 weapon_swivel = NodePath("../cockpit/WeaponSwivelLeft")
 weapon_tech_id = "sniper"
 
@@ -94,11 +103,11 @@ texture = SubResource("ViewportTexture_8soms")
 size = Vector2i(240, 180)
 script = ExtResource("3_5fytw")
 canvas_layer = NodePath("CanvasLayer")
-camera = NodePath("Camera3D")
+camera = NodePath("WeaponCameraLeft")
 track_items = false
 track_npcs = false
 
-[node name="Camera3D" type="Camera3D" parent="cockpit/ScreenL/LeftVP" unique_id=839239164]
+[node name="WeaponCameraLeft" type="Camera3D" parent="cockpit/ScreenL/LeftVP" unique_id=839239164]
 transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, -2.6648283, 2.8604724, -0.962036)
 fov = 5.5
 
@@ -134,11 +143,11 @@ texture = SubResource("ViewportTexture_a4w0n")
 size = Vector2i(240, 180)
 script = ExtResource("3_5fytw")
 canvas_layer = NodePath("CanvasLayer")
-camera = NodePath("Camera3D")
+camera = NodePath("WeaponCameraRight")
 track_items = false
 track_npcs = false
 
-[node name="Camera3D" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
+[node name="WeaponCameraRight" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
 transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
 fov = 30.3
 
@@ -173,16 +182,16 @@ texture = SubResource("ViewportTexture_5fytw")
 
 [node name="RemoteTransformMain" type="RemoteTransform3D" parent="cockpit/MainScreenSprite" unique_id=1837522452]
 transform = Transform3D(5.8823524, -7.1300277e-09, 9.888282e-11, 6.9725115e-09, 5.7683816, 1.1523225, -1.4937024e-09, -1.1523225, 5.7683816, -0.035710983, 2.6521645, -3.2563539)
-remote_path = NodePath("../MainScreenVP/Camera3D")
+remote_path = NodePath("../MainScreenVP/FrontCamera")
 
 [node name="MainScreenVP" type="SubViewport" parent="cockpit/MainScreenSprite" unique_id=853368188 node_paths=PackedStringArray("canvas_layer", "camera")]
 unique_name_in_owner = true
 size = Vector2i(240, 180)
 script = ExtResource("3_5fytw")
 canvas_layer = NodePath("CanvasLayer")
-camera = NodePath("Camera3D")
+camera = NodePath("FrontCamera")
 
-[node name="Camera3D" type="Camera3D" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1701990803]
+[node name="FrontCamera" type="Camera3D" parent="cockpit/MainScreenSprite/MainScreenVP" unique_id=1701990803]
 unique_name_in_owner = true
 transform = Transform3D(1.9999998, -7.1054274e-15, -1.2662815e-07, 4.8572257e-17, 1.9999999, 0, 1.2662815e-07, 0, 1.9999999, -0.0060708085, 4.537055, -1.2637489)
 fov = 90.0
@@ -235,7 +244,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.7
 
 [node name="RemoteTransformRight" type="RemoteTransform3D" parent="cockpit/WeaponSwivelRight" unique_id=1762200767]
 transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 0.3113165, 0.4137733, -0.8440522)
-remote_path = NodePath("../../ScreenR/RightVP/Camera3D")
+remote_path = NodePath("../../ScreenR/RightVP/WeaponCameraRight")
 
 [node name="pistol2" parent="cockpit/WeaponSwivelRight" unique_id=45297058 instance=ExtResource("3_8soms")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5989983, -0.25003362, -0.9271045)
@@ -256,7 +265,7 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.80
 
 [node name="RemoteTransformLeft" type="RemoteTransform3D" parent="cockpit/WeaponSwivelLeft" unique_id=1394268414]
 transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 0, 0, 0, 1.999998, 0.14000368, 0.31039596, -0.792475)
-remote_path = NodePath("../../ScreenL/LeftVP/Camera3D")
+remote_path = NodePath("../../ScreenL/LeftVP/WeaponCameraLeft")
 
 [node name="sniper2" parent="cockpit/WeaponSwivelLeft" unique_id=1594836592 instance=ExtResource("4_a4w0n")]
 

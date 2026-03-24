@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 
 
@@ -6,28 +6,41 @@ var tracker : OnScreenTracker
 
 
 @export var tracker_vp : SubViewport
-@export var aim_target_virtual : Node3D
-@export var aim_target_gun : Node3D
+var aim_target_virtual : Node3D
+var aim_target_gun : Node3D
 @export var aim_speed : float = 10
 @export var aim_action : String
 @export var player_camera : Camera3D
+@export var gun_camera : Camera3D
 @export var vp_camera : Camera3D
 @export var weapon_swivel : Node3D
 @export var weapon_tech_id : String
-@export var depth := 50
-@export var max_depth := 250
+@export var depth := 50:
+	set(value):
+		depth = value
+		if not is_inside_tree():
+			return
+		await get_tree().process_frame
+		var target_pos : Vector3 = vp_camera.project_position(tracker.position, depth)
+		aim_target_virtual.global_position  = target_pos
+		aim_target_gun.global_position  = target_pos
+@export var move_swivel := true
 var last_mouse_pos : Vector2
 
 func _ready() -> void:
+	aim_target_virtual = Node3D.new()
+	add_child(aim_target_virtual)
+	aim_target_gun = Node3D.new()
+	add_child(aim_target_gun)
+	
 	tracker = tracker_vp.create_tracker(aim_target_virtual, true)
 	tracker.weapon_tech_id = weapon_tech_id
 	tracker.aim_depth = depth
-	tracker.main_crosshair = depth == max_depth
+	tracker.main_crosshair = move_swivel
 	tracker.is_crosshair = true
 	
 	await get_tree().process_frame
-	var mouse_pos := player_camera.get_viewport().get_mouse_position()
-	var target_pos : Vector3 =  vp_camera.project_position(tracker_vp.size * 0.5, depth)
+	var target_pos : Vector3 = player_camera.project_position(tracker_vp.size * 0.5, depth)
 	aim_target_virtual.global_position  = target_pos
 	aim_target_gun.global_position  = target_pos
 
@@ -59,14 +72,15 @@ func _process(delta: float) -> void:
 		
 	var dir := target_pos - target_pos_last
 	
-	
 	if Input.is_action_pressed(aim_action):
 		aim_target_virtual.global_position += dir
 	
-	aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta)
 	
-	if depth == max_depth:
+	
+	if move_swivel:
+		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta)
 		weapon_swivel.look_at(aim_target_gun.global_position)
+		if name == "AimManagerR": print(dir.x)
 	
 	
 	last_mouse_pos = mouse_pos
