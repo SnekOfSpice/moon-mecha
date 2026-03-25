@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://n3wrqys22vmb"]
+
+[ext_resource type="PackedScene" uid="uid://fkuwfcknvs86" path="res://game/player/screen.glb" id="1_0ho64"]
+[ext_resource type="Script" uid="uid://csc7b0don7ktn" path="res://game/player/cockpit_screen.gd" id="2_jd7r2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jd7r2"]
+resource_local_to_scene = true
+shading_mode = 0
+
+[node name="CockpitScreen" unique_id=1732708307 instance=ExtResource("1_0ho64")]
+script = ExtResource("2_jd7r2")
+
+[node name="MainScreen_001" parent="." index="0" unique_id=1090323295]
+transform = Transform3D(0.4219756, 0, 0, 0, 0.3164817, 0, 0, 0, 0.1054939, 0, 0, 0)
+layers = 2
+surface_material_override/0 = SubResource("StandardMaterial3D_jd7r2")

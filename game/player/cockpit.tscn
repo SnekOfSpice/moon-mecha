@@ -63,7 +63,9 @@ layers = 2
 layers = 2
 
 [node name="Cube" parent="." index="6" unique_id=226264800]
+visible = false
 layers = 2
 
 [node name="Cube_003" parent="." index="7" unique_id=1741489938]
+visible = false
 layers = 2

@@ -34,12 +34,17 @@ func _ready() -> void:
 	%ThrottleGaugeForward.max_value = THROTTLE_MAX
 	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
 	
-	
 	for marker : Marker3D in %WeaponRaycastR.get_children():
 		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
 
 	for marker : Marker3D in %WeaponRaycastL.get_children():
 		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
+
+	await get_tree().process_frame
+	%CockpitScreenMain.set_viewport(%MainScreenVP)
+	%CockpitScreenL.set_viewport(%LeftVP)
+	%CockpitScreenR.set_viewport(%RightVP)
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -57,7 +62,7 @@ func _physics_process(delta: float) -> void:
 		throttle = lerp(throttle, 0.0, 0.1)
 		if abs(throttle) < 0.01:
 			throttle = 0
-			throttle_this_step = 0
+			#throttle_this_step = 0
 	#print(throttle)
 	rotate_y(TURN_SPEED * turn_dir)
 	
@@ -67,6 +72,7 @@ func _physics_process(delta: float) -> void:
 		var old_prog = step_progress
 		step_progress = wrapf(step_progress + delta * step_speed, 0, 1)
 		if old_prog > step_progress:
+			Sound.play_sfx("stomp") # credit https://freesound.org/people/Artninja/sounds/789754/
 			if throttle == 0:
 				step_progress = 0
 				is_stepping = false

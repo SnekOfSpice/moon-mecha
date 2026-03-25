@@ -9,6 +9,7 @@ var tracker : OnScreenTracker
 var aim_target_virtual : Node3D
 var aim_target_gun : Node3D
 @export var aim_speed : float = 10
+@export var aim_sensitivity : float = 0.7
 @export var aim_action : String
 @export var player_camera : Camera3D
 @export var gun_camera : Camera3D
@@ -42,7 +43,7 @@ func _ready() -> void:
 	crosshair.mode = OnScreenTracker.Mode.Rangefinder
 	
 	await get_tree().process_frame
-	var target_pos : Vector3 = player_camera.project_position(tracker_vp.size * 0.5, depth)
+	var target_pos : Vector3 = vp_camera.project_position(tracker_vp.size * 0.5, depth)
 	aim_target_virtual.global_position  = target_pos
 	aim_target_gun.global_position  = target_pos
 
@@ -73,6 +74,7 @@ func _process(delta: float) -> void:
 	var target_pos_last : Vector3 =  vp_camera.project_position(last_mouse_pos, depth)
 		
 	var dir := target_pos - target_pos_last
+	dir *= aim_sensitivity
 	
 	if Input.is_action_pressed(aim_action):
 		aim_target_virtual.global_position += dir
