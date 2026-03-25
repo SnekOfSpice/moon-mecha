@@ -49,24 +49,24 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	var mouse_pos := player_camera.get_viewport().get_mouse_position()
-	mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
-	mouse_pos.y = clamp(mouse_pos.y, 0, 340)
-	last_mouse_pos.x = clamp(last_mouse_pos.x, 60, 640 - 60)
-	last_mouse_pos.y = clamp(last_mouse_pos.y, 0, 340)
+	#mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
+	#mouse_pos.y = clamp(mouse_pos.y, 0, 340)
+	#last_mouse_pos.x = clamp(last_mouse_pos.x, 60, 640 - 60)
+	#last_mouse_pos.y = clamp(last_mouse_pos.y, 0, 340)
 	
 	
 	#print(tracker.position.x + mouse_pos.x - last_mouse_pos.x)
 	
-	if tracker.position.x + mouse_pos.x - last_mouse_pos.x < 20:
+	if tracker.position.x + mouse_pos.x - last_mouse_pos.x < 13:
 		if last_mouse_pos.x >= mouse_pos.x:
 			last_mouse_pos.x = mouse_pos.x
-	if tracker.position.x + mouse_pos.x - last_mouse_pos.x > 210:
+	if tracker.position.x + mouse_pos.x - last_mouse_pos.x > 230:
 		if last_mouse_pos.x <= mouse_pos.x:
 			last_mouse_pos.x = mouse_pos.x
-	if tracker.position.y + mouse_pos.y - last_mouse_pos.y < 15:
+	if tracker.position.y + mouse_pos.y - last_mouse_pos.y < 40:
 		if last_mouse_pos.y >= mouse_pos.y:
 			last_mouse_pos.y = mouse_pos.y
-	if tracker.position.y + mouse_pos.y - last_mouse_pos.y > 150:
+	if tracker.position.y + mouse_pos.y - last_mouse_pos.y > 160:
 		if last_mouse_pos.y <= mouse_pos.y:
 			last_mouse_pos.y = mouse_pos.y
 	

@@ -56,6 +56,7 @@ func _physics_process(delta: float) -> void:
 	%ThrottleGaugeBack.set_value_no_signal(-throttle+THROTTLE_MIN)
 	%ThrottleGaugeForward.set_value_no_signal(throttle)
 	%ThrottleNeutralCheckBox.set_pressed_no_signal(throttle == 0)
+	%ThrottleLabel.visible = throttle != 0
 	var s = "-" if sign(throttle) == -1 else " "
 	%ThrottleLabel.text = "%s%0.1f" % [s, abs(throttle)]
 	if abs(throttle) < 0.25 and throttle_input == 0:
@@ -81,7 +82,7 @@ func _physics_process(delta: float) -> void:
 				throttle_this_step = throttle
 		curve_val = step_curve.sample(step_progress)
 	$cockpit.position.y = cockpit_position.y + curve_val * max_step_offset
-	curve_val *= sign(throttle_this_step) * sqrt(abs(throttle_this_step))
+	curve_val *= sign(throttle_this_step) * sqrt(sqrt(abs(throttle_this_step)))
 	
 	var direction := (transform.basis * Vector3(0, 0, -curve_val))
 	if direction:

@@ -8,10 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://k0wuudevyq6u" path="res://game/player/weapons/sniper/sniper.tscn" id="4_a4w0n"]
 [ext_resource type="PackedScene" uid="uid://n3wrqys22vmb" path="res://game/player/cockpit_screen.tscn" id="4_j0mij"]
 [ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="6_anr75"]
+[ext_resource type="Material" uid="uid://gq35auntvr8t" path="res://game/player/ui/screen_shader_material.tres" id="7_n270p"]
 [ext_resource type="PackedScene" uid="uid://dds0j1l23qy1j" path="res://game/player/aim_manager.tscn" id="8_epvkq"]
 [ext_resource type="Texture2D" uid="uid://dht5nbh3a5yua" path="res://game/player/ui/portrait.png" id="9_5ghna"]
+[ext_resource type="Shader" uid="uid://qmhh7ywtmoua" path="res://game/player/aenthyglitch.gdshader" id="11_rqcxa"]
 [ext_resource type="Texture2D" uid="uid://bhlk5rtun630p" path="res://game/ui/stop.png" id="11_uv2nh"]
+[ext_resource type="Texture2D" uid="uid://bxedou2m6fmwn" path="res://game/ui/dialogue/pseud_rand_004.png" id="12_2mv0n"]
 [ext_resource type="Texture2D" uid="uid://dcqadf8bjfkdl" path="res://game/ui/go.png" id="12_n270p"]
+[ext_resource type="Shader" uid="uid://co6c8ahomcne4" path="res://game/ui/hsv_brightness.gdshader" id="14_2mv0n"]
 
 [sub_resource type="Curve" id="Curve_b2mth"]
 _data = [Vector2(0, 0.10710132), 0.0, 0.0, 0, 0, Vector2(0.5735295, 0.52328295), 1.715173, 1.715173, 0, 0, Vector2(0.82940185, 1), -2.7441216, -2.7441216, 0, 0, Vector2(0.82941186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.22060537), 7.0567193, 0.0, 0, 0]
@@ -23,9 +27,59 @@ height = 6.3166504
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_8soms"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_usp30"]
+shader = ExtResource("14_2mv0n")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation_mult = 0.0
+shader_parameter/value_mult = 0.45600002166
+shader_parameter/brightness_add = -0.051999954969999984
+shader_parameter/contrast_mult = 1.0
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8soms"]
 radius = 1.4414063
 height = 8.328369
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e4oy"]
+shader = ExtResource("14_2mv0n")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation_mult = 1.0
+shader_parameter/value_mult = 1.0
+shader_parameter/brightness_add = 0.0
+shader_parameter/contrast_mult = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gh012"]
+shader = ExtResource("11_rqcxa")
+shader_parameter/hue = 0.0
+shader_parameter/saturation = 0.0
+shader_parameter/value = 0.0
+shader_parameter/exposure = 0.5
+shader_parameter/vhs_resolution = Vector2(360, 320)
+shader_parameter/samples = 2
+shader_parameter/crease_noise = 1.10000001639132
+shader_parameter/crease_opacity = 0.10000000149012
+shader_parameter/filter_intensity = 0.10000000149012
+shader_parameter/tape_crease_smear = 0.2
+shader_parameter/tape_crease_intensity = 0.2
+shader_parameter/tape_crease_jitter = 0.1
+shader_parameter/tape_crease_speed = 0.5
+shader_parameter/tape_crease_discoloration = 1.0
+shader_parameter/color_offset_multiplier = 0.004
+shader_parameter/black_offset_multiplier = 0.10000000149012
+shader_parameter/color_offset_x = 0.005
+shader_parameter/color_offset_y = 0.005
+shader_parameter/blur_amount = 0.0
+shader_parameter/bottom_border_thickness = 6.0
+shader_parameter/bottom_border_jitter = 6.0
+shader_parameter/noise_intensity = 0.1
+shader_parameter/noise_texture = ExtResource("12_2mv0n")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2mv0n"]
+shader = ExtResource("14_2mv0n")
+shader_parameter/hue_shift = 0.0
+shader_parameter/saturation_mult = 1.0
+shader_parameter/value_mult = 1.4970000711075
+shader_parameter/brightness_add = 0.16600005538500007
+shader_parameter/contrast_mult = 1.4590000693025
 
 [node name="Player" type="CharacterBody3D" unique_id=835839210]
 script = ExtResource("1_obar5")
@@ -107,7 +161,18 @@ fov = 5.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenL/LeftVP" unique_id=1822950313]
 
-[node name="TextureRect" type="TextureRect" parent="cockpit/ScreenL/LeftVP/CanvasLayer" unique_id=497117633]
+[node name="ColorRect" type="ColorRect" parent="cockpit/ScreenL/LeftVP/CanvasLayer" unique_id=1708134779]
+material = SubResource("ShaderMaterial_usp30")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="cockpit/ScreenL/LeftVP" unique_id=696461502]
+
+[node name="TextureRect" type="TextureRect" parent="cockpit/ScreenL/LeftVP/CanvasLayer2" unique_id=497117633]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -121,13 +186,22 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_4ste8")
 
-[node name="Label" type="Label" parent="cockpit/ScreenL/LeftVP/CanvasLayer/TextureRect" unique_id=2139358479]
+[node name="Label" type="Label" parent="cockpit/ScreenL/LeftVP/CanvasLayer2/TextureRect" unique_id=2139358479]
 layout_mode = 0
 offset_left = -46.235
 offset_top = 1.42
 offset_right = -6.2350006
 offset_bottom = 24.420008
 rotation = 1.5707964
+
+[node name="ColorRect2" type="ColorRect" parent="cockpit/ScreenL/LeftVP/CanvasLayer2" unique_id=888039599]
+material = ExtResource("7_n270p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="ScreenR" type="Node3D" parent="cockpit" unique_id=1189871833]
 transform = Transform3D(-0.0068293433, -0.25381866, 0.11802283, -0.27337617, -0.019323481, -0.05737567, 0.06015584, -0.11663032, -0.24734296, -0.6922082, 1.3080616, 0.31947103)
@@ -142,8 +216,19 @@ track_items = false
 track_npcs = false
 
 [node name="WeaponCameraRight" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
-transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2.0679882, 2.9638498, -1.0136132)
 fov = 30.3
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="cockpit/ScreenR/RightVP" unique_id=432308905]
+
+[node name="ColorRect" type="ColorRect" parent="cockpit/ScreenR/RightVP/CanvasLayer2" unique_id=280395201]
+material = SubResource("ShaderMaterial_usp30")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="CanvasLayer" type="CanvasLayer" parent="cockpit/ScreenR/RightVP" unique_id=678415370]
 
@@ -168,6 +253,15 @@ offset_top = 95.2
 offset_right = 122.604996
 offset_bottom = 118.20001
 rotation = -1.5707964
+
+[node name="ColorRect2" type="ColorRect" parent="cockpit/ScreenR/RightVP/CanvasLayer" unique_id=836679270]
+material = ExtResource("7_n270p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [node name="MainScreenSprite" type="Node3D" parent="cockpit" unique_id=2045700443]
 transform = Transform3D(-0.34, 9.636702e-09, 5.0343882e-08, -4.121156e-10, 0.33341247, -0.06660424, -5.1256247e-08, -0.06660424, -0.33341247, -0.0060708984, 1.1855941, 0.35468525)
@@ -205,6 +299,15 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="ColorRect" type="ColorRect" parent="cockpit/MainScreenSprite/MainScreenVP/CanvasLayer" unique_id=2021156384]
+material = ExtResource("7_n270p")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
 [node name="TopL" type="Marker3D" parent="cockpit/MainScreenSprite" unique_id=426628012]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, -7.1054274e-15, 0, 0.9999999, -2.9802322e-08, 0, 2.9802322e-08, 0.9999999, -1.0833659, 0.8359709, -0.004421234)
@@ -225,7 +328,7 @@ transform = Transform3D(1, 0, -7.1054274e-15, 0, 0.9999999, -2.9802322e-08, 0, 2
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0.400333, 0.6172843, -0.43594775)
 layers = 2
 light_color = Color(0.23669589, 0.017029623, 0.037591502, 1)
-light_energy = 0.783
+light_energy = 2.97
 light_cull_mask = 4294967294
 omni_range = 38.563
 omni_attenuation = 4.226
@@ -285,8 +388,8 @@ target_position = Vector3(0, 0, -4000)
 collision_mask = 2
 collide_with_areas = true
 script = ExtResource("6_anr75")
-crosshairs = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect")
-id_label = NodePath("../../ScreenL/LeftVP/CanvasLayer/TextureRect/Label")
+crosshairs = NodePath("../../ScreenL/LeftVP/CanvasLayer2/TextureRect")
+id_label = NodePath("../../ScreenL/LeftVP/CanvasLayer2/TextureRect/Label")
 
 [node name="Rangefinder3" type="Marker3D" parent="cockpit/WeaponSwivelLeft/WeaponRaycastL" unique_id=815149192]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
@@ -334,11 +437,11 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -40.0
-offset_top = -40.0
+offset_left = -1024.0
+offset_top = -1024.0
 grow_horizontal = 0
 grow_vertical = 0
-scale = Vector2(0.17, 0.17)
+scale = Vector2(0.22, 0.22)
 pivot_offset_ratio = Vector2(1, 1)
 texture = ExtResource("9_5ghna")
 
@@ -399,6 +502,38 @@ offset_top = -11.5
 offset_right = 40.0
 offset_bottom = 11.5
 grow_vertical = 2
+
+[node name="HSV" type="ColorRect" parent="CanvasLayer" unique_id=1912027855]
+material = SubResource("ShaderMaterial_0e4oy")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="GlitchLayer" type="CanvasLayer" parent="." unique_id=187218585]
+
+[node name="Glitch" type="ColorRect" parent="GlitchLayer" unique_id=1712204810]
+material = SubResource("ShaderMaterial_gh012")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="." unique_id=610094484]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer3" unique_id=468325653]
+material = SubResource("ShaderMaterial_2mv0n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="area_entered" from="InteractionRange" to="." method="_on_interaction_range_area_entered"]
 [connection signal="area_exited" from="InteractionRange" to="." method="_on_interaction_range_area_exited"]
