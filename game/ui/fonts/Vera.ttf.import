@@ -2,18 +2,18 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://rvnhwlkt81ow"
-path="res://.godot/imported/TimesNewPixelexp.ttf-b368643ceafb8f8a9912e158be38691d.fontdata"
+uid="uid://d1ttm0wy2fna0"
+path="res://.godot/imported/Vera.ttf-640d859ae1a54e00b0cf49101e07d661.fontdata"
 
 [deps]
 
-source_file="res://addons/diisis/parser/style/TimesNewPixelexp.ttf"
-dest_files=["res://.godot/imported/TimesNewPixelexp.ttf-b368643ceafb8f8a9912e158be38691d.fontdata"]
+source_file="res://game/ui/fonts/Vera.ttf"
+dest_files=["res://.godot/imported/Vera.ttf-640d859ae1a54e00b0cf49101e07d661.fontdata"]
 
 [params]
 
 Rendering=null
-antialiasing=2
+antialiasing=1
 generate_mipmaps=false
 disable_embedded_bitmaps=true
 multichannel_signed_distance_field=false
@@ -22,10 +22,10 @@ msdf_size=48
 allow_system_fallback=true
 force_autohinter=false
 modulate_color_glyphs=false
-hinting=0
-subpixel_positioning=3
+hinting=1
+subpixel_positioning=4
 keep_rounding_remainders=true
-oversampling=0.9
+oversampling=0.0
 Fallbacks=null
 fallbacks=[]
 Compress=null

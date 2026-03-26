@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://k0wuudevyq6u" path="res://game/player/weapons/sniper/sniper.tscn" id="4_a4w0n"]
 [ext_resource type="PackedScene" uid="uid://n3wrqys22vmb" path="res://game/player/cockpit_screen.tscn" id="4_j0mij"]
 [ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="6_anr75"]
+[ext_resource type="Theme" uid="uid://cyet8f5ksb7ra" path="res://game/ui/DOSM_theme.tres" id="7_gh012"]
 [ext_resource type="Material" uid="uid://gq35auntvr8t" path="res://game/player/ui/screen_shader_material.tres" id="7_n270p"]
 [ext_resource type="PackedScene" uid="uid://dds0j1l23qy1j" path="res://game/player/aim_manager.tscn" id="8_epvkq"]
 [ext_resource type="Texture2D" uid="uid://dht5nbh3a5yua" path="res://game/player/ui/portrait.png" id="9_5ghna"]
@@ -15,6 +16,8 @@
 [ext_resource type="Texture2D" uid="uid://bhlk5rtun630p" path="res://game/ui/stop.png" id="11_uv2nh"]
 [ext_resource type="Texture2D" uid="uid://bxedou2m6fmwn" path="res://game/ui/dialogue/pseud_rand_004.png" id="12_2mv0n"]
 [ext_resource type="Texture2D" uid="uid://dcqadf8bjfkdl" path="res://game/ui/go.png" id="12_n270p"]
+[ext_resource type="Script" uid="uid://bb8fd8u33t53a" path="res://game/player/dialogue.gd" id="13_usp30"]
+[ext_resource type="Script" uid="uid://dycysb8joq17f" path="res://addons/diisis/parser/src/resources/line_reader_actor_config.gd" id="14_0e4oy"]
 [ext_resource type="Shader" uid="uid://co6c8ahomcne4" path="res://game/ui/hsv_brightness.gdshader" id="14_2mv0n"]
 
 [sub_resource type="Curve" id="Curve_b2mth"]
@@ -38,6 +41,16 @@ shader_parameter/contrast_mult = 1.0
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8soms"]
 radius = 1.4414063
 height = 8.328369
+
+[sub_resource type="Resource" id="Resource_eeltd"]
+script = ExtResource("14_0e4oy")
+name_display = "Hypatia"
+metadata/_custom_type_script = "uid://dycysb8joq17f"
+
+[sub_resource type="Resource" id="Resource_088ty"]
+script = ExtResource("14_0e4oy")
+name_display = "Priestess"
+metadata/_custom_type_script = "uid://dycysb8joq17f"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0e4oy"]
 shader = ExtResource("14_2mv0n")
@@ -95,6 +108,7 @@ gun_camera = NodePath("../cockpit/ScreenR/RightVP/WeaponCameraRight")
 vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/FrontCamera")
 weapon_swivel = NodePath("../cockpit/WeaponSwivelRight")
 weapon_tech_id = "pistol"
+side = 0
 
 [node name="AimManagerL" parent="." unique_id=1238165863 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
 unique_name_in_owner = true
@@ -108,6 +122,7 @@ vp_camera = NodePath("../cockpit/MainScreenSprite/MainScreenVP/FrontCamera")
 weapon_swivel = NodePath("../cockpit/WeaponSwivelLeft")
 weapon_tech_id = "sniper"
 depth = 155
+side = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=651508061]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.0089111, 0)
@@ -130,15 +145,15 @@ size = 1.805
 
 [node name="CockpitScreenL" parent="cockpit" unique_id=1732708307 instance=ExtResource("4_j0mij")]
 unique_name_in_owner = true
-transform = Transform3D(-2.0964476e-08, 0.47961134, 0.21353672, -0.525, -2.2948479e-08, 0, 9.333987e-09, -0.21353672, 0.47961134, 0.468, 1.4532847, 0.35169956)
+transform = Transform3D(-2.0964476e-08, 0.47961134, 0.21353672, -0.525, -2.2948479e-08, 0, 9.333987e-09, -0.21353672, 0.47961134, 0.468, 1.124502, 0.35169956)
 
 [node name="CockpitScreenR" parent="cockpit" unique_id=1077710606 instance=ExtResource("4_j0mij")]
 unique_name_in_owner = true
-transform = Transform3D(-2.0964476e-08, -0.47961134, -0.21353672, 0.525, -2.2948479e-08, 0, -9.333987e-09, -0.21353672, 0.47961134, -0.468, 1.4582849, 0.35169956)
+transform = Transform3D(-2.0964476e-08, -0.47961134, -0.21353672, 0.525, -2.2948479e-08, 0, -9.333987e-09, -0.21353672, 0.47961134, -0.468, 1.129502, 0.35169956)
 
 [node name="CockpitScreenMain" parent="cockpit" unique_id=1578579557 instance=ExtResource("4_j0mij")]
 unique_name_in_owner = true
-transform = Transform3D(1.06, 0, 0, 0, 1.0469496, 0.16582054, 0, -0.16582054, 1.0469496, -5.4598207e-08, 1.2300825, 0.6245307)
+transform = Transform3D(1.06, 6.254738e-09, 1.2123849e-09, -6.3673933e-09, 1.0330814, 0.23736641, 2.1901769e-10, -0.23736641, 1.0330814, -5.4598207e-08, 1.3950782, 0.6245307)
 
 [node name="AimCamera" type="Camera3D" parent="cockpit" unique_id=2033479871]
 unique_name_in_owner = true
@@ -186,6 +201,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_gh012")
 texture = ExtResource("4_4ste8")
 
 [node name="Label" type="Label" parent="cockpit/ScreenL/LeftVP/CanvasLayer2/TextureRect" unique_id=2139358479]
@@ -246,6 +262,7 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("7_gh012")
 texture = ExtResource("4_4ste8")
 
 [node name="Label" type="Label" parent="cockpit/ScreenR/RightVP/CanvasLayer/TextureRect" unique_id=272643249]
@@ -409,6 +426,19 @@ collision_mask = 3
 transform = Transform3D(1, 0, 0, 0, 0.04198028, -0.99911845, 0, 0.99911845, 0.04198028, 0, 2.3535507, -3.5053473)
 shape = SubResource("CapsuleShape3D_8soms")
 
+[node name="Dialogue" type="Node" parent="." unique_id=1768661969 node_paths=PackedStringArray("name_label", "body_label", "text_container", "name_container", "choice_container", "choice_list")]
+script = ExtResource("13_usp30")
+actor_config = Dictionary[String, ExtResource("14_0e4oy")]({
+"hypatia": SubResource("Resource_eeltd"),
+"priestess": SubResource("Resource_088ty")
+})
+name_label = NodePath("../CanvasLayer/HUD/DialogueHUD/TextContainer/Label")
+body_label = NodePath("../CanvasLayer/HUD/DialogueHUD/TextContainer/RichTextLabel")
+text_container = NodePath("../CanvasLayer/HUD/DialogueHUD/TextContainer")
+name_container = NodePath("../CanvasLayer/HUD/DialogueHUD/TextContainer/Label")
+choice_container = NodePath("../CanvasLayer/HUD/DialogueHUD/PanelContainer")
+choice_list = NodePath("../CanvasLayer/HUD/DialogueHUD/PanelContainer/VBoxContainer")
+
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=427328272]
 
 [node name="HUD" type="Control" parent="CanvasLayer" unique_id=729558743]
@@ -419,6 +449,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+theme = ExtResource("7_gh012")
 
 [node name="MechModeLabel" type="Label" parent="CanvasLayer/HUD" unique_id=173723221]
 unique_name_in_owner = true
@@ -429,6 +460,31 @@ anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 23.0
 grow_horizontal = 0
+
+[node name="ConversationPartnerSprite" type="TextureRect" parent="CanvasLayer/HUD" unique_id=128107673]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+
+[node name="Portrait" type="TextureRect" parent="CanvasLayer/HUD" unique_id=729799631]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1186.0
+offset_top = -1024.0
+offset_right = -162.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.22, 0.22)
+pivot_offset_ratio = Vector2(1, 1)
+texture = ExtResource("9_5ghna")
 
 [node name="InteractionLabel" type="Label" parent="CanvasLayer/HUD" unique_id=263152560]
 unique_name_in_owner = true
@@ -445,21 +501,6 @@ offset_bottom = 131.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HUD" unique_id=729799631]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -1024.0
-offset_top = -1024.0
-grow_horizontal = 0
-grow_vertical = 0
-scale = Vector2(0.22, 0.22)
-pivot_offset_ratio = Vector2(1, 1)
-texture = ExtResource("9_5ghna")
-
 [node name="Notifications" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=179643993]
 unique_name_in_owner = true
 layout_mode = 1
@@ -471,15 +512,16 @@ offset_right = 20.0
 offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=684963668]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HUD" unique_id=684963668]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -40.0
-offset_right = 40.0
+offset_right = 204.0
 grow_vertical = 0
 
-[node name="ThrottleGaugeBack" type="ProgressBar" parent="CanvasLayer/HBoxContainer" unique_id=802821029]
+[node name="ThrottleGaugeBack" type="ProgressBar" parent="CanvasLayer/HUD/HBoxContainer" unique_id=802821029]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -490,7 +532,7 @@ allow_lesser = true
 fill_mode = 1
 show_percentage = false
 
-[node name="ThrottleNeutralCheckBox" type="CheckBox" parent="CanvasLayer/HBoxContainer/ThrottleGaugeBack" unique_id=160818890]
+[node name="ThrottleNeutralCheckBox" type="CheckBox" parent="CanvasLayer/HUD/HBoxContainer/ThrottleGaugeBack" unique_id=160818890]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 6
@@ -508,7 +550,7 @@ theme_override_icons/checked = ExtResource("11_uv2nh")
 theme_override_icons/unchecked = ExtResource("12_n270p")
 theme_override_icons/checked_disabled = ExtResource("12_n270p")
 
-[node name="ThrottleGaugeForward" type="ProgressBar" parent="CanvasLayer/HBoxContainer" unique_id=1389300375]
+[node name="ThrottleGaugeForward" type="ProgressBar" parent="CanvasLayer/HUD/HBoxContainer" unique_id=1389300375]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
@@ -518,7 +560,7 @@ allow_greater = true
 allow_lesser = true
 show_percentage = false
 
-[node name="ThrottleLabel" type="Label" parent="CanvasLayer/HBoxContainer/ThrottleGaugeForward" unique_id=850895514]
+[node name="ThrottleLabel" type="Label" parent="CanvasLayer/HUD/HBoxContainer/ThrottleGaugeForward" unique_id=850895514]
 unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 4
@@ -528,6 +570,39 @@ offset_top = -11.5
 offset_right = 40.0
 offset_bottom = 11.5
 grow_vertical = 2
+
+[node name="DialogueHUD" type="Control" parent="CanvasLayer/HUD" unique_id=2027552688]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextContainer" type="VBoxContainer" parent="CanvasLayer/HUD/DialogueHUD" unique_id=352418]
+layout_mode = 0
+offset_right = 434.0
+offset_bottom = 239.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/DialogueHUD/TextContainer" unique_id=635034524]
+layout_mode = 2
+theme_type_variation = &"LabelDialogue"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/DialogueHUD/TextContainer" unique_id=24542840]
+layout_mode = 2
+fit_content = true
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/DialogueHUD" unique_id=1013712517]
+layout_mode = 0
+offset_left = 215.0
+offset_top = 212.0
+offset_right = 255.0
+offset_bottom = 252.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HUD/DialogueHUD/PanelContainer" unique_id=195060228]
+layout_mode = 2
 
 [node name="HSV" type="ColorRect" parent="CanvasLayer" unique_id=1912027855]
 visible = false

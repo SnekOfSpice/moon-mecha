@@ -12,6 +12,7 @@
 
 [sub_resource type="Resource" id="Resource_xmjkk"]
 script = ExtResource("4_7j718")
+tech_id = "pistol"
 metadata/_custom_type_script = "uid://cdt582jsno812"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_y11oo"]

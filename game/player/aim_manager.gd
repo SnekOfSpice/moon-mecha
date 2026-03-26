@@ -38,6 +38,7 @@ var aim_target_gun : Node3D
 @export var move_swivel := true
 var last_mouse_pos : Vector2
 
+@export_enum("Left", "Right") var side
 func _ready() -> void:
 	aim_target_virtual = Node3D.new()
 	add_child(aim_target_virtual)
@@ -48,6 +49,11 @@ func _ready() -> void:
 	tracker.weapon_tech_id = weapon_tech_id
 	tracker.aim_depth = depth
 	tracker.main_crosshair = move_swivel
+	if side == 0:
+		tracker.crosshair_side = tracker.CROSSHAIR_SIDE_LEFT
+	if side == 1:
+		tracker.crosshair_side = tracker.CROSSHAIR_SIDE_RIGHT
+	
 	tracker.mode = OnScreenTracker.Mode.Crosshair
 	var rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
 	rangefinder.mode = OnScreenTracker.Mode.Rangefinder
@@ -59,6 +65,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("reset_aim"):
 		reset_aim()
+		Sound.play_sfx("ping", false)
 
 func reset_aim(reset_gun := false):
 	var target_pos : Vector3 = vp_camera.project_position(tracker_vp.size * 0.5, depth)

@@ -36,7 +36,8 @@ func on_property_changed(
 	old_value : Variant,
 ):
 	if property == "ammo.%s" % weapon_tech_id:
-		%AmmoLabel.text = str(new_value)
+		%AmmoLabelL.text = str(new_value)
+		%AmmoLabelR.text = str(new_value)
 
 func _enter_tree() -> void:
 	#if immediately_visible:
@@ -78,15 +79,20 @@ enum Mode{
 	Crosshair,
 	Rangefinder
 }
+const CROSSHAIR_SIDE_LEFT := "left"
+const CROSSHAIR_SIDE_RIGHT := "right"
+var crosshair_side := CROSSHAIR_SIDE_LEFT
 var mode := Mode.Default:
 	set(value):
 		mode = value
 
 		%DistanceLabel.visible = mode == Mode.Default
-		%AmmoLabel.visible = mode == Mode.Crosshair
+		%AmmoLabelR.visible = mode == Mode.Crosshair and crosshair_side == CROSSHAIR_SIDE_LEFT
+		%AmmoLabelL.visible = mode == Mode.Crosshair and crosshair_side == CROSSHAIR_SIDE_RIGHT
 		if mode == Mode.Crosshair:
 			%Sprite2D.texture = load("res://game/ui/crosshairs.png")
-			%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
+			%AmmoLabelL.text = str(Data.of("ammo.%s" % weapon_tech_id))
+			%AmmoLabelR.text = str(Data.of("ammo.%s" % weapon_tech_id))
 			modulate = COLOR_CROSSHAIR
 		elif mode == Mode.Rangefinder:
 			%Sprite2D.texture = load("res://game/ui/rangefinder.png")
@@ -100,15 +106,3 @@ const COLOR_DEFAULT := Color("7e0e47ff")
 const COLOR_ARMED := Color("eb2516ff")
 const COLOR_CROSSHAIR := Color("c2cbfcc3")
 const COLOR_RANGEFINDER := Color("666666c6")
-
-
-#var is_crosshair := false:
-	#set(value):
-		#is_crosshair = value
-		#%DistanceLabel.visible = not is_crosshair
-		#%AmmoLabel.visible = is_crosshair
-		#if is_crosshair:
-			#%Sprite2D.texture = load("res://game/ui/crosshairs.png")
-			#%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
-		#else:
-			#%Sprite2D.texture = load("res://game/ui/tracker.png")

@@ -1,0 +1,880 @@
+{
+	"pages": {
+		"callable_autoloads": [],
+		"custom_method_defaults": {
+
+		},
+		"custom_method_stringkit_limiters": {
+
+		},
+		"default_locale": "en_US",
+		"empty_strings_for_l10n": false,
+		"evaluator_modified_times": {
+
+		},
+		"facts": {
+			"priestess.bullshit": false,
+			"priestess.dosomething": false,
+			"priestess.purpose": false,
+			"priestess.reanimate": false
+		},
+		"file_config": {
+			"evaluator_paths": [
+				"res://game/player/dialogue.gd"
+			]
+		},
+		"full_custom_method_defaults": {
+			"add_custom_blocker": {
+
+			},
+			"add_text_display_delay": {
+
+			},
+			"advance": {
+
+			},
+			"apply_preferences": {
+
+			},
+			"apply_ui_visibilities": {
+
+			},
+			"call_from_string": {
+				"call_mode": 0,
+				"call_position": -1
+			},
+			"callv_custom": {
+
+			},
+			"choice_pressed_virtual": {
+
+			},
+			"clear_custom_blockers": {
+
+			},
+			"clear_past_lines": {
+				"clear_body_label": false
+			},
+			"continue_after_interrupt": {
+				"read_line": 0,
+				"read_page": -1
+			},
+			"enable_keep_past_lines": {
+				"keep_text": false,
+				"new_label": null,
+				"new_name_style": null
+			},
+			"finish_waiting_for_instruction": {
+
+			},
+			"get_actor_config_property": {
+				"default": null
+			},
+			"get_actor_names_in_line": {
+				"empty_if_not_text": true
+			},
+			"get_body_label_progress_step": {
+
+			},
+			"get_body_label_text_draw_pos": {
+				"on_label": null
+			},
+			"get_past_line_rich_text_label": {
+				"text": ""
+			},
+			"get_preferences": {
+
+			},
+			"get_subaddress": {
+
+			},
+			"get_subaddress_arr": {
+				"fill_with_zero": true
+			},
+			"get_ui_visibilities": {
+
+			},
+			"interrupt": {
+				"hide_controls": true
+			},
+			"is_advance_blocked": {
+				"include_auto_continue": true,
+				"include_warnings": false
+			},
+			"is_at_end_of_line": {
+				"non_text_return_value": true
+			},
+			"remove_custom_blocker": {
+
+			},
+			"request_advance": {
+
+			},
+			"request_go_back": {
+
+			},
+			"set_actor_color": {
+
+			},
+			"set_actor_config_property": {
+
+			},
+			"set_actor_config_property_color": {
+
+			},
+			"set_actor_name": {
+
+			},
+			"set_body_label": {
+				"clear_previous": false,
+				"keep_text": true
+			},
+			"set_chatlog_enabled": {
+
+			},
+			"set_custom_text_speed_override": {
+
+			},
+			"set_name_controls": {
+				"container": null,
+				"keep_text": true
+			},
+			"set_name_prefix": {
+				"update": true
+			},
+			"set_name_suffix": {
+				"update": true
+			},
+			"set_ruby_enabled": {
+
+			},
+			"set_text_display_delay": {
+
+			},
+			"update_body_label": {
+
+			},
+			"update_name_label": {
+
+			}
+		},
+		"id_counter": -9223372036854775576,
+		"import_modified_times_by_path": {
+
+		},
+		"ingestion_actor_declaration": "h: hypatia\nn: narrator\np: priestess\ns: siren\nv: venus",
+		"locales_to_export": [
+			"af_ZA",
+			"sq_AL",
+			"ar_SA",
+			"hy_AM",
+			"az_AZ",
+			"eu_ES",
+			"be_BY",
+			"bn_IN",
+			"bs_BA",
+			"bg_BG",
+			"ca_ES",
+			"zh_CN",
+			"zh_TW",
+			"hr_HR",
+			"cs_CZ",
+			"da_DK",
+			"nl_NL",
+			"en_US",
+			"et_EE",
+			"fo_FO",
+			"fi_FI",
+			"fr_FR",
+			"gl_ES",
+			"ka_GE",
+			"de_DE",
+			"el_GR",
+			"gu_IN",
+			"he_IL",
+			"hi_IN",
+			"hu_HU",
+			"is_IS",
+			"id_ID",
+			"it_IT",
+			"ja_JP",
+			"kn_IN",
+			"kk_KZ",
+			"kok_IN",
+			"ko_KR",
+			"lv_LV",
+			"lt_LT",
+			"mk_MK",
+			"ms_MY",
+			"ml_IN",
+			"mt_MT",
+			"mr_IN",
+			"mn_MN",
+			"se_NO",
+			"nb_NO",
+			"nn_NO",
+			"fa_IR",
+			"pl_PL",
+			"pt_BR",
+			"pa_IN",
+			"ro_RO",
+			"ru_RU",
+			"sr_BA",
+			"sk_SK",
+			"es_ES",
+			"sw_KE",
+			"sv_SE",
+			"syr_SY",
+			"ta_IN",
+			"te_IN",
+			"th_TH",
+			"tn_ZA",
+			"tr_TR",
+			"uk_UA",
+			"uz_UZ",
+			"vi_VN",
+			"cy_GB",
+			"xh_ZA",
+			"zu_ZA"
+		],
+		"page_data": {
+			"0": {
+				"facts": {
+					"fact_data_by_name": {
+
+					},
+					"meta.visible": false
+				},
+				"id": "1774547112.226--9223372036854775807",
+				"lines": [
+					{
+						"address": "0.0",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1774559046.339--9223372036854775799"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559046.339--9223372036854775800",
+						"line_type": 0,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 0,
+						"meta.line_index": 0,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.1",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"auto_switch": false,
+							"choice_order": [],
+							"choices": [
+								{
+									"address": "0.1.0",
+									"behavior_after_first_selection": 0,
+									"choice_text.enabled_as_default": true,
+									"conditionals": {
+										"behavior": 0,
+										"behavior_key": "Show",
+										"facts": {
+											"fact_data_by_name": {
+
+											},
+											"meta.visible": false
+										},
+										"meta.controls_collapsed": true,
+										"meta.visible": false,
+										"operand": 0,
+										"operand_args": [],
+										"operand_key": "AND"
+									},
+									"do_jump_page": false,
+									"facts": {
+										"fact_data_by_name": {
+											"priestess.purpose": {
+												"data_type": 0,
+												"fact_name": "priestess.purpose",
+												"fact_value": true,
+												"int_comparator": 0,
+												"int_operator": 0,
+												"is_conditional": false
+											}
+										},
+										"meta.visible": true
+									},
+									"id": "1774559099.265--9223372036854775802",
+									"jump_address_mode": 0,
+									"loop_address_mode": 0,
+									"loopback": false,
+									"loopback_target_line": 0,
+									"loopback_target_page": 0,
+									"meta.disabled_visible": false,
+									"meta.enabled_visible": true,
+									"meta.jump_page_before_auto_switch": false,
+									"meta.selector": {
+										"selected": false
+									},
+									"target_line": 0,
+									"target_page": 0,
+									"text_id_disabled": "1774559099.265--9223372036854775800",
+									"text_id_enabled": "1774559099.265--9223372036854775801"
+								},
+								{
+									"address": "0.1.1",
+									"behavior_after_first_selection": 0,
+									"choice_text.enabled_as_default": true,
+									"conditionals": {
+										"behavior": 0,
+										"behavior_key": "Show",
+										"facts": {
+											"fact_data_by_name": {
+
+											},
+											"meta.visible": false
+										},
+										"meta.controls_collapsed": true,
+										"meta.visible": false,
+										"operand": 0,
+										"operand_args": [],
+										"operand_key": "AND"
+									},
+									"do_jump_page": false,
+									"facts": {
+										"fact_data_by_name": {
+											"priestess.reanimate": {
+												"data_type": 0,
+												"fact_name": "priestess.reanimate",
+												"fact_value": true,
+												"int_comparator": 0,
+												"int_operator": 0,
+												"is_conditional": false
+											}
+										},
+										"meta.visible": true
+									},
+									"id": "1774559099.279--9223372036854775798",
+									"jump_address_mode": 0,
+									"loop_address_mode": 0,
+									"loopback": false,
+									"loopback_target_line": 0,
+									"loopback_target_page": 0,
+									"meta.disabled_visible": false,
+									"meta.enabled_visible": true,
+									"meta.jump_page_before_auto_switch": false,
+									"meta.selector": {
+										"selected": false
+									},
+									"target_line": 0,
+									"target_page": 0,
+									"text_id_disabled": "1774559099.279--9223372036854775796",
+									"text_id_enabled": "1774559099.279--9223372036854775797"
+								}
+							],
+							"meta.do_jump_page": true,
+							"meta.editing_view": 0,
+							"title_id": "1774559099.249--9223372036854775803"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559099.265--9223372036854775799",
+						"line_type": 1,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 0,
+						"meta.line_index": 1,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.2",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+									"priestess.purpose": {
+										"data_type": 0,
+										"fact_name": "priestess.purpose",
+										"fact_value": true,
+										"int_comparator": 0,
+										"int_operator": 0,
+										"is_conditional": true
+									}
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.contents_visible": true,
+							"range": 4.0
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559140.565--9223372036854775791",
+						"line_type": 3,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 2,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.3",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1774559143.751--9223372036854775788"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559143.751--9223372036854775789",
+						"line_type": 0,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 3,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.4",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"auto_switch": false,
+							"choice_order": [],
+							"choices": [
+								{
+									"address": "0.4.0",
+									"behavior_after_first_selection": 0,
+									"choice_text.enabled_as_default": true,
+									"conditionals": {
+										"behavior": 0,
+										"behavior_key": "Show",
+										"facts": {
+											"fact_data_by_name": {
+
+											},
+											"meta.visible": false
+										},
+										"meta.controls_collapsed": true,
+										"meta.visible": false,
+										"operand": 0,
+										"operand_args": [],
+										"operand_key": "AND"
+									},
+									"do_jump_page": false,
+									"facts": {
+										"fact_data_by_name": {
+											"priestess.dosomething": {
+												"data_type": 0,
+												"fact_name": "priestess.dosomething",
+												"fact_value": true,
+												"int_comparator": 0,
+												"int_operator": 0,
+												"is_conditional": false
+											}
+										},
+										"meta.visible": false
+									},
+									"id": "1774559265.931--9223372036854775776",
+									"jump_address_mode": 0,
+									"loop_address_mode": 0,
+									"loopback": false,
+									"loopback_target_line": 0,
+									"loopback_target_page": 0,
+									"meta.disabled_visible": false,
+									"meta.enabled_visible": true,
+									"meta.jump_page_before_auto_switch": false,
+									"meta.selector": {
+										"selected": false
+									},
+									"target_line": 0,
+									"target_page": 0,
+									"text_id_disabled": "1774559265.931--9223372036854775774",
+									"text_id_enabled": "1774559265.931--9223372036854775775"
+								},
+								{
+									"address": "0.4.1",
+									"behavior_after_first_selection": 0,
+									"choice_text.enabled_as_default": true,
+									"conditionals": {
+										"behavior": 0,
+										"behavior_key": "Show",
+										"facts": {
+											"fact_data_by_name": {
+
+											},
+											"meta.visible": false
+										},
+										"meta.controls_collapsed": true,
+										"meta.visible": false,
+										"operand": 0,
+										"operand_args": [],
+										"operand_key": "AND"
+									},
+									"do_jump_page": false,
+									"facts": {
+										"fact_data_by_name": {
+											"priestess.bullshit": {
+												"data_type": 0,
+												"fact_name": "priestess.bullshit",
+												"fact_value": true,
+												"int_comparator": 0,
+												"int_operator": 0,
+												"is_conditional": false
+											}
+										},
+										"meta.visible": false
+									},
+									"id": "1774559265.948--9223372036854775772",
+									"jump_address_mode": 0,
+									"loop_address_mode": 0,
+									"loopback": false,
+									"loopback_target_line": 0,
+									"loopback_target_page": 0,
+									"meta.disabled_visible": false,
+									"meta.enabled_visible": true,
+									"meta.jump_page_before_auto_switch": false,
+									"meta.selector": {
+										"selected": false
+									},
+									"target_line": 0,
+									"target_page": 0,
+									"text_id_disabled": "1774559265.948--9223372036854775770",
+									"text_id_enabled": "1774559265.948--9223372036854775771"
+								}
+							],
+							"meta.do_jump_page": true,
+							"meta.editing_view": 0,
+							"title_id": "1774559265.917--9223372036854775777"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559265.932--9223372036854775773",
+						"line_type": 1,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 4,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.5",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+									"priestess.dosomething": {
+										"data_type": 0,
+										"fact_name": "priestess.dosomething",
+										"fact_value": true,
+										"int_comparator": 0,
+										"int_operator": 0,
+										"is_conditional": true
+									}
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1774559286.527--9223372036854775764"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559286.527--9223372036854775765",
+						"line_type": 0,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 5,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.6",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+									"priestess.bullshit": {
+										"data_type": 0,
+										"fact_name": "priestess.bullshit",
+										"fact_value": true,
+										"int_comparator": 0,
+										"int_operator": 0,
+										"is_conditional": true
+									}
+								},
+								"meta.visible": true
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": true,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1774559286.012--9223372036854775767"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559286.011--9223372036854775768",
+						"line_type": 0,
+						"meta.conditionals_visible": true,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 6,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.7",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+									"priestess.reanimate": {
+										"data_type": 0,
+										"fact_name": "priestess.reanimate",
+										"fact_value": true,
+										"int_comparator": 0,
+										"int_operator": 0,
+										"is_conditional": true
+									}
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.contents_visible": true,
+							"range": 1.0
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559258.516--9223372036854775778",
+						"line_type": 3,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 7,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.8",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1774559102.195--9223372036854775793"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1774559102.195--9223372036854775794",
+						"line_type": 0,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 1,
+						"meta.line_index": 8,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					}
+				],
+				"meta.address_mode_next": 0,
+				"meta.selected": false,
+				"next": 0.0,
+				"number": 0,
+				"page_key": "priestess.moonlance_quest",
+				"skip": false,
+				"terminate": true
+			}
+		},
+		"stringkit_dialog_arguments": [],
+		"stringkit_title_for_dialog_syntax": "character",
+		"stringkit_titles": [
+			"character"
+		],
+		"stringkits": {
+			"character": [
+				"narrator",
+				"hypatia",
+				"priestess",
+				"venus",
+				"siren"
+			]
+		},
+		"text_data": {
+			"1774559046.339--9223372036854775799": "[]>priestess: Ah, your memories are faded\n[]>priestess: Like those of the titans of yore, youve forgotten xour purpose, and now crush the world in your hands as you aim to hold it uo against its will\n[]>priestess: but the world has changed now\n[]>priestess: the era of mechanical subjugation is a far bygone one",
+			"1774559099.249--9223372036854775803": "",
+			"1774559099.265--9223372036854775800": "",
+			"1774559099.265--9223372036854775801": "I want to have purpose",
+			"1774559099.279--9223372036854775796": "",
+			"1774559099.279--9223372036854775797": "I will reanimate the titans.",
+			"1774559102.195--9223372036854775793": "[]>priestess: When you find the cure to cosmic death, you will not need them anymore\n[]>priestess: hehehe...",
+			"1774559143.751--9223372036854775788": "[]>priestess: ah but you may have some, in time\n[]>priestess: sooner than you fathom, my daughter\n[]>hypatia: How so?\n[]>priestess: Less than a cycle remains\n[]>priestess: Faar less than a cycle is what you have witnessed\n[]>priestess: This world has been betrayed\n[]>priestess: The One\n[]>priestess: The Lonesome Titan from Beyond\n[]>priestess: He will climb up the stars and destroy all f us\n[]>hypatia: When?\n[]>priestess: Tonight \n[]>hypatia: Tonight?\n[]>priestess: Yes. \n[]>priestess: This world is not long for the stars\n[]>priestess: Soon, it will be gorged",
+			"1774559265.917--9223372036854775777": "",
+			"1774559265.931--9223372036854775774": "",
+			"1774559265.931--9223372036854775775": "Can I do something about it?",
+			"1774559265.948--9223372036854775770": "",
+			"1774559265.948--9223372036854775771": "This is bullshit ",
+			"1774559286.012--9223372036854775767": "[]>priestess: Some may say so, yes.",
+			"1774559286.527--9223372036854775764": "[]>priestess: Your shell, it can bear a sin too grand for any of us.\n[]>priestess: The traitors have been picking at the moon.\n[]>priestess: Some of them carry shards with them yet.\n[]>priestess: Find the lunar cradle, it is yhe bed of night.\n[]>priestess: Adorn it with shards and it will graft its Lance upon your... implement.\n[]>hypatia: Moon Lance?\n[]>hypatia: Like a strap\n[]>priestess: Priestesses are keen on the sororal pleasures you speak of\n[]>priestess: You may use them to shoot down the One."
+		},
+		"text_lead_time_other_actor": 0.0,
+		"text_lead_time_same_actor": 0.0,
+		"use_dialog_syntax": true
+	}
+}

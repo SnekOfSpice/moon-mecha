@@ -46,6 +46,8 @@ func _ready() -> void:
 	%CockpitScreenR.set_viewport(%RightVP)
 	
 	#mech_mode = MechMode.Roaming
+	
+	Parser.reset_and_start()
 
 
 func _physics_process(delta: float) -> void:
@@ -115,7 +117,6 @@ func _physics_process(delta: float) -> void:
 var turn_dir : float
 
 
-		
 
 func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseMotion:
@@ -123,6 +124,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	turn_dir = -Input.get_axis("turn_left", "turn_right")
 	if event.is_action_pressed("brake"):
 		throttle = 0
+	if event.is_action_pressed("advance"):
+		$Dialogue.request_advance()
 	if event.is_action_pressed("interact"):
 		if current_item:
 			handle_interaction(current_item)
@@ -188,7 +191,7 @@ func _on_interaction_range_area_exited(area: Area3D) -> void:
 
 
 func _on_aim_manager_r_shoot() -> void:
-	var shot_valid : bool = %pistol2.request_shot()
+	var shot_valid : bool = %pistol2.request_shot() == Gun.FireResult.Success
 	
 	if not shot_valid:
 		return
@@ -201,7 +204,7 @@ func _on_aim_manager_r_shoot() -> void:
 
 
 func _on_aim_manager_l_shoot() -> void:
-	var shot_valid : bool = %sniper2.request_shot()
+	var shot_valid : bool = %sniper2.request_shot() == Gun.FireResult.Success
 	
 	if not shot_valid:
 		return

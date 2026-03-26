@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://cyet8f5ksb7ra"]
+
+[ext_resource type="FontFile" uid="uid://cd18jd0tstgc2" path="res://addons/diisis/templates/visual_novel/visuals/theme/fonts/KHMenuItalic.ttf" id="1_feqek"]
+[ext_resource type="FontFile" uid="uid://rvnhwlkt81ow" path="res://addons/diisis/parser/style/TimesNewPixelexp.ttf" id="2_t6dxr"]
+[ext_resource type="FontFile" uid="uid://68il7gja1pht" path="res://addons/diisis/editor/visuals/theme/fonts/Nauman-Regular.ttf" id="3_wydjo"]
+
+[sub_resource type="FontVariation" id="FontVariation_rulxt"]
+base_font = ExtResource("1_feqek")
+
+[sub_resource type="FontVariation" id="FontVariation_0m78v"]
+base_font = ExtResource("2_t6dxr")
+spacing_glyph = 2
+spacing_top = 2
+
+[sub_resource type="FontVariation" id="FontVariation_ixuex"]
+base_font = ExtResource("3_wydjo")
+
+[resource]
+Label/fonts/font = SubResource("FontVariation_rulxt")
+LabelDialogue/base_type = &"Label"
+LabelDialogue/font_sizes/font_size = 29
+LabelDialogue/fonts/font = SubResource("FontVariation_0m78v")
+RichTextLabel/fonts/normal_font = SubResource("FontVariation_ixuex")
