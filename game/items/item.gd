@@ -24,3 +24,9 @@ func _on_visible_on_screen_notifier_3d_screen_entered() -> void:
 
 func _on_visible_on_screen_notifier_3d_screen_exited() -> void:
 	EventBus.item_exited_viewport.emit(self)
+
+
+func handle_hit():
+	if interaction_type == InteractionType.NPCDialogue:
+		queue_free()
+	print(tech_id, " is hit")

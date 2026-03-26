@@ -1,17 +1,199 @@
 [gd_scene format=3 uid="uid://k0wuudevyq6u"]
 
 [ext_resource type="PackedScene" uid="uid://bhgn03yuc4rk4" path="res://game/player/weapons/sniper/sniper.glb" id="1_aphao"]
+[ext_resource type="Script" uid="uid://bjhhnwc8rewee" path="res://game/player/weapons/gun.gd" id="2_lui5i"]
+[ext_resource type="AudioStream" uid="uid://2m5v8bhgun5" path="res://game/audio/sfx/destruction1.mp3" id="3_sgk5s"]
+[ext_resource type="Script" uid="uid://cdt582jsno812" path="res://game/player/weapons/gun_stats.gd" id="4_ole6h"]
+[ext_resource type="Texture2D" uid="uid://df7nr22tq3ys3" path="res://game/player/weapons/pistol_muzzle_flash.png" id="5_4eo0x"]
+[ext_resource type="ArrayMesh" uid="uid://j1p8nqghbjle" path="res://game/player/weapons/muzzleplanes.obj" id="6_ewi7h"]
+[ext_resource type="Texture2D" uid="uid://bl72x0ffxjwvw" path="res://game/player/weapons/pistol_muzzle_cone.png" id="7_0vldt"]
+[ext_resource type="ArrayMesh" uid="uid://difuapxa2hbvy" path="res://game/player/weapons/muzzlecone.obj" id="8_s0u34"]
+[ext_resource type="Texture2D" uid="uid://drpbjwwb5rwk2" path="res://game/player/weapons/pistol_bright_flash.png" id="9_0a6wl"]
 
-[node name="sniper" unique_id=1594836592 instance=ExtResource("1_aphao")]
+[sub_resource type="Resource" id="Resource_r830v"]
+script = ExtResource("4_ole6h")
+time_between_shots = 4.0
+metadata/_custom_type_script = "uid://cdt582jsno812"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_31ihr"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("5_4eo0x")
+
+[sub_resource type="Curve" id="Curve_g8slo"]
+_data = [Vector2(0, 1), 0.0, 0.3060743, 0, 0, Vector2(1, 0), -1.5230151, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1isb5"]
+curve = SubResource("Curve_g8slo")
+
+[sub_resource type="Curve" id="Curve_8htsf"]
+_data = [Vector2(0, 0), 0.0, 4.6695986, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l8jat"]
+curve = SubResource("Curve_8htsf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0sk68"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_l8jat")
+color = Color(1.107423, 0.52827775, 0.15665603, 1)
+alpha_curve = SubResource("CurveTexture_1isb5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_buvo0"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("7_0vldt")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yndi0"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("9_0a6wl")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_qq16w"]
+_data = [Vector2(0, 1), 0.0, 0.3060743, 0, 0, Vector2(1, 0), -1.5230151, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ayisq"]
+curve = SubResource("Curve_qq16w")
+
+[sub_resource type="Curve" id="Curve_y35on"]
+_data = [Vector2(0, 0), 0.0, 4.6695986, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q3y0b"]
+curve = SubResource("Curve_y35on")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3teu8"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_q3y0b")
+color = Color(0.4028903, 0.31651628, 0.10058121, 0.5647059)
+alpha_curve = SubResource("CurveTexture_ayisq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tahxt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l04rl"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("9_0a6wl")
+
+[sub_resource type="Curve" id="Curve_1a46y"]
+_data = [Vector2(0.021352313, 0.95234597), 0.0, -3.5446138, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_i0fdp"]
+curve = SubResource("Curve_1a46y")
+
+[sub_resource type="Curve" id="Curve_7psi0"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3bgio"]
+curve = SubResource("Curve_7psi0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_anlgb"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 0, 1)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+damping_min = 0.5
+damping_max = 0.8
+damping_curve = SubResource("CurveTexture_3bgio")
+scale_min = 0.049999997
+scale_max = 0.29999998
+color = Color(0.71873754, 0.4552592, 0, 1)
+alpha_curve = SubResource("CurveTexture_i0fdp")
+
+[sub_resource type="QuadMesh" id="QuadMesh_k2605"]
+size = Vector2(0.2, 1)
+
+[node name="sniper" unique_id=1594836592 node_paths=PackedStringArray("muzzle_position") instance=ExtResource("1_aphao")]
+script = ExtResource("2_lui5i")
+muzzle_position = NodePath("Muzzle")
+shoot_sfx = ExtResource("3_sgk5s")
+gun_stats = SubResource("Resource_r830v")
 
 [node name="Cube_005" parent="." index="0" unique_id=39233621]
-transform = Transform3D(1, -1.509958e-07, -8.742278e-08, -1.509958e-07, -1, 0, -8.742278e-08, 1.3200472e-14, -1, 0, 0, 0)
+transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="Cylinder_002" parent="." index="1" unique_id=1887043561]
-transform = Transform3D(1, -2.3841858e-07, -1.0421607e-14, 0, -4.371139e-08, 1, -2.3841858e-07, -1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-1, 1.509958e-07, 6.600236e-15, 0, -4.371139e-08, 1, 1.509958e-07, 1, 4.371139e-08, 0, 0, 0)
 
 [node name="Cylinder_003" parent="." index="2" unique_id=386392921]
-transform = Transform3D(1, -2.3841858e-07, -1.0421607e-14, 0, -4.371139e-08, 1, -2.3841858e-07, -1, -4.371139e-08, 0, 0, 0)
+transform = Transform3D(-1, 1.509958e-07, 6.600236e-15, 0, -4.371139e-08, 1, 1.509958e-07, 1, 4.371139e-08, 0, 0, 0)
 
 [node name="Cube_006" parent="." index="3" unique_id=1998282501]
-transform = Transform3D(1, -1.509958e-07, -8.742278e-08, -1.509958e-07, -1, 0, -8.742278e-08, 1.3200472e-14, -1, 0, 0, 0)
+transform = Transform3D(-1, 1.509958e-07, 0, -1.509958e-07, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MuzzleFlash" type="Node3D" parent="." index="4" unique_id=846571696]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027242243, 3.0099254)
+
+[node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash" index="0" unique_id=1015072639]
+material_override = SubResource("StandardMaterial3D_31ihr")
+emitting = false
+amount = 1
+lifetime = 0.09999999999999999
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_0sk68")
+draw_pass_1 = ExtResource("6_ewi7h")
+
+[node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlash" index="1" unique_id=308643664]
+material_override = SubResource("StandardMaterial3D_buvo0")
+emitting = false
+amount = 1
+lifetime = 0.09999999999999999
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_0sk68")
+draw_pass_1 = ExtResource("8_s0u34")
+
+[node name="MuzzleCone2" type="GPUParticles3D" parent="MuzzleFlash" index="2" unique_id=1520185665]
+material_override = SubResource("StandardMaterial3D_yndi0")
+emitting = false
+amount = 1
+lifetime = 0.09999999999999999
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_3teu8")
+draw_pass_1 = SubResource("QuadMesh_tahxt")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash" index="3" unique_id=2100191529]
+material_override = SubResource("StandardMaterial3D_l04rl")
+emitting = false
+amount = 20
+lifetime = 0.5
+explosiveness = 0.7
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_anlgb")
+draw_pass_1 = SubResource("QuadMesh_k2605")
+
+[node name="Muzzle" type="Marker3D" parent="." index="5" unique_id=1424640668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12736326, 3.1442788)

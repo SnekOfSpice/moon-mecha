@@ -344,6 +344,7 @@ transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 
 remote_path = NodePath("../../ScreenR/RightVP/WeaponCameraRight")
 
 [node name="pistol2" parent="cockpit/WeaponSwivelRight" unique_id=45297058 instance=ExtResource("3_8soms")]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0.5989983, -0.25003362, -0.9271045)
 
 [node name="WeaponRaycastR" type="RayCast3D" parent="cockpit/WeaponSwivelRight" unique_id=640247355 node_paths=PackedStringArray("crosshairs", "id_label")]
@@ -383,6 +384,8 @@ transform = Transform3D(-8.742268e-08, -1.9999989, 0, 1.9999977, -8.742273e-08, 
 remote_path = NodePath("../../ScreenL/LeftVP/WeaponCameraLeft")
 
 [node name="sniper2" parent="cockpit/WeaponSwivelLeft" unique_id=1594836592 instance=ExtResource("4_a4w0n")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="WeaponRaycastL" type="RayCast3D" parent="cockpit/WeaponSwivelLeft" unique_id=1179153998 node_paths=PackedStringArray("crosshairs", "id_label")]
 unique_name_in_owner = true

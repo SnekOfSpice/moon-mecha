@@ -11,6 +11,7 @@ radius = 1.5268555
 
 [node name="Item" type="Area3D" unique_id=787616141]
 collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_qi0gw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1264688930]

@@ -128,8 +128,10 @@ func _unhandled_input(event: InputEvent) -> void:
 			handle_interaction(current_item)
 	if event.is_action_pressed("safety_left"):
 		%AimManagerL.safety_enabled = not %AimManagerL.safety_enabled
+		Sound.play_sfx("switch1")
 	if event.is_action_pressed("safety_right"):
 		%AimManagerR.safety_enabled = not %AimManagerR.safety_enabled
+		Sound.play_sfx("switch1")
 	# not that fun actually
 	#if event.is_action_pressed("switch_mode"):
 		##if velocity.length() > 0:
@@ -186,12 +188,24 @@ func _on_interaction_range_area_exited(area: Area3D) -> void:
 
 
 func _on_aim_manager_r_shoot() -> void:
-	print("SHOOT R")
-	if %WeaponRaycastR.get_collider() is Bird:
-		%WeaponRaycastR.get_collider().is_hit = true
+	var shot_valid : bool = %pistol2.request_shot()
+	
+	if not shot_valid:
+		return
+	
+	if %WeaponRaycastR.get_collider():
+		if %WeaponRaycastR.get_collider().has_method("handle_hit"):
+			%WeaponRaycastR.get_collider().handle_hit()
+	
+	
 
 
 func _on_aim_manager_l_shoot() -> void:
-	print("SHOOT L")
-	if %WeaponRaycastL.get_collider() is Bird:
-		%WeaponRaycastL.get_collider().is_hit = true
+	var shot_valid : bool = %sniper2.request_shot()
+	
+	if not shot_valid:
+		return
+	
+	if %WeaponRaycastL.get_collider():
+		if %WeaponRaycastL.get_collider().has_method("handle_hit"):
+			%WeaponRaycastL.get_collider().handle_hit()

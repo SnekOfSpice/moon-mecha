@@ -51,11 +51,20 @@ func _ready() -> void:
 	tracker.mode = OnScreenTracker.Mode.Crosshair
 	var rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
 	rangefinder.mode = OnScreenTracker.Mode.Rangefinder
-	
 	await get_tree().process_frame
+	
+	reset_aim(true)
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("reset_aim"):
+		reset_aim()
+
+func reset_aim(reset_gun := false):
 	var target_pos : Vector3 = vp_camera.project_position(tracker_vp.size * 0.5, depth)
 	aim_target_virtual.global_position  = target_pos
-	aim_target_gun.global_position  = target_pos
+	if reset_gun:
+		aim_target_gun.global_position  = target_pos
 
 func _process(delta: float) -> void:
 	var mouse_pos := player_camera.get_viewport().get_mouse_position()

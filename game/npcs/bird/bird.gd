@@ -51,3 +51,7 @@ func _on_ground_detection_area_body_entered(body: Node3D) -> void:
 	if body is StaticBody3D and is_hit:
 		hit_ground.emit(self)
 		queue_free()
+
+
+func handle_hit():
+	is_hit = true
