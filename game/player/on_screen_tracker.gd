@@ -87,13 +87,19 @@ var mode := Mode.Default:
 		if mode == Mode.Crosshair:
 			%Sprite2D.texture = load("res://game/ui/crosshairs.png")
 			%AmmoLabel.text = str(Data.of("ammo.%s" % weapon_tech_id))
-			modulate = Color("c2cbfcc3")
+			modulate = COLOR_CROSSHAIR
 		elif mode == Mode.Rangefinder:
 			%Sprite2D.texture = load("res://game/ui/rangefinder.png")
-			modulate = Color("666666c6")
+			modulate = COLOR_RANGEFINDER
 		else:
 			%Sprite2D.texture = load("res://game/ui/tracker.png")
-			modulate = Color("7e0e47ff")
+			modulate = COLOR_DEFAULT
+
+
+const COLOR_DEFAULT := Color("7e0e47ff")
+const COLOR_ARMED := Color("eb2516ff")
+const COLOR_CROSSHAIR := Color("c2cbfcc3")
+const COLOR_RANGEFINDER := Color("666666c6")
 
 
 #var is_crosshair := false:

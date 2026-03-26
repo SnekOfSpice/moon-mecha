@@ -111,7 +111,7 @@ light_cull_mask = 4294967293
 
 [node name="BirdSpawn" type="Marker3D" parent="BirdSpawns" unique_id=1080137364]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.169184, 4.0574775, -17.216576)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.345318, 4.0574775, -17.216576)
 
 [node name="BirdTargets" type="Node3D" parent="." unique_id=1426443618]
 

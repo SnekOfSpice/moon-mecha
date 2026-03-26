@@ -1,15 +1,25 @@
 extends Node3D
 
 
+signal shoot()
 
 var tracker : OnScreenTracker
 
+var safety_enabled := true:
+	set(value):
+		safety_enabled = value
+		if tracker:
+			if safety_enabled:
+				tracker.modulate = tracker.COLOR_CROSSHAIR
+			else:
+				tracker.modulate = tracker.COLOR_ARMED
 
 @export var tracker_vp : SubViewport
 var aim_target_virtual : Node3D
 var aim_target_gun : Node3D
 @export var aim_speed : float = 10
 @export var aim_sensitivity : float = 0.7
+@export var safety_aim_sensitivity : float = 0.5
 @export var aim_action : String
 @export var player_camera : Camera3D
 @export var gun_camera : Camera3D
@@ -39,8 +49,8 @@ func _ready() -> void:
 	tracker.aim_depth = depth
 	tracker.main_crosshair = move_swivel
 	tracker.mode = OnScreenTracker.Mode.Crosshair
-	var crosshair = tracker_vp.create_tracker(aim_target_gun, true)
-	crosshair.mode = OnScreenTracker.Mode.Rangefinder
+	var rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
+	rangefinder.mode = OnScreenTracker.Mode.Rangefinder
 	
 	await get_tree().process_frame
 	var target_pos : Vector3 = vp_camera.project_position(tracker_vp.size * 0.5, depth)
@@ -76,16 +86,23 @@ func _process(delta: float) -> void:
 	var dir := target_pos - target_pos_last
 	dir *= aim_sensitivity
 	
-	if Input.is_action_pressed(aim_action):
+	if Input.is_action_pressed(aim_action) and safety_enabled:
 		aim_target_virtual.global_position += dir
+	if Input.is_action_just_pressed(aim_action) and not safety_enabled:
+			shoot.emit()
 	
 	
 	
 	if move_swivel:
-		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta)
+		var speed_fac := 1.0
+		if not safety_enabled:
+			speed_fac *= safety_aim_sensitivity
+		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta * speed_fac)
 		weapon_swivel.look_at(aim_target_gun.global_position)
 	
 	
 	last_mouse_pos = mouse_pos
-	
-	
+
+
+func is_steady() -> bool:
+	return aim_target_gun.global_position.distance_to(aim_target_virtual.global_position) <= 0.01

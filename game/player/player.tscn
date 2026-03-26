@@ -32,7 +32,7 @@ shader = ExtResource("14_2mv0n")
 shader_parameter/hue_shift = 0.0
 shader_parameter/saturation_mult = 0.0
 shader_parameter/value_mult = 0.45600002166
-shader_parameter/brightness_add = -0.051999954969999984
+shader_parameter/brightness_add = -0.05199995496999998
 shader_parameter/contrast_mult = 1.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8soms"]
@@ -86,6 +86,7 @@ script = ExtResource("1_obar5")
 step_curve = SubResource("Curve_b2mth")
 
 [node name="AimManagerR" parent="." unique_id=1599088903 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+unique_name_in_owner = true
 tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
 aim_speed = 11.405
 aim_action = "aiming_right"
@@ -96,6 +97,7 @@ weapon_swivel = NodePath("../cockpit/WeaponSwivelRight")
 weapon_tech_id = "pistol"
 
 [node name="AimManagerL" parent="." unique_id=1238165863 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
+unique_name_in_owner = true
 tracker_vp = NodePath("../cockpit/MainScreenSprite/MainScreenVP")
 aim_speed = 12.66
 aim_sensitivity = 0.225
@@ -216,7 +218,7 @@ track_items = false
 track_npcs = false
 
 [node name="WeaponCameraRight" type="Camera3D" parent="cockpit/ScreenR/RightVP" unique_id=166692974]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 2.0679882, 2.9638498, -1.0136132)
+transform = Transform3D(-8.742253e-08, 1.9999988, 0, -1.9999943, -8.742273e-08, 0, 0, 0, 1.9999968, 2.0679882, 2.9638498, -1.0136132)
 fov = 30.3
 
 [node name="CanvasLayer2" type="CanvasLayer" parent="cockpit/ScreenR/RightVP" unique_id=432308905]
@@ -415,6 +417,16 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="MechModeLabel" type="Label" parent="CanvasLayer/HUD" unique_id=173723221]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+
 [node name="InteractionLabel" type="Label" parent="CanvasLayer/HUD" unique_id=263152560]
 unique_name_in_owner = true
 layout_mode = 1
@@ -444,6 +456,17 @@ grow_vertical = 0
 scale = Vector2(0.22, 0.22)
 pivot_offset_ratio = Vector2(1, 1)
 texture = ExtResource("9_5ghna")
+
+[node name="Notifications" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=179643993]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=684963668]
 anchors_preset = 2
@@ -504,6 +527,7 @@ offset_bottom = 11.5
 grow_vertical = 2
 
 [node name="HSV" type="ColorRect" parent="CanvasLayer" unique_id=1912027855]
+visible = false
 material = SubResource("ShaderMaterial_0e4oy")
 anchors_preset = 15
 anchor_right = 1.0
@@ -513,6 +537,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="GlitchLayer" type="CanvasLayer" parent="." unique_id=187218585]
+visible = false
 
 [node name="Glitch" type="ColorRect" parent="GlitchLayer" unique_id=1712204810]
 material = SubResource("ShaderMaterial_gh012")
@@ -535,5 +560,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[connection signal="shoot" from="AimManagerR" to="." method="_on_aim_manager_r_shoot"]
+[connection signal="shoot" from="AimManagerL" to="." method="_on_aim_manager_l_shoot"]
 [connection signal="area_entered" from="InteractionRange" to="." method="_on_interaction_range_area_entered"]
 [connection signal="area_exited" from="InteractionRange" to="." method="_on_interaction_range_area_exited"]

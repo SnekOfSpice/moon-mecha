@@ -44,6 +44,8 @@ func _ready() -> void:
 	%CockpitScreenMain.set_viewport(%MainScreenVP)
 	%CockpitScreenL.set_viewport(%LeftVP)
 	%CockpitScreenR.set_viewport(%RightVP)
+	
+	#mech_mode = MechMode.Roaming
 
 
 func _physics_process(delta: float) -> void:
@@ -51,7 +53,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	var throttle_input = Input.get_axis("throttle_down", "throttle_up")
+	var throttle_input : float = Input.get_axis("throttle_down", "throttle_up")
+	
 	throttle = clamp(throttle + acceleration * delta * throttle_input, THROTTLE_MIN, THROTTLE_MAX)
 	%ThrottleGaugeBack.set_value_no_signal(-throttle+THROTTLE_MIN)
 	%ThrottleGaugeForward.set_value_no_signal(throttle)
@@ -111,6 +114,9 @@ func _physics_process(delta: float) -> void:
 	
 var turn_dir : float
 
+
+		
+
 func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseMotion:
 		#relative = event.relative
@@ -120,17 +126,36 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if current_item:
 			handle_interaction(current_item)
-	if event.is_action_pressed("shoot_left"):
-		if %WeaponRaycastL.get_collider() is Bird:
-			%WeaponRaycastL.get_collider().is_hit = true
-	if event.is_action_pressed("shoot_right"):
-		if %WeaponRaycastR.get_collider() is Bird:
-			%WeaponRaycastR.get_collider().is_hit = true
 	if event.is_action_pressed("safety_left"):
-		pass
-	if event.is_action("switch_mode"):
-		pass
-		
+		%AimManagerL.safety_enabled = not %AimManagerL.safety_enabled
+	if event.is_action_pressed("safety_right"):
+		%AimManagerR.safety_enabled = not %AimManagerR.safety_enabled
+	# not that fun actually
+	#if event.is_action_pressed("switch_mode"):
+		##if velocity.length() > 0:
+			##notify("can only switch mode when velocity is 0")
+			##return
+		##if not %AimManagerL.is_steady():
+			##notify("steady left arm")
+			##return
+		##if not %AimManagerR.is_steady():
+			##notify("steady right arm")
+			##return
+		#if mech_mode == MechMode.Roaming:
+			#mech_mode = MechMode.Shooting
+		#elif mech_mode == MechMode.Shooting:
+			#mech_mode = MechMode.Roaming
+
+
+func notify(message : String) -> void:
+	print("MAKE NOTIFS PRETTY")
+	var notif := Label.new()
+	notif.add_theme_font_size_override("font_size", 30)
+	notif.text = message
+	var timer := get_tree().create_timer(5)
+	timer.timeout.connect(notif.queue_free)
+	%Notifications.add_child(notif)
+
 
 func handle_interaction(item : Item):
 	match item.interaction_type:
@@ -158,3 +183,15 @@ func _on_interaction_range_area_entered(area: Area3D) -> void:
 func _on_interaction_range_area_exited(area: Area3D) -> void:
 	if area is Item:
 		current_item = null
+
+
+func _on_aim_manager_r_shoot() -> void:
+	print("SHOOT R")
+	if %WeaponRaycastR.get_collider() is Bird:
+		%WeaponRaycastR.get_collider().is_hit = true
+
+
+func _on_aim_manager_l_shoot() -> void:
+	print("SHOOT L")
+	if %WeaponRaycastL.get_collider() is Bird:
+		%WeaponRaycastL.get_collider().is_hit = true
