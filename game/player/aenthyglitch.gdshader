@@ -30,6 +30,7 @@ uniform float tape_crease_intensity: hint_range(0.0, 1.0, 0.1) = 0.2;
 uniform float tape_crease_jitter: hint_range(0.0, 1.0, 0.01) = 0.10;
 uniform float tape_crease_speed: hint_range(-2.0, 2.0, 0.1) = 0.5;
 uniform float tape_crease_discoloration: hint_range(0.0, 2.0, 0.1) = 1.0;
+uniform bool tape_wave = false;
 
 group_uniforms color_fuzz;
 uniform float color_offset_multiplier: hint_range(0.0, 0.1) =  0.004;
@@ -198,18 +199,102 @@ vec3 yiq2rgb(vec3 yiq) {
 	return mat3(vec3(1.0, 1.0, 1.0), vec3(0.956, -0.272, -1.106), vec3(0.621, -0.647, 1.703)) * yiq;
 }
 
+group_uniforms first_colorspace_filter;
+uniform bool f_hsv2rgb = false;
+uniform bool f_rgb2hsv = false;
+uniform bool f_yiq2rgb = false;
+uniform bool f_rgb2yiq = true;
+uniform bool f_yuv2rgb = false;
+uniform bool f_rgb2yuv = false;
+
+group_uniforms second_colorspace_filter;
+uniform bool s_hsv2rgb = false;
+uniform bool s_rgb2hsv = false;
+uniform bool s_yiq2rgb = false;
+uniform bool s_rgb2yiq = false;
+uniform bool s_yuv2rgb = true;
+uniform bool s_rgb2yuv = false;
+
+vec3 f_transform_color_sapce(vec3 base){
+	bool multiply = false;
+	if(f_hsv2rgb){
+		base = hsv2rgb(base);
+		multiply = true;
+	} 
+	if (f_rgb2hsv){
+		if(multiply) {base *= rgb2hsv(base);}
+		else base = rgb2hsv(base);
+		multiply = true;
+	} 
+	if (f_yiq2rgb){
+		if(multiply) {base *= yiq2rgb(base);}
+		else base = yiq2rgb(base);
+		multiply = true;
+	} 
+	if (f_rgb2yiq){
+		if(multiply) {base *= rgb2yiq(base);}
+		else base = rgb2yiq(base);
+		multiply = true;
+	} 
+	if (f_yuv2rgb){
+		if(multiply) {base *= yuv_to_rgb(base);}
+		else base = yuv_to_rgb(base);
+		multiply = true;
+	} 
+	if (f_rgb2yuv){
+		if(multiply) {base *= rgb_to_yuv(base);}
+		else base = rgb_to_yuv(base);
+		multiply = true;
+	} 
+	return base;
+}
+
+vec3 s_transform_color_space(vec3 base){
+	bool multiply = false;
+	if (s_hsv2rgb){
+		base = hsv2rgb(base);
+		multiply = true;
+	} 
+	if (s_rgb2hsv){
+		if(multiply) {base *= rgb2hsv(base);}
+		else base = rgb2hsv(base);
+		multiply = true;
+	} 
+	if (s_yiq2rgb){
+		if(multiply) {base *= yiq2rgb(base);}
+		else base = yiq2rgb(base);
+		multiply = true;
+	} 
+	if (s_rgb2yiq){
+		if(multiply) {base *= rgb2yiq(base);}
+		else base = rgb2yiq(base);
+		multiply = true;
+	} 
+	if (s_yuv2rgb){
+		if(multiply) {base *= yuv_to_rgb(base);}
+		else base = yuv_to_rgb(base);
+		multiply = true;
+	} 
+	if (s_rgb2yuv){
+		if(multiply) {base *= rgb_to_yuv(base);}
+		else base = rgb_to_yuv(base);
+		multiply = true;
+	} 
+	return base;
+}
+
+
 vec3 vhx_tex_2D(sampler2D tex, vec2 uv, float rot) {
 	vec3 yiq = vec3(0.0);
 	for (int i = 0; i < samples; i++) {
-		yiq += hsv2rgb(texture(tex, uv - vec2(float(i), 0.0) / vhs_resolution).xyz) *
-				vec2(float(i), float(samples - 1 - i)).yxx / float(samples - 1)
-				/ float(samples) * 2.0;
+		yiq += f_transform_color_sapce((texture(tex, uv - vec2(float(i), 0.0) / vhs_resolution).xyz)) * vec2(float(i), float(samples - 1 - i)).yxx / float(samples - 1) / float(samples) * 2.0;
 	}
 	if (rot != 0.0) {
 		yiq.yz *= rotate2D(rot * tape_crease_discoloration);
 	}
-	return hsv2rgb(yiq);
+	return s_transform_color_space(yiq);
 }
+
 float noise(vec2 uv, float offset) {
 	return (fract(sin(dot(uv * offset, vec2(12.9898, 78.233))) * 43758.5453) - 0.5) * 2.0;
 }
@@ -228,8 +313,10 @@ void fragment() {
 	//vec3 col = vec3(0.0, 0.0, 0.0);
 
 	// Tape wave.
-	//uvn.x += (v2random(vec2(uvn.y / 10.0, TIME / 10.0) / 1.0) - 0.5) / vhs_resolution.x * 1.0;
-	//uvn.x += (v2random(vec2(uvn.y, TIME * 10.0)) - 0.5) / vhs_resolution.x * 1.0;
+	if(tape_wave){
+		uvn.x += (v2random(vec2(uvn.y / 10.0, TIME / 10.0) / 1.0) - 0.5) / vhs_resolution.x * 1.0;
+		uvn.x += (v2random(vec2(uvn.y, TIME * 10.0)) - 0.5) / vhs_resolution.x * 1.0;
+	}
 
 	// tape crease
 	float tc_phase = smoothstep(0.15, 0.15, sin(uvn.y * 8.0 - (TIME * tape_crease_speed + tape_crease_jitter * v2random(TIME * vec2(0.67, 0.59))) * PI * 1.2));
