@@ -8,6 +8,7 @@ const TURN_SPEED := 0.05
 
 
 @export var step_curve : Curve
+@export var step_shake_curve : Curve
 
 var step_speed := 0.9
 var max_step_offset := 0.35
@@ -25,6 +26,21 @@ var throttle_this_step := 0.0
 const THROTTLE_MAX :=  4
 const THROTTLE_MIN := -1.5
 
+
+
+@onready var affected_by_shake_positions := {
+	%CockpitScreenL : %CockpitScreenL.position,
+	%CockpitScreenR : %CockpitScreenR.position,
+	%WeaponSwivelLeft : %WeaponSwivelLeft.position,
+	%WeaponSwivelRight : %WeaponSwivelRight.position,
+}
+@onready var affected_by_shake_rotations := {
+	%CockpitScreenL : %CockpitScreenL.rotation,
+	%CockpitScreenR : %CockpitScreenR.rotation,
+	%WeaponSwivelLeft : %WeaponSwivelLeft.rotation,
+	%WeaponSwivelRight : %WeaponSwivelRight.rotation,
+}
+
 var trackerL : OnScreenTracker
 func _ready() -> void:
 	%ThrottleGaugeBack.min_value = THROTTLE_MIN
@@ -40,6 +56,9 @@ func _ready() -> void:
 	for marker : Marker3D in %WeaponRaycastL.get_children():
 		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
 
+	#for node : Node3D in affected_by_shake:
+		#origins_of_affected_by_shake[node] = node.position
+	
 	await get_tree().process_frame
 	%CockpitScreenMain.set_viewport(%MainScreenVP)
 	%CockpitScreenL.set_viewport(%LeftVP)
@@ -78,7 +97,8 @@ func _physics_process(delta: float) -> void:
 		var old_prog = step_progress
 		step_progress = wrapf(step_progress + delta * step_speed, 0, 1)
 		if old_prog > step_progress:
-			Sound.play_sfx("stomp") # credit https://freesound.org/people/Artninja/sounds/789754/
+			foot_impact()
+			
 			if throttle == 0:
 				step_progress = 0
 				is_stepping = false
@@ -102,7 +122,15 @@ func _physics_process(delta: float) -> void:
 
 #var last_collider : Node3D
 
-
+func foot_impact():
+	for node : Node3D in affected_by_shake_positions.keys():
+		var t := create_tween()
+		t.tween_property(node, "position:y", affected_by_shake_positions.get(node).y + 0.004 + randf_range(-0.0024, 0.001), 0.02).set_delay(randf_range(0.0, 0.1))
+		t.tween_property(node, "position:y", affected_by_shake_positions.get(node).y, 0.04)
+		#var t2 := create_tween()
+		#t2.tween_property(node, "rotation:z", affected_by_shake_rotations.get(node).z + 0.01, 0.02)
+		#t2.tween_property(node, "rotation:z", affected_by_shake_rotations.get(node).z, 0.04)
+	Sound.play_sfx("stomp") # credit https://freesound.org/people/Artninja/sounds/789754/
 #func _process(delta: float) -> void:
 	
 

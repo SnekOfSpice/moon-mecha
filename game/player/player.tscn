@@ -24,6 +24,10 @@
 _data = [Vector2(0, 0.10710132), 0.0, 0.0, 0, 0, Vector2(0.5735295, 0.52328295), 1.715173, 1.715173, 0, 0, Vector2(0.82940185, 1), -2.7441216, -2.7441216, 0, 0, Vector2(0.82941186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.22060537), 7.0567193, 0.0, 0, 0]
 point_count = 5
 
+[sub_resource type="Curve" id="Curve_0e4oy"]
+_data = [Vector2(0, 0.22434366), 0.0, 0.0, 0, 0, Vector2(0.87387383, 0), 0.0, 0.0, 0, 0, Vector2(0.98198193, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_b2mth"]
 radius = 2.3530273
 height = 6.3166504
@@ -97,6 +101,7 @@ shader_parameter/contrast_mult = 1.4590000693025
 [node name="Player" type="CharacterBody3D" unique_id=835839210]
 script = ExtResource("1_obar5")
 step_curve = SubResource("Curve_b2mth")
+step_shake_curve = SubResource("Curve_0e4oy")
 
 [node name="AimManagerR" parent="." unique_id=1599088903 node_paths=PackedStringArray("tracker_vp", "player_camera", "gun_camera", "vp_camera", "weapon_swivel") instance=ExtResource("8_epvkq")]
 unique_name_in_owner = true
