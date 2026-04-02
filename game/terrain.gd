@@ -1,6 +1,7 @@
 extends Node3D
+class_name GameWorld
 
-
+const PATH := "res://game/terrain.tscn"
 
 func _ready() -> void:
 	spawn_birds(1)

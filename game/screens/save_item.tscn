@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ci8kef6ajk80i"]
 
-[ext_resource type="Script" uid="uid://mmisnvxbh28j" path="res://addons/diisis/templates/visual_novel/screens/save_item.gd" id="1_qsytn"]
+[ext_resource type="Script" uid="uid://mmisnvxbh28j" path="res://game/screens/save_item.gd" id="1_qsytn"]
 [ext_resource type="Texture2D" uid="uid://dyu323vcu5wwa" path="res://addons/diisis/templates/visual_novel/systems/save_system/no_data.png" id="2_w4nvg"]
 
 [node name="SaveItem" type="Button" unique_id=1764837764]

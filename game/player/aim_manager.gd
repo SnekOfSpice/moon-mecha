@@ -74,6 +74,9 @@ func reset_aim(reset_gun := false):
 		aim_target_gun.global_position  = target_pos
 
 func _process(delta: float) -> void:
+	if Parser.line_reader:
+		if not Parser.line_reader.terminated:
+			return
 	var mouse_pos := player_camera.get_viewport().get_mouse_position()
 	#mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
 	#mouse_pos.y = clamp(mouse_pos.y, 0, 340)

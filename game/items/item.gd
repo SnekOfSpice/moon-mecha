@@ -8,7 +8,16 @@ enum InteractionType {
 	ItemPickup,
 }
 
-@export var interaction_type : InteractionType = InteractionType.NPCDialogue
+@export var interaction_type : InteractionType = InteractionType.NPCDialogue:
+	set(value):
+		interaction_type = value
+		match interaction_type:
+			InteractionType.NPCDialogue:
+				%BodyCollider.shape.height = 3.5
+				%BodyCollider.shape.radius = 1.2
+			InteractionType.ItemPickup:
+				%BodyCollider.shape.height = 1.5
+				%BodyCollider.shape.radius = 0.3
 
 @export var tech_id : String:
 	set(value):

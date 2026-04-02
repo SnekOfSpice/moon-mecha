@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3fs4ft445qth"]
 
-[ext_resource type="Script" uid="uid://d3v6c2v1sld3m" path="res://addons/diisis/templates/visual_novel/autoloads/scene_loader.gd" id="1_ojsub"]
+[ext_resource type="Script" uid="uid://d3v6c2v1sld3m" path="res://game/autoload/scene_loader.gd" id="1_ojsub"]
 
 [node name="SceneLoader" type="Node" unique_id=1630648606]
 script = ExtResource("1_ojsub")

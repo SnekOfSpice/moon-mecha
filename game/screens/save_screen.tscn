@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b1plcm2obfitt"]
 
-[ext_resource type="Script" uid="uid://rrr1l3javlw7" path="res://addons/diisis/templates/visual_novel/screens/save_screen.gd" id="1_ktv3v"]
+[ext_resource type="Script" uid="uid://rrr1l3javlw7" path="res://game/screens/save_screen.gd" id="1_ktv3v"]
 [ext_resource type="StyleBox" uid="uid://dadnwlbrdktog" path="res://addons/diisis/templates/visual_novel/visuals/theme/background_panel.tres" id="2_k1kml"]
 [ext_resource type="PackedScene" uid="uid://dgeujc7ht7bpl" path="res://addons/diisis/templates/visual_novel/systems/close_widget.tscn" id="3_k7sq6"]
 

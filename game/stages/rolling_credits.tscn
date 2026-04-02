@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://cps16wyqwkq1k"]
+
+[sub_resource type="GDScript" id="GDScript_qdpdf"]
+script/source = "extends Control
+
+
+func _ready() -> void:
+	visible = false
+
+
+
+func start():
+	visible = true
+	
+	var label : Label = find_child(\"Label\")
+	
+	for text in [\"DIISIS template demo\", \"created by Snek Remilia Ketter\"]:
+		label.text = text
+		await get_tree().create_timer(2).timeout
+	
+	Parser.function_acceded()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8irce"]
+bg_color = Color(0.08, 0.08, 0.08, 0.917647)
+
+[node name="RollingCredits" type="Control" unique_id=710217743]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_qdpdf")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1971096454]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_8irce")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1528489747]
+layout_mode = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/MarginContainer" unique_id=1162065603]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer/CenterContainer" unique_id=987837994]
+layout_mode = 2
+size_flags_horizontal = 4

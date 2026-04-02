@@ -43,6 +43,10 @@ const THROTTLE_MIN := -1.5
 
 var trackerL : OnScreenTracker
 func _ready() -> void:
+	
+	ParserEvents.page_terminated.connect(on_page_terminated)
+	ParserEvents.read_new_page.connect(on_read_new_page)
+	
 	%ThrottleGaugeBack.min_value = THROTTLE_MIN
 	%ThrottleGaugeBack.max_value = 0
 	%ThrottleGaugeBack.custom_minimum_size.x = abs(THROTTLE_MIN) * 40
@@ -67,10 +71,20 @@ func _ready() -> void:
 	#mech_mode = MechMode.Roaming
 	
 	Parser.reset_and_start()
+	
+	set_interaction_prompt("")
+
+
+func on_page_terminated(_page_index : int):
+	%DialogueHUD.hide()
+func on_read_new_page(_page_index : int):
+	%DialogueHUD.show()
 
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	if not %Dialogue.terminated:
+		return
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
@@ -149,11 +163,13 @@ var turn_dir : float
 func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseMotion:
 		#relative = event.relative
+	if event.is_action_pressed("advance"):
+		%Dialogue.request_advance()
+	if not %Dialogue.terminated:
+		return
 	turn_dir = -Input.get_axis("turn_left", "turn_right")
 	if event.is_action_pressed("brake"):
 		throttle = 0
-	if event.is_action_pressed("advance"):
-		$Dialogue.request_advance()
 	if event.is_action_pressed("interact"):
 		if current_item:
 			handle_interaction(current_item)
@@ -191,6 +207,8 @@ func notify(message : String) -> void:
 
 
 func handle_interaction(item : Item):
+	if %InteractionLabel.modulate.a < 1:
+		return
 	match item.interaction_type:
 		Item.InteractionType.NPCDialogue:
 			print("[F] talk to %s" % item.tech_id)
@@ -203,14 +221,40 @@ var current_item : Item = null:
 	set(value):
 		current_item = value
 		if value:
-			%InteractionLabel.text = value.tech_id
+			var prompt : String
+			match current_item.interaction_type:
+				Item.InteractionType.NPCDialogue:
+					prompt = "[F] talk to %s" % current_item.tech_id
+				Item.InteractionType.ItemPickup:
+					prompt = "[F] %s pick up " % current_item.tech_id
+			set_interaction_prompt(prompt)
 		else:
-			%InteractionLabel.text = ""
+			set_interaction_prompt("")
 
 func _on_interaction_range_area_entered(area: Area3D) -> void:
 	if area is Item:
 		current_item = area
-		%InteractionLabel.text = area.tech_id
+
+
+var interaction_tween : Tween
+
+func set_interaction_prompt(text : String):
+	if text.is_empty():
+		%InteractionContainer.hide()
+		return
+	%InteractionContainer.show()
+	if interaction_tween:
+		interaction_tween.kill()
+	%InteractionLabel.text = text
+	%InteractionLabel.modulate.a = 0
+	%InteractionProgressBar.ratio = 0
+	%InteractionProgressBar.show()
+	
+	interaction_tween = create_tween()
+	interaction_tween.tween_property(%InteractionProgressBar, "ratio", 1, randf_range(0.4, 1.5)).set_trans(Tween.TRANS_CIRC)
+	interaction_tween.finished.connect(%InteractionLabel.set.bind("modulate", Color.WHITE))
+	interaction_tween.finished.connect(%InteractionProgressBar.hide)
+	
 
 
 func _on_interaction_range_area_exited(area: Area3D) -> void:

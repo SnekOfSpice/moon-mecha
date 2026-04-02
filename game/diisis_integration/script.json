@@ -5,12 +5,51 @@
 
 		},
 		"custom_method_stringkit_limiters": {
-
+			"call_from_string": {
+				"text": []
+			},
+			"callv_custom": {
+				"method_name": []
+			},
+			"get_actor_config_property": {
+				"actor_key": [],
+				"config_property": []
+			},
+			"get_body_label_progress_step": {
+				"parsed_text": []
+			},
+			"get_past_line_rich_text_label": {
+				"text": []
+			},
+			"set_actor_color": {
+				"actor_key": []
+			},
+			"set_actor_config_property": {
+				"actor_key": [],
+				"config_property": []
+			},
+			"set_actor_config_property_color": {
+				"actor_key": [],
+				"config_property": []
+			},
+			"set_actor_name": {
+				"actor_key": [],
+				"actor_name": []
+			},
+			"set_name_prefix": {
+				"prefix": []
+			},
+			"set_name_suffix": {
+				"suffix": []
+			},
+			"update_name_label": {
+				"actor_name": []
+			}
 		},
 		"default_locale": "en_US",
 		"empty_strings_for_l10n": false,
 		"evaluator_modified_times": {
-
+			"res://game/player/dialogue.gd": 1774559660
 		},
 		"facts": {
 			"priestess.bullshit": false,
@@ -145,6 +184,9 @@
 			"set_name_suffix": {
 				"update": true
 			},
+			"set_opening_background_visible": {
+
+			},
 			"set_ruby_enabled": {
 
 			},
@@ -158,7 +200,7 @@
 
 			}
 		},
-		"id_counter": -9223372036854775576,
+		"id_counter": -9223372036854774559,
 		"import_modified_times_by_path": {
 
 		},
@@ -245,10 +287,157 @@
 					},
 					"meta.visible": false
 				},
-				"id": "1774547112.226--9223372036854775807",
+				"id": "1775126968.442--9223372036854774743",
 				"lines": [
 					{
 						"address": "0.0",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"advance_yield": false,
+							"delay_after": 0.0,
+							"delay_before": 0.0,
+							"meta.has_reverse": false,
+							"meta.reverse_text": "",
+							"meta.text": "set_opening_background_visible(true)",
+							"meta.validation_status": "OK",
+							"name": "set_opening_background_visible",
+							"reverse_name": ""
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1775135436.579--9223372036854774597",
+						"line_type": 2,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 0,
+						"meta.line_index": 0,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.1",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"meta.locked": false,
+							"meta.validation_status": "OK",
+							"text_id": "1775126991.176--9223372036854774654"
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1775126991.176--9223372036854774655",
+						"line_type": 0,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 0,
+						"meta.line_index": 1,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					},
+					{
+						"address": "0.2",
+						"conditionals": {
+							"behavior": 0,
+							"behavior_key": "Show",
+							"facts": {
+								"fact_data_by_name": {
+
+								},
+								"meta.visible": false
+							},
+							"meta.controls_collapsed": true,
+							"meta.visible": false,
+							"operand": 0,
+							"operand_args": [],
+							"operand_key": "AND"
+						},
+						"content": {
+							"advance_yield": false,
+							"delay_after": 0.0,
+							"delay_before": 0.0,
+							"meta.has_reverse": false,
+							"meta.reverse_text": "",
+							"meta.text": "set_opening_background_visible(false)",
+							"meta.validation_status": "OK",
+							"name": "set_opening_background_visible",
+							"reverse_name": ""
+						},
+						"facts": {
+							"fact_data_by_name": {
+
+							},
+							"meta.visible": false
+						},
+						"id": "1775135455.354--9223372036854774583",
+						"line_type": 2,
+						"meta.conditionals_visible": false,
+						"meta.facts_visible": false,
+						"meta.indent_level": 0,
+						"meta.line_index": 2,
+						"meta.selector": {
+							"selected": false
+						},
+						"skip": false
+					}
+				],
+				"meta.address_mode_next": 0,
+				"meta.selected": false,
+				"next": 0.0,
+				"number": 0,
+				"page_key": "opening_narration",
+				"skip": false,
+				"terminate": true
+			},
+			"1": {
+				"facts": {
+					"fact_data_by_name": {
+
+					},
+					"meta.visible": false
+				},
+				"id": "1774547112.226--9223372036854775807",
+				"lines": [
+					{
+						"address": "1.0",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -287,7 +476,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.1",
+						"address": "1.1",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -308,7 +497,7 @@
 							"choice_order": [],
 							"choices": [
 								{
-									"address": "0.1.0",
+									"address": "1.1.0",
 									"behavior_after_first_selection": 0,
 									"choice_text.enabled_as_default": true,
 									"conditionals": {
@@ -345,7 +534,7 @@
 									"loop_address_mode": 0,
 									"loopback": false,
 									"loopback_target_line": 0,
-									"loopback_target_page": 0,
+									"loopback_target_page": 1,
 									"meta.disabled_visible": false,
 									"meta.enabled_visible": true,
 									"meta.jump_page_before_auto_switch": false,
@@ -353,12 +542,12 @@
 										"selected": false
 									},
 									"target_line": 0,
-									"target_page": 0,
+									"target_page": 1,
 									"text_id_disabled": "1774559099.265--9223372036854775800",
 									"text_id_enabled": "1774559099.265--9223372036854775801"
 								},
 								{
-									"address": "0.1.1",
+									"address": "1.1.1",
 									"behavior_after_first_selection": 0,
 									"choice_text.enabled_as_default": true,
 									"conditionals": {
@@ -395,7 +584,7 @@
 									"loop_address_mode": 0,
 									"loopback": false,
 									"loopback_target_line": 0,
-									"loopback_target_page": 0,
+									"loopback_target_page": 1,
 									"meta.disabled_visible": false,
 									"meta.enabled_visible": true,
 									"meta.jump_page_before_auto_switch": false,
@@ -403,7 +592,7 @@
 										"selected": false
 									},
 									"target_line": 0,
-									"target_page": 0,
+									"target_page": 1,
 									"text_id_disabled": "1774559099.279--9223372036854775796",
 									"text_id_enabled": "1774559099.279--9223372036854775797"
 								}
@@ -430,7 +619,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.2",
+						"address": "1.2",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -455,7 +644,7 @@
 						},
 						"content": {
 							"meta.contents_visible": true,
-							"range": 4.0
+							"range": 2.0
 						},
 						"facts": {
 							"fact_data_by_name": {
@@ -475,7 +664,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.3",
+						"address": "1.3",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -514,7 +703,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.4",
+						"address": "1.4",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -535,7 +724,7 @@
 							"choice_order": [],
 							"choices": [
 								{
-									"address": "0.4.0",
+									"address": "1.4.0",
 									"behavior_after_first_selection": 0,
 									"choice_text.enabled_as_default": true,
 									"conditionals": {
@@ -572,7 +761,7 @@
 									"loop_address_mode": 0,
 									"loopback": false,
 									"loopback_target_line": 0,
-									"loopback_target_page": 0,
+									"loopback_target_page": 1,
 									"meta.disabled_visible": false,
 									"meta.enabled_visible": true,
 									"meta.jump_page_before_auto_switch": false,
@@ -580,12 +769,12 @@
 										"selected": false
 									},
 									"target_line": 0,
-									"target_page": 0,
+									"target_page": 1,
 									"text_id_disabled": "1774559265.931--9223372036854775774",
 									"text_id_enabled": "1774559265.931--9223372036854775775"
 								},
 								{
-									"address": "0.4.1",
+									"address": "1.4.1",
 									"behavior_after_first_selection": 0,
 									"choice_text.enabled_as_default": true,
 									"conditionals": {
@@ -622,7 +811,7 @@
 									"loop_address_mode": 0,
 									"loopback": false,
 									"loopback_target_line": 0,
-									"loopback_target_page": 0,
+									"loopback_target_page": 1,
 									"meta.disabled_visible": false,
 									"meta.enabled_visible": true,
 									"meta.jump_page_before_auto_switch": false,
@@ -630,7 +819,7 @@
 										"selected": false
 									},
 									"target_line": 0,
-									"target_page": 0,
+									"target_page": 1,
 									"text_id_disabled": "1774559265.948--9223372036854775770",
 									"text_id_enabled": "1774559265.948--9223372036854775771"
 								}
@@ -657,7 +846,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.5",
+						"address": "1.5",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -695,7 +884,7 @@
 						"line_type": 0,
 						"meta.conditionals_visible": false,
 						"meta.facts_visible": false,
-						"meta.indent_level": 1,
+						"meta.indent_level": 0,
 						"meta.line_index": 5,
 						"meta.selector": {
 							"selected": false
@@ -703,7 +892,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.6",
+						"address": "1.6",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -741,7 +930,7 @@
 						"line_type": 0,
 						"meta.conditionals_visible": true,
 						"meta.facts_visible": false,
-						"meta.indent_level": 1,
+						"meta.indent_level": 0,
 						"meta.line_index": 6,
 						"meta.selector": {
 							"selected": false
@@ -749,7 +938,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.7",
+						"address": "1.7",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -794,7 +983,7 @@
 						"skip": false
 					},
 					{
-						"address": "0.8",
+						"address": "1.8",
 						"conditionals": {
 							"behavior": 0,
 							"behavior_key": "Show",
@@ -835,8 +1024,8 @@
 				],
 				"meta.address_mode_next": 0,
 				"meta.selected": false,
-				"next": 0.0,
-				"number": 0,
+				"next": 1.0,
+				"number": 1,
 				"page_key": "priestess.moonlance_quest",
 				"skip": false,
 				"terminate": true
@@ -871,7 +1060,8 @@
 			"1774559265.948--9223372036854775770": "",
 			"1774559265.948--9223372036854775771": "This is bullshit ",
 			"1774559286.012--9223372036854775767": "[]>priestess: Some may say so, yes.",
-			"1774559286.527--9223372036854775764": "[]>priestess: Your shell, it can bear a sin too grand for any of us.\n[]>priestess: The traitors have been picking at the moon.\n[]>priestess: Some of them carry shards with them yet.\n[]>priestess: Find the lunar cradle, it is yhe bed of night.\n[]>priestess: Adorn it with shards and it will graft its Lance upon your... implement.\n[]>hypatia: Moon Lance?\n[]>hypatia: Like a strap\n[]>priestess: Priestesses are keen on the sororal pleasures you speak of\n[]>priestess: You may use them to shoot down the One."
+			"1774559286.527--9223372036854775764": "[]>priestess: Your shell, it can bear a sin too grand for any of us.\n[]>priestess: The traitors have been picking at the moon.\n[]>priestess: Some of them carry shards with them yet.\n[]>priestess: Find the lunar cradle, it is yhe bed of night.\n[]>priestess: Adorn it with shards and it will graft its Lance upon your... implement.\n[]>hypatia: Moon Lance?\n[]>hypatia: Like a strap\n[]>priestess: Priestesses are keen on the sororal pleasures you speak of\n[]>priestess: You may use them to shoot down the One.",
+			"1775126991.176--9223372036854774654": "[]>narrator: An errant spark, and your systems spring to life. You ping central comms. It returns via fallback peer connections. Seemingly all of your former squad has been eliminated, moved off-planet or decomissioned. The war effort moved on from [location] long ago. According to system logs, your mech went into hibernation on Earth Coordinated Standard Time 4030-03-19. Your ping to the nearest relay beacon. Its cache from 52 [locaton] cycles ago is dated to ECT-4252-02-18.\n[]>narrator: You are Hypatia, the pilot of a Mk. 5 ambush mech, VIPER class. Your combat style is mean, ranged. Your only remaining weapon is a strapped-for-ammo high-caliber slugger. Disengage safety, and fortify. One shot and one kill. A one-woman sniper unit.\n[]>narrator: Your estimated remaining range is about 40 km."
 		},
 		"text_lead_time_other_actor": 0.0,
 		"text_lead_time_same_actor": 0.0,

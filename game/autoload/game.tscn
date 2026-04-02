@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://ba05k05ujpqp8"]
 
-[ext_resource type="Script" uid="uid://3ca21qlq5dla" path="res://addons/diisis/templates/visual_novel/autoloads/game.gd" id="1_sam7p"]
+[ext_resource type="Script" uid="uid://3ca21qlq5dla" path="res://game/autoload/game.gd" id="1_sam7p"]
 [ext_resource type="Theme" uid="uid://drk5fhsdjoewf" path="res://addons/diisis/templates/visual_novel/visuals/theme/diisis_theme.tres" id="2_707js"]
 
 [node name="Game" type="Node" unique_id=9223702]

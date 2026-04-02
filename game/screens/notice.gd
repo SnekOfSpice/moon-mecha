@@ -22,7 +22,7 @@ func handle_payload(payload:Dictionary):
 
 
 func _on_quit_button_pressed() -> void:
-	if SceneLoader.in_game:
-		Options.save_gamestate()
+	#if SceneLoader.in_game:
+		#Options.save_gamestate()
 	Options.save_prefs()
 	get_tree().quit()

@@ -56,6 +56,12 @@ script = ExtResource("14_0e4oy")
 name_display = "Priestess"
 metadata/_custom_type_script = "uid://dycysb8joq17f"
 
+[sub_resource type="Gradient" id="Gradient_0e4oy"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_eeltd"]
+gradient = SubResource("Gradient_0e4oy")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0e4oy"]
 shader = ExtResource("14_2mv0n")
 shader_parameter/hue_shift = 0.0
@@ -73,13 +79,14 @@ shader_parameter/exposure = 0.5
 shader_parameter/vhs_resolution = Vector2(360, 320)
 shader_parameter/samples = 2
 shader_parameter/crease_noise = 1.10000001639132
-shader_parameter/crease_opacity = 0.10000000149012
+shader_parameter/crease_opacity = 0.0
 shader_parameter/filter_intensity = 0.10000000149012
 shader_parameter/tape_crease_smear = 0.2
 shader_parameter/tape_crease_intensity = 0.2
 shader_parameter/tape_crease_jitter = 0.1
 shader_parameter/tape_crease_speed = 0.5
 shader_parameter/tape_crease_discoloration = 1.0
+shader_parameter/tape_wave = false
 shader_parameter/color_offset_multiplier = 0.004
 shader_parameter/black_offset_multiplier = 0.10000000149012
 shader_parameter/color_offset_x = 0.005
@@ -89,6 +96,18 @@ shader_parameter/bottom_border_thickness = 6.0
 shader_parameter/bottom_border_jitter = 6.0
 shader_parameter/noise_intensity = 0.1
 shader_parameter/noise_texture = ExtResource("12_2mv0n")
+shader_parameter/f_hsv2rgb = false
+shader_parameter/f_rgb2hsv = true
+shader_parameter/f_yiq2rgb = false
+shader_parameter/f_rgb2yiq = false
+shader_parameter/f_yuv2rgb = false
+shader_parameter/f_rgb2yuv = false
+shader_parameter/s_hsv2rgb = true
+shader_parameter/s_rgb2hsv = false
+shader_parameter/s_yiq2rgb = false
+shader_parameter/s_rgb2yiq = false
+shader_parameter/s_yuv2rgb = false
+shader_parameter/s_rgb2yuv = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2mv0n"]
 shader = ExtResource("14_2mv0n")
@@ -432,6 +451,7 @@ transform = Transform3D(1, 0, 0, 0, 0.04198028, -0.99911845, 0, 0.99911845, 0.04
 shape = SubResource("CapsuleShape3D_8soms")
 
 [node name="Dialogue" type="Node" parent="." unique_id=1768661969 node_paths=PackedStringArray("name_label", "body_label", "text_container", "name_container", "choice_container", "choice_list")]
+unique_name_in_owner = true
 script = ExtResource("13_usp30")
 actor_config = Dictionary[String, ExtResource("14_0e4oy")]({
 "hypatia": SubResource("Resource_eeltd"),
@@ -491,20 +511,33 @@ scale = Vector2(0.22, 0.22)
 pivot_offset_ratio = Vector2(1, 1)
 texture = ExtResource("9_5ghna")
 
-[node name="InteractionLabel" type="Label" parent="CanvasLayer/HUD" unique_id=263152560]
+[node name="InteractionContainer" type="Control" parent="CanvasLayer/HUD" unique_id=226222789]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = 108.0
-offset_right = 20.0
-offset_bottom = 131.0
+anchors_preset = 0
+offset_left = 467.0
+offset_top = 290.0
+offset_right = 467.0
+offset_bottom = 290.0
+
+[node name="InteractionProgressBar" type="ProgressBar" parent="CanvasLayer/HUD/InteractionContainer" unique_id=178518309]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 2)
+layout_mode = 0
+offset_right = 4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_vertical = 1
+show_percentage = false
+
+[node name="InteractionLabel" type="Label" parent="CanvasLayer/HUD/InteractionContainer" unique_id=263152560]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 167.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "some fucking text"
 
 [node name="Notifications" type="VBoxContainer" parent="CanvasLayer/HUD" unique_id=179643993]
 unique_name_in_owner = true
@@ -577,6 +610,7 @@ offset_bottom = 11.5
 grow_vertical = 2
 
 [node name="DialogueHUD" type="Control" parent="CanvasLayer/HUD" unique_id=2027552688]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -584,6 +618,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="OpeningBackground" type="TextureRect" parent="CanvasLayer/HUD/DialogueHUD" unique_id=737293283]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = SubResource("GradientTexture2D_eeltd")
 
 [node name="TextContainer" type="VBoxContainer" parent="CanvasLayer/HUD/DialogueHUD" unique_id=352418]
 layout_mode = 0
@@ -597,6 +643,7 @@ theme_type_variation = &"LabelDialogue"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/HUD/DialogueHUD/TextContainer" unique_id=24542840]
 layout_mode = 2
+mouse_filter = 2
 fit_content = true
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/HUD/DialogueHUD" unique_id=1013712517]
@@ -620,7 +667,6 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="GlitchLayer" type="CanvasLayer" parent="." unique_id=187218585]
-visible = false
 
 [node name="Glitch" type="ColorRect" parent="GlitchLayer" unique_id=1712204810]
 material = SubResource("ShaderMaterial_gh012")

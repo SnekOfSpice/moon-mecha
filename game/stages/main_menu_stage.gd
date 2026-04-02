@@ -9,7 +9,7 @@ const PATH := "res://game/stages/main_menu_stage.tscn"
 
 
 func _ready() -> void:
-	Game.hook_up_button_sfx(self)
+	#Game.hook_up_button_sfx(self)
 	set_save_slot(Options.save_slot)
 	%QuitButton.visible = not OS.has_feature("web")
 	Sound.switch_to("main_menu")
@@ -86,11 +86,11 @@ func start_new_game():
 	Game.start_data = GameStartData.new()
 	Game.start_data.game_start_callable = Parser.reset_and_start
 	
-	SceneLoader.request_background_loading(GameStage.PATH, true)
+	SceneLoader.request_background_loading(GameWorld.PATH, true)
 
 
 func _on_load_button_pressed() -> void:
 	Game.start_data = GameStartData.new()
 	Game.start_data.game_start_callable = Options.load_gamestate
 	
-	SceneLoader.request_background_loading(GameStage.PATH, true)
+	SceneLoader.request_background_loading(GameWorld.PATH, true)

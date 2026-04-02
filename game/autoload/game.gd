@@ -3,14 +3,14 @@ extends Node
 var start_data : GameStartData
 var screen := ""
 var pause_state_before_open:bool
-var camera : GameCamera
+#var camera : GameCamera
 
 @export_group("Screen Fade", "screen_fade_")
 @export_exp_easing("positive_only") var screen_fade_in := 1.0
 @export_exp_easing("positive_only") var screen_fade_out := 0.5
 
 var screenshot_to_save:Image
-var game_stage : GameStage
+var game_stage : GameWorld
 
 @export var creating_slideshow := false
 @export var performance_test := false
@@ -87,8 +87,8 @@ func set_screen(screen_path:String, payload := {}) -> Screen:
 		for c : Screen in %ScreenContainer.get_children():
 			c.queue_free()
 	
-	if SceneLoader.current_scene == GameStage.PATH and screen.is_empty():
-		grab_thumbnail_screenshot()
+	#if SceneLoader.current_scene == GameStage.PATH and screen.is_empty():
+		#grab_thumbnail_screenshot()
 	
 	var new_screen = load(str(CONST.SCREEN_ROOT, screen_path)).instantiate()
 	

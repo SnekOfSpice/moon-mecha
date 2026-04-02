@@ -7,7 +7,7 @@ var _paths := []
 @onready var current_scene := MainMenu.PATH
 var in_game : bool:
 	get():
-		return current_scene == GameStage.PATH
+		return current_scene == GameWorld.PATH
 
 ## emitted when bg loaded scene is ready
 signal scene_loaded(path : String)

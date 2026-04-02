@@ -3,9 +3,11 @@
 [ext_resource type="Script" uid="uid://bumd8i8jatt8r" path="res://game/items/item.gd" id="1_qi0gw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bqi82"]
+resource_local_to_scene = true
 radius = 2.6322012
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_6gsg4"]
+resource_local_to_scene = true
 height = 3.527832
 radius = 1.5268555
 
@@ -23,7 +25,8 @@ billboard = 2
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1198795720]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1799505763]
+[node name="BodyCollider" type="CollisionShape3D" parent="StaticBody3D" unique_id=1799505763]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.763916, 0)
 shape = SubResource("CylinderShape3D_6gsg4")
 
