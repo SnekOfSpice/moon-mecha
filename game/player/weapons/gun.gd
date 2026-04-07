@@ -15,6 +15,7 @@ enum FireResult {
 
 func _ready() -> void:
 	time_since_last_shot = gun_stats.time_between_shots
+	Data.apply("ammo.%s" % gun_stats.tech_id, gun_stats.ammo)
 
 var time_since_last_shot := 0.0
 func _process(delta: float) -> void:

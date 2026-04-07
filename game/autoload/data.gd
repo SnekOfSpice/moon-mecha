@@ -10,9 +10,6 @@ signal property_changed(
 )
 
 
-func _ready() -> void:
-	apply("ammo.pistol", 6)
-	apply("ammo.sniper", 12)
 
 
 func of(property : String, default : Variant = 0) -> Variant:

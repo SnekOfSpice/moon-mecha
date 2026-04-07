@@ -58,7 +58,7 @@ func _ready() -> void:
 	clear_weapon(WeaponSide.Right)
 	
 	set_weapon("pistol", WeaponSide.Right)
-	#set_weapon("sniper", WeaponSide.Left)
+	set_weapon("moonlance", WeaponSide.Left)
 	
 	
 
@@ -303,10 +303,16 @@ func set_weapon(tech_id : String, side : WeaponSide):
 	var camera : Camera3D
 	if side == WeaponSide.Left:
 		camera = %WeaponCameraLeft
+		%AimManagerL.aim_speed = gun.gun_stats.aim_speed
+		%AimManagerL.depth = gun.gun_stats.depth
+		%AimManagerL.aim_sensitivity = gun.gun_stats.aim_sensitivity
 		%AimManagerL.weapon_tech_id = tech_id
 		%AimManagerL.generate_ui()
 	elif side == WeaponSide.Right:
 		camera = %WeaponCameraRight
+		%AimManagerR.aim_speed = gun.gun_stats.aim_speed
+		%AimManagerR.depth = gun.gun_stats.depth
+		%AimManagerR.aim_sensitivity = gun.gun_stats.aim_sensitivity
 		%AimManagerR.weapon_tech_id = tech_id
 		%AimManagerR.generate_ui()
 	remote_transform.remote_path = camera.get_path()

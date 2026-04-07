@@ -18,16 +18,16 @@ var safety_enabled := true:
 @export var tracker_vp : SubViewport
 var aim_target_virtual : Node3D
 var aim_target_gun : Node3D
-@export var aim_speed : float = 10
-@export var aim_sensitivity : float = 0.7
-@export var safety_aim_sensitivity : float = 0.5
+var aim_speed : float = 10
+var aim_sensitivity : float = 0.7
+#@export var safety_aim_sensitivity : float = 0.5
 @export var aim_action : String
 @export var player_camera : Camera3D
 @export var gun_camera : Camera3D
 @export var vp_camera : Camera3D
 @export var weapon_swivel : Node3D
 @export var weapon_tech_id : String
-@export var depth := 50:
+var depth := 50:
 	set(value):
 		depth = value
 		if not is_inside_tree():
@@ -48,7 +48,7 @@ var active := true:
 		if tracker_rangefinder:
 			tracker_rangefinder.visible = active
 
-@export_enum("Left", "Right") var side
+@export_enum("Left", "Right") var ammo_label_side
 func generate_ui():
 	if tracker: tracker.queue_free()
 	if tracker_rangefinder: tracker_rangefinder.queue_free()
@@ -61,14 +61,15 @@ func generate_ui():
 	tracker.weapon_tech_id = weapon_tech_id
 	tracker.aim_depth = depth
 	tracker.main_crosshair = move_swivel
-	if side == 0:
+	if ammo_label_side == 0:
 		tracker.crosshair_side = tracker.CROSSHAIR_SIDE_LEFT
-	if side == 1:
+	if ammo_label_side == 1:
 		tracker.crosshair_side = tracker.CROSSHAIR_SIDE_RIGHT
 	
 	tracker.mode = OnScreenTracker.Mode.Crosshair
 	tracker_rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
 	tracker_rangefinder.mode = OnScreenTracker.Mode.Rangefinder
+	tracker_rangefinder.rangefinder_offset = gun_camera.position.z
 	await get_tree().process_frame
 	
 	reset_aim(true)
@@ -130,8 +131,8 @@ func _process(delta: float) -> void:
 	
 	if move_swivel:
 		var speed_fac := 1.0
-		if not safety_enabled:
-			speed_fac *= safety_aim_sensitivity
+		#if not safety_enabled:
+			#speed_fac *= safety_aim_sensitivity
 		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta * speed_fac)
 		weapon_swivel.look_at(aim_target_gun.global_position)
 	

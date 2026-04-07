@@ -1,0 +1,209 @@
+[gd_scene format=3 uid="uid://c4b8srq0f7hxe"]
+
+[ext_resource type="PackedScene" uid="uid://br23lp0b14atf" path="res://game/player/weapons/moonlance/moonlance.obj" id="1_03vje"]
+[ext_resource type="Texture2D" uid="uid://df7nr22tq3ys3" path="res://game/player/weapons/pistol_muzzle_flash.png" id="2_l2as7"]
+[ext_resource type="Script" uid="uid://bjhhnwc8rewee" path="res://game/player/weapons/gun.gd" id="2_qvd4d"]
+[ext_resource type="AudioStream" uid="uid://bnaqlnehhk4rs" path="res://game/audio/sfx/switch1.mp3" id="3_1r7fi"]
+[ext_resource type="ArrayMesh" uid="uid://j1p8nqghbjle" path="res://game/player/weapons/muzzleplanes.obj" id="3_u82g0"]
+[ext_resource type="Script" uid="uid://cdt582jsno812" path="res://game/player/weapons/gun_stats.gd" id="4_lbd1r"]
+[ext_resource type="Texture2D" uid="uid://bl72x0ffxjwvw" path="res://game/player/weapons/pistol_muzzle_cone.png" id="4_qvd4d"]
+[ext_resource type="ArrayMesh" uid="uid://difuapxa2hbvy" path="res://game/player/weapons/muzzlecone.obj" id="5_1r7fi"]
+[ext_resource type="Texture2D" uid="uid://drpbjwwb5rwk2" path="res://game/player/weapons/pistol_bright_flash.png" id="6_lbd1r"]
+[ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="7_7aev5"]
+
+[sub_resource type="Resource" id="Resource_7aev5"]
+script = ExtResource("4_lbd1r")
+tech_id = "moonlance"
+time_between_shots = 10.0
+aim_speed = 100000.0
+aim_sensitivity = 0.4
+depth = 643458
+ammo = 1
+metadata/_custom_type_script = "uid://cdt582jsno812"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2qtxu"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("2_l2as7")
+
+[sub_resource type="Curve" id="Curve_r31mo"]
+_data = [Vector2(0, 1), 0.0, 0.3060743, 0, 0, Vector2(1, 0), -1.5230151, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_1isb5"]
+curve = SubResource("Curve_r31mo")
+
+[sub_resource type="Curve" id="Curve_c3h8e"]
+_data = [Vector2(0, 0), 0.0, 4.6695986, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_l8jat"]
+curve = SubResource("Curve_c3h8e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ka2fg"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_l8jat")
+color = Color(1.107423, 0.52827775, 0.15665603, 1)
+alpha_curve = SubResource("CurveTexture_1isb5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_84i2t"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("4_qvd4d")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6d7st"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("6_lbd1r")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_bpic2"]
+_data = [Vector2(0, 1), 0.0, 0.3060743, 0, 0, Vector2(1, 0), -1.5230151, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ayisq"]
+curve = SubResource("Curve_bpic2")
+
+[sub_resource type="Curve" id="Curve_6uvu8"]
+_data = [Vector2(0, 0), 0.0, 4.6695986, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_q3y0b"]
+curve = SubResource("Curve_6uvu8")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vsy51"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_q3y0b")
+color = Color(0.4028903, 0.31651628, 0.10058121, 0.5647059)
+alpha_curve = SubResource("CurveTexture_ayisq")
+
+[sub_resource type="QuadMesh" id="QuadMesh_d30vp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qt875"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("6_lbd1r")
+
+[sub_resource type="Curve" id="Curve_scthf"]
+_data = [Vector2(0.021352313, 0.95234597), 0.0, -3.5446138, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_i0fdp"]
+curve = SubResource("Curve_scthf")
+
+[sub_resource type="Curve" id="Curve_0oxoc"]
+_limits = [0.0, 100.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99999, 100), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3bgio"]
+curve = SubResource("Curve_0oxoc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hrnd3"]
+lifetime_randomness = 1.0
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.15
+direction = Vector3(0, 0, 1)
+spread = 10.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+damping_min = 0.5
+damping_max = 0.8
+damping_curve = SubResource("CurveTexture_3bgio")
+scale_min = 0.049999997
+scale_max = 0.29999998
+color = Color(0.71873754, 0.4552592, 0, 1)
+alpha_curve = SubResource("CurveTexture_i0fdp")
+
+[sub_resource type="QuadMesh" id="QuadMesh_skgxu"]
+size = Vector2(0.2, 1)
+
+[node name="moonlance" unique_id=907496112 node_paths=PackedStringArray("muzzle_position") instance=ExtResource("1_03vje")]
+script = ExtResource("2_qvd4d")
+muzzle_position = NodePath("Muzzle")
+shoot_sfx = ExtResource("3_1r7fi")
+gun_stats = SubResource("Resource_7aev5")
+
+[node name="Mesh" parent="." index="0" unique_id=1832808167]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5613798)
+
+[node name="MuzzleFlash" type="Node3D" parent="." index="1" unique_id=102424065]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027242243, 4.6063943)
+
+[node name="MuzzlePlanes" type="GPUParticles3D" parent="MuzzleFlash" index="0" unique_id=647621]
+material_override = SubResource("StandardMaterial3D_2qtxu")
+emitting = false
+amount = 1
+lifetime = 0.1
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_ka2fg")
+draw_pass_1 = ExtResource("3_u82g0")
+
+[node name="MuzzleCone" type="GPUParticles3D" parent="MuzzleFlash" index="1" unique_id=882363027]
+material_override = SubResource("StandardMaterial3D_84i2t")
+emitting = false
+amount = 1
+lifetime = 0.1
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_ka2fg")
+draw_pass_1 = ExtResource("5_1r7fi")
+
+[node name="MuzzleCone2" type="GPUParticles3D" parent="MuzzleFlash" index="2" unique_id=370121846]
+material_override = SubResource("StandardMaterial3D_6d7st")
+emitting = false
+amount = 1
+lifetime = 0.1
+randomness = 1.0
+fixed_fps = 24
+process_material = SubResource("ParticleProcessMaterial_vsy51")
+draw_pass_1 = SubResource("QuadMesh_d30vp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="MuzzleFlash" index="3" unique_id=959091956]
+material_override = SubResource("StandardMaterial3D_qt875")
+emitting = false
+amount = 20
+lifetime = 0.5
+explosiveness = 0.7
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_hrnd3")
+draw_pass_1 = SubResource("QuadMesh_skgxu")
+
+[node name="Muzzle" type="Marker3D" parent="." index="2" unique_id=713635835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12736326, 4.4691706)
+
+[node name="CameraRemoteTransform" type="RemoteTransform3D" parent="." index="3" unique_id=142539450]
+unique_name_in_owner = true
+transform = Transform3D(8.742268e-08, 1.9999989, -1.7484538e-07, 1.9999977, -8.742273e-08, 0, -7.642733e-15, -1.7484545e-07, -1.999998, -0.008499816, 0.5144104, 2.3483264)
+remote_path = NodePath("../../ScreenL/LeftVP/WeaponCameraLeft")
+
+[node name="WeaponRaycast" type="RayCast3D" parent="." index="4" unique_id=1782215338]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 0, -4000)
+collision_mask = 2
+collide_with_areas = true
+script = ExtResource("7_7aev5")

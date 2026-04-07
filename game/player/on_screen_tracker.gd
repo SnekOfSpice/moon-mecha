@@ -10,6 +10,8 @@ var weapon_tech_id : String
 var aim_depth : int
 var main_crosshair : bool
 
+var rangefinder_offset := 0.0
+
 
 static func create(p_immediately_visible := false) -> OnScreenTracker:
 	var tracker := preload("res://game/player/on_screen_tracker.tscn").instantiate()
@@ -65,7 +67,7 @@ func _process(delta: float) -> void:
 		else: scale = Vector2.ONE * 0.33
 	elif mode == Mode.Rangefinder:
 		scale = Vector2.ONE * 0.4
-		%AimDepthLabel.text = str(int(abs(target.position.z)))
+		%AimDepthLabel.text = str(int(abs(target.position.z) + rangefinder_offset))
 	else:
 		var s = (camera.global_position.distance_to(target.global_position) - FULL_SCALE_LOWER_BOUND) / MIN_SCALE_UPPER_BOUND
 		scale.x = clamp(1-s, 0, 1)
