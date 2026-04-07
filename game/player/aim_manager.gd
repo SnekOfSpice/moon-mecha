@@ -4,6 +4,7 @@ extends Node3D
 signal shoot()
 
 var tracker : OnScreenTracker
+var tracker_rangefinder : OnScreenTracker
 
 var safety_enabled := true:
 	set(value):
@@ -38,8 +39,19 @@ var aim_target_gun : Node3D
 @export var move_swivel := true
 var last_mouse_pos : Vector2
 
+
+var active := true:
+	set(value):
+		active = value
+		if tracker:
+			tracker.visible = active
+		if tracker_rangefinder:
+			tracker_rangefinder.visible = active
+
 @export_enum("Left", "Right") var side
-func _ready() -> void:
+func generate_ui():
+	if tracker: tracker.queue_free()
+	if tracker_rangefinder: tracker_rangefinder.queue_free()
 	aim_target_virtual = Node3D.new()
 	add_child(aim_target_virtual)
 	aim_target_gun = Node3D.new()
@@ -55,14 +67,16 @@ func _ready() -> void:
 		tracker.crosshair_side = tracker.CROSSHAIR_SIDE_RIGHT
 	
 	tracker.mode = OnScreenTracker.Mode.Crosshair
-	var rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
-	rangefinder.mode = OnScreenTracker.Mode.Rangefinder
+	tracker_rangefinder = tracker_vp.create_tracker(aim_target_gun, true)
+	tracker_rangefinder.mode = OnScreenTracker.Mode.Rangefinder
 	await get_tree().process_frame
 	
 	reset_aim(true)
 
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not active:
+		return
 	if event.is_action_pressed("reset_aim"):
 		reset_aim()
 		Sound.play_sfx("ping", false)
@@ -77,6 +91,8 @@ func _process(delta: float) -> void:
 	if Parser.line_reader:
 		if not Parser.line_reader.terminated:
 			return
+	if not active:
+		return
 	var mouse_pos := player_camera.get_viewport().get_mouse_position()
 	#mouse_pos.x = clamp(mouse_pos.x, 60, 640 - 60)
 	#mouse_pos.y = clamp(mouse_pos.y, 0, 340)

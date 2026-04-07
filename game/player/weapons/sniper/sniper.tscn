@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bl72x0ffxjwvw" path="res://game/player/weapons/pistol_muzzle_cone.png" id="7_0vldt"]
 [ext_resource type="ArrayMesh" uid="uid://difuapxa2hbvy" path="res://game/player/weapons/muzzlecone.obj" id="8_s0u34"]
 [ext_resource type="Texture2D" uid="uid://drpbjwwb5rwk2" path="res://game/player/weapons/pistol_bright_flash.png" id="9_0a6wl"]
+[ext_resource type="Script" uid="uid://dyqy0iyvf46iu" path="res://game/player/weapon_raycast.gd" id="10_sgk5s"]
 
 [sub_resource type="Resource" id="Resource_r830v"]
 script = ExtResource("4_ole6h")
@@ -160,7 +161,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.027242243, 3.0099254)
 material_override = SubResource("StandardMaterial3D_31ihr")
 emitting = false
 amount = 1
-lifetime = 0.09999999999999999
+lifetime = 0.1
 randomness = 1.0
 fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_0sk68")
@@ -170,7 +171,7 @@ draw_pass_1 = ExtResource("6_ewi7h")
 material_override = SubResource("StandardMaterial3D_buvo0")
 emitting = false
 amount = 1
-lifetime = 0.09999999999999999
+lifetime = 0.1
 randomness = 1.0
 fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_0sk68")
@@ -180,7 +181,7 @@ draw_pass_1 = ExtResource("8_s0u34")
 material_override = SubResource("StandardMaterial3D_yndi0")
 emitting = false
 amount = 1
-lifetime = 0.09999999999999999
+lifetime = 0.1
 randomness = 1.0
 fixed_fps = 24
 process_material = SubResource("ParticleProcessMaterial_3teu8")
@@ -198,3 +199,24 @@ draw_pass_1 = SubResource("QuadMesh_k2605")
 
 [node name="Muzzle" type="Marker3D" parent="." index="5" unique_id=1424640668]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12736326, 3.1442788)
+
+[node name="CameraRemoteTransform" type="RemoteTransform3D" parent="." index="6" unique_id=481174427]
+unique_name_in_owner = true
+transform = Transform3D(8.742268e-08, 1.9999989, -1.7484538e-07, 1.9999977, -8.742273e-08, 0, -7.642733e-15, -1.7484545e-07, -1.999998, -0.008499816, -0.4105791, 0.79883957)
+remote_path = NodePath("../../ScreenL/LeftVP/WeaponCameraLeft")
+
+[node name="WeaponRaycast" type="RayCast3D" parent="." index="7" unique_id=2112556851 node_paths=PackedStringArray("crosshairs", "id_label")]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+target_position = Vector3(0, 0, -4000)
+collision_mask = 2
+collide_with_areas = true
+script = ExtResource("10_sgk5s")
+crosshairs = NodePath("")
+id_label = NodePath("")
+
+[node name="Rangefinder3" type="Marker3D" parent="WeaponRaycast" index="0" unique_id=1307565623]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="Rangefinder5" type="Marker3D" parent="WeaponRaycast" index="1" unique_id=571768315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)

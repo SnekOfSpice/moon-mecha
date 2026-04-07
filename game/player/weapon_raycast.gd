@@ -1,4 +1,5 @@
 extends RayCast3D
+class_name WeaponRaycast
 
 
 @export var crosshairs : TextureRect
@@ -6,6 +7,11 @@ extends RayCast3D
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if not crosshairs:
+		return
+	if not id_label:
+		return
+	
 	var collider := get_collider()
 	
 	if not collider:

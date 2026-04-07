@@ -46,3 +46,16 @@ func shoot_fx():
 	for mat : GPUParticles3D in %MuzzleFlash.get_children():
 		mat.one_shot = true
 		mat.emitting = true
+
+
+func get_camera_remote_transform() -> RemoteTransform3D:
+	return %CameraRemoteTransform
+
+
+func get_raycast() -> WeaponRaycast:
+	return %WeaponRaycast
+
+
+func get_rangefinder_markers():
+	return get_raycast().get_children()
+	

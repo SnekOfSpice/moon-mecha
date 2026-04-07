@@ -54,11 +54,16 @@ func _ready() -> void:
 	%ThrottleGaugeForward.max_value = THROTTLE_MAX
 	%ThrottleGaugeForward.custom_minimum_size.x = abs(THROTTLE_MAX) * 40
 	
-	for marker : Marker3D in %WeaponRaycastR.get_children():
-		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
+	clear_weapon(WeaponSide.Left)
+	clear_weapon(WeaponSide.Right)
+	
+	set_weapon("pistol", WeaponSide.Right)
+	#set_weapon("sniper", WeaponSide.Left)
+	
+	
 
-	for marker : Marker3D in %WeaponRaycastL.get_children():
-		%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
+	#for marker : Marker3D in %WeaponRaycastL.get_children():
+		#%MainScreenVP.create_tracker(marker, true).mode = OnScreenTracker.Mode.Rangefinder
 
 	#for node : Node3D in affected_by_shake:
 		#origins_of_affected_by_shake[node] = node.position
@@ -262,25 +267,96 @@ func _on_interaction_range_area_exited(area: Area3D) -> void:
 		current_item = null
 
 
-func _on_aim_manager_r_shoot() -> void:
-	var shot_valid : bool = %pistol2.request_shot() == Gun.FireResult.Success
+func handle_shot_request(side : WeaponSide):
+	var gun : Gun = gun_by_side.get(side, null)
+	if not gun:
+		return
+	var shot_valid : bool = gun.request_shot() == Gun.FireResult.Success
 	
 	if not shot_valid:
 		return
 	
-	if %WeaponRaycastR.get_collider():
-		if %WeaponRaycastR.get_collider().has_method("handle_hit"):
-			%WeaponRaycastR.get_collider().handle_hit()
-	
-	
+	var raycast := gun.get_raycast()
+	if raycast.get_collider():
+		if raycast.get_collider().has_method("handle_hit"):
+			raycast.get_collider().handle_hit()
+
+func _on_aim_manager_r_shoot() -> void:
+	handle_shot_request(WeaponSide.Right)
 
 
 func _on_aim_manager_l_shoot() -> void:
-	var shot_valid : bool = %sniper2.request_shot() == Gun.FireResult.Success
+	handle_shot_request(WeaponSide.Left)
+
+enum WeaponSide {
+	Left, Right
+}
+
+var gun_by_side : Dictionary[WeaponSide, Gun] = {}
+
+func set_weapon(tech_id : String, side : WeaponSide):
+	clear_weapon(side)
+	var gun : Gun = load("res://game/player/weapons/%s/%s.tscn" % [tech_id, tech_id]).instantiate()
+	var remote_transform : RemoteTransform3D = gun.get_camera_remote_transform()
 	
-	if not shot_valid:
+	remote_transform.rotation_degrees.z = -90 if side == WeaponSide.Right else 90
+	var camera : Camera3D
+	if side == WeaponSide.Left:
+		camera = %WeaponCameraLeft
+		%AimManagerL.weapon_tech_id = tech_id
+		%AimManagerL.generate_ui()
+	elif side == WeaponSide.Right:
+		camera = %WeaponCameraRight
+		%AimManagerR.weapon_tech_id = tech_id
+		%AimManagerR.generate_ui()
+	remote_transform.remote_path = camera.get_path()
+	
+	var swivel : Node3D
+	if side == WeaponSide.Left:
+		swivel = %WeaponSwivelLeft
+	elif side == WeaponSide.Right:
+		swivel = %WeaponSwivelRight
+	
+	if side == WeaponSide.Left:
+		gun.get_raycast().crosshairs = %CrosshairsLeft
+		gun.get_raycast().id_label = %TargetIDLabelLeft
+	elif side == WeaponSide.Right:
+		gun.get_raycast().crosshairs = %CrosshairsRight
+		gun.get_raycast().id_label = %TargetIDLabelRight
+	
+	if side == WeaponSide.Left:
+		%CameraOfflineLeft.hide()
+		%AimManagerL.active = true
+	elif side == WeaponSide.Right:
+		%CameraOfflineRight.hide()
+		%AimManagerR.active = true
+	
+	var trackers := []
+	for marker : Marker3D in gun.get_rangefinder_markers():
+		var tracker : OnScreenTracker = %MainScreenVP.create_tracker(marker, true)
+		tracker.mode = OnScreenTracker.Mode.Rangefinder
+		trackers.append(tracker)
+	
+	for tracker in trackers:
+		gun.tree_exiting.connect(tracker.queue_free)
+	
+	gun.rotation_degrees.y = -180
+	swivel.add_child(gun)
+	
+	gun_by_side[side] = gun
+
+
+func clear_weapon(side : WeaponSide) -> void:
+	if side == WeaponSide.Left:
+		%CameraOfflineLeft.show()
+		%AimManagerL.active = false
+	elif side == WeaponSide.Right:
+		%CameraOfflineRight.show()
+		%AimManagerR.active = false
+	
+	if not gun_by_side.get(side):
 		return
 	
-	if %WeaponRaycastL.get_collider():
-		if %WeaponRaycastL.get_collider().has_method("handle_hit"):
-			%WeaponRaycastL.get_collider().handle_hit()
+	var gun : Gun = gun_by_side.get(side)
+	gun_by_side[side] = null
+	gun.queue_free()
