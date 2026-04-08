@@ -13,7 +13,7 @@ config_version=5
 config/name="Descend, Oh Sister Moon"
 run/main_scene="uid://cmyfhuosdqfuj"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="uid://bjjp0luume1rq"
+config/icon="uid://dht5nbh3a5yua"
 
 [audio]
 
