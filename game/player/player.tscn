@@ -170,7 +170,7 @@ transform = Transform3D(-2.0964476e-08, -0.47961134, -0.21353672, 0.525, -2.2948
 
 [node name="CockpitScreenMain" parent="cockpit" unique_id=1578579557 instance=ExtResource("4_j0mij")]
 unique_name_in_owner = true
-transform = Transform3D(1.06, 6.254738e-09, 1.2123849e-09, -6.3673933e-09, 1.0330814, 0.23736641, 2.1901769e-10, -0.23736641, 1.0330814, -5.4598207e-08, 1.3950782, 0.6245307)
+transform = Transform3D(1.155, 6.8153057e-09, 1.3210553e-09, -6.938057e-09, 1.1256689, 0.2586398, 2.3865e-10, -0.2586398, 1.1256689, -5.4598207e-08, 1.3749418, 0.6245307)
 
 [node name="AimCamera" type="Camera3D" parent="cockpit" unique_id=2033479871]
 unique_name_in_owner = true
@@ -395,11 +395,11 @@ omni_attenuation = 4.226
 
 [node name="WeaponSwivelRight" type="Node3D" parent="cockpit" unique_id=1648595172]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -1.7566717, 0.29976702, 0.16956088)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.379023, 0.29976702, 0.44204465)
 
 [node name="WeaponSwivelLeft" type="Node3D" parent="cockpit" unique_id=614809164]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.804832, 0.29976702, 0.16956127)
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 2.379, 0.3, 0.442)
 
 [node name="InteractionRange" type="Area3D" parent="." unique_id=1565225083]
 collision_mask = 3

@@ -15,7 +15,7 @@
 script = ExtResource("4_ole6h")
 tech_id = "sniper"
 time_between_shots = 4.0
-aim_speed = 12.66
+aim_speed = 0.082
 aim_sensitivity = 0.225
 depth = 155
 metadata/_custom_type_script = "uid://cdt582jsno812"
@@ -208,15 +208,13 @@ unique_name_in_owner = true
 transform = Transform3D(8.742268e-08, 1.9999989, -1.7484538e-07, 1.9999977, -8.742273e-08, 0, -7.642733e-15, -1.7484545e-07, -1.999998, -0.008499816, -0.4105791, 0.79883957)
 remote_path = NodePath("../../ScreenL/LeftVP/WeaponCameraLeft")
 
-[node name="WeaponRaycast" type="RayCast3D" parent="." index="7" unique_id=2112556851 node_paths=PackedStringArray("crosshairs", "id_label")]
+[node name="WeaponRaycast" type="RayCast3D" parent="." index="7" unique_id=2112556851]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 target_position = Vector3(0, 0, -4000)
 collision_mask = 2
 collide_with_areas = true
 script = ExtResource("10_sgk5s")
-crosshairs = NodePath("../../../../../../../../../@WindowWrapper@10775/@ScriptEditor@10774/@VBoxContainer@9989/@HSplitContainer@9992/@VBoxContainer@10018/@TabContainer@10021/@ScriptTextEditor@23131/@ScriptEditorQuickOpen@121747/@Panel@121721")
-id_label = NodePath("../../../../../../../../../@WindowWrapper@10775/@ScriptEditor@10774/@VBoxContainer@9989/@HBoxContainer@9990/@HBoxContainer@25451/@MenuButton@114879/@PopupMenu@25299/@PopupMenu@114903/@PanelContainer@114896/@ScrollContainer@114899/_h_scroll")
 
 [node name="Rangefinder3" type="Marker3D" parent="WeaponRaycast" index="0" unique_id=1307565623]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)

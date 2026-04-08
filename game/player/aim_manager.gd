@@ -121,6 +121,9 @@ func _process(delta: float) -> void:
 		
 	var dir := target_pos - target_pos_last
 	dir *= aim_sensitivity
+	dir *= min(dir.length(), 1)
+	#if name.contains("R"):
+		#printt(name, dir.length())
 	
 	if Input.is_action_pressed(aim_action) and safety_enabled:
 		aim_target_virtual.global_position += dir
@@ -133,7 +136,7 @@ func _process(delta: float) -> void:
 		var speed_fac := 1.0
 		#if not safety_enabled:
 			#speed_fac *= safety_aim_sensitivity
-		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta * speed_fac)
+		aim_target_gun.global_position = aim_target_gun.global_position.move_toward(aim_target_virtual.global_position, aim_speed * delta * speed_fac * depth)
 		weapon_swivel.look_at(aim_target_gun.global_position)
 	
 	

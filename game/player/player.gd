@@ -168,6 +168,8 @@ var turn_dir : float
 func _unhandled_input(event: InputEvent) -> void:
 	#if event is InputEventMouseMotion:
 		#relative = event.relative
+	if event.is_action_pressed("inventory"):
+		Game.set_screen("inventory.tscn")
 	if event.is_action_pressed("advance"):
 		%Dialogue.request_advance()
 	if not %Dialogue.terminated:
@@ -219,6 +221,9 @@ func handle_interaction(item : Item):
 			print("[F] talk to %s" % item.tech_id)
 		Item.InteractionType.ItemPickup:
 			print("[F] %s pick up " % item.tech_id)
+			Data.change_by("item.%s" % item.tech_id, 1)
+			item.queue_free()
+			print("SOME SFX")
 	
 
 

@@ -15,7 +15,7 @@
 script = ExtResource("4_lbd1r")
 tech_id = "moonlance"
 time_between_shots = 10.0
-aim_speed = 100000.0
+aim_speed = 0.155
 aim_sensitivity = 0.4
 depth = 643458
 ammo = 1
